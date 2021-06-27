@@ -11,10 +11,11 @@ path: ./backend
 **build**
 - GOOS=linux GOARCH=arm64 go build
 
-
-**run**
+**run backend**
 ./faceapi
 
+**run database**
+mongod --dbpath /data/db --port 27018
 path: ./server run on server
 - sudo python3 train_api.py 
 
