@@ -8,11 +8,18 @@ path: ./IoT/src run on jetson nx xavier
 **run production on server**
 path: ./backend
 
-**build**
+**build backend****
 - GOOS=linux GOARCH=arm64 go build
 
 **run backend**
 ./faceapi
+
+
+**build frontend**
+- npm install
+
+**run frontend**
+npm start
 
 **run database**
 mongod --dbpath /data/db --port 27018
