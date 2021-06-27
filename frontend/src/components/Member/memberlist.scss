@@ -1,0 +1,240 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .box-display {
+            margin-top: 100px;
+
+            .cov-btnaction {
+                display      : table;
+                width        : 100%;
+                margin-bottom: 10px;
+
+
+                .lbtn {
+                    display       : table-cell;
+                    vertical-align: middle;
+
+                    .btn-list {
+                        width           : 100px;
+                        height          : 100px;
+                        border          : solid 2px #15DE97;
+                        border-radius   : 16px;
+                        background-color: transparent;
+                        margin-right    : 15px;
+                        position        : relative;
+
+                        .icon-plus {
+                            position: absolute;
+                            top     : -10px;
+                            left    : 25px;
+                            width   : 50px;
+                        }
+
+                        .icon-import {
+                            position: absolute;
+                            width   : 70px;
+                            top     : 20px;
+                            left    : 20px;
+                        }
+
+                        .icon-select {
+                            width   : 60px;
+                            position: absolute;
+                            top     : 15px;
+                            left    : 18px;
+                        }
+                    }
+
+                }
+
+                .rbtn {
+                    display       : table-cell;
+                    vertical-align: middle;
+
+
+                    .btn-list {
+                        width           : 120px;
+                        height          : 120px;
+                        background-color: transparent;
+                        position        : relative;
+                        float           : right;
+                        border          : none;
+
+                        .btn-search{
+                            font-size: 60px;
+                            color: #15DE97;
+                        }
+
+
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+
+            .hd-group {
+                margin     : 0;
+                text-align : center;
+                color      : #ffffff7d;
+                font-size  : 30px;
+                font-family: 'Anuphan_M';
+            }
+
+            .slide-member {
+                margin-top: 20px;
+
+                .slide-name {
+                    .cov-group {
+                        padding: 0 10px;
+
+                        .namegroup {
+                            .name {
+                                margin     : 0;
+                                color      : #ffffff40;
+                                font-size  : 46px;
+                                font-family: 'Anuphan_M';
+                                text-align : center;
+
+
+                            }
+
+
+                        }
+
+                        &.active {
+                            position: relative;
+
+                            &:before {
+                                content   : "";
+                                width     : 2px;
+                                height    : 100%;
+                                background: #FFFFFF80;
+                                position  : absolute;
+                                top       : 0px;
+                                left      : 0;
+                            }
+
+                            &:after {
+                                content   : "";
+                                width     : 2px;
+                                height    : 100%;
+                                background: #FFFFFF80;
+                                position  : absolute;
+                                top       : 0px;
+                                right     : 0;
+                            }
+
+                            .namegroup {
+                                .name {
+                                    background   : #15de978c;
+                                    border-radius: 20px;
+                                    color        : #FFFFFF;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+
+            .detail-slide {
+                margin-top: 20px;
+
+
+                .slidebottom {
+                    .cov-list-name {
+                        .list-name {
+                            background   : #FFFFFF 0% 0% no-repeat padding-box;
+                            border-radius: 23px;
+                            padding: 10px 20px;
+                            margin-bottom: 15px;
+
+                            .ta-list{
+                                display: table;
+                                width: 100%;
+                                .code{
+                                    display: table-cell;
+                                    vertical-align: middle;
+
+                                    .num{
+                                        margin: 0;
+                                        font-family: 'Anuphan_M';
+                                        font-size: 46px;
+                                        color: #08202e82;
+                                    }
+                                }
+
+                                .name{
+                                    display: table-cell;
+                                    vertical-align: middle;
+
+                                    .txt{
+                                        margin: 0;
+                                        font-family: 'Anuphan_M';
+                                        font-size: 46px;
+                                        color: #08202E;
+                                    }
+                                }
+                                .group{
+                                    display: table-cell;
+                                    vertical-align: middle;
+
+                                    .txt{
+                                        margin: 0;
+                                        font-family: 'Anuphan_M';
+                                        font-size: 46px;
+                                        color: #08202e82;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

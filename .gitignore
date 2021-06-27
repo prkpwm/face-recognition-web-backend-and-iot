@@ -1,0 +1,11 @@
+IoT/model/*
+IoT/video_freeze/*
+IoT/video/*
+IoT/scr/image_face_cropped/*
+IoT/scr/image_no_crop/*
+backend/go/*
+frontend/node_modules/*
+frontend/package-lock.json
+.DS_Store
+.env
+*.swp
