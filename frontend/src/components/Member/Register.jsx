@@ -8,6 +8,7 @@ import { RegisterUser } from "../../services/APIs/Register";
 import { getGroup } from "../../services/APIs/Member";
 import socketIOClient from "socket.io-client";
 import { ImpulseSpinner } from "react-spinners-kit";
+import { GetLanguage } from "../../services/APIs/Setting";
 import 'antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './register.scss'
@@ -25,6 +26,7 @@ class Register extends React.Component {
 
         super(props)
         this.state = {
+            language: 'TH',
             Nickname: null,
             Gender: "MALE",
             FirstName: null,
@@ -70,7 +72,14 @@ class Register extends React.Component {
             })
 
             .catch(_GroupError => console.error(_GroupError))
-
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+                if (_Edit.data.status) {
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+                    })
+                }
+            })
 
         const socket = socketIOClient(Btnshow);
         socket.on("register", data => {
@@ -224,11 +233,11 @@ class Register extends React.Component {
                             <div className="icon-back">
                                 <a href="/memberlist" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Register</h1>
+                            <h1 className="hd">{this.state.language == 'TH' ? 'การลงทะเบียน': 'Register'}</h1>
                         </div>
                         <div className="form-regis">
                             <div className="box-general">
-                                <p className="hd-detail">General profile</p>
+                                <p className="hd-detail">{this.state.language == 'TH' ? 'โปรไฟล์ทั่วไป': 'General profile'}</p>
                                 <div className="form-row">
                                     <div className="col-lg-8 colname">
                                         <input type="text" onChange={(e) => { this.OnchageNickname(e) }} className="form-control" placeholder="Nickname (show on display)" />
@@ -271,7 +280,7 @@ class Register extends React.Component {
                                 </div>
                             </div>
                             <div className="box-address-report">
-                                <p className="hd-detail">Report to</p>
+                                <p className="hd-detail">{this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</p>
                                 <div className="form-group boxemail">
                                     <input type="email" onChange={(e) => { this.OnchageEmail(e) }} className="form-control" placeholder="Email" />
                                 </div>
@@ -294,7 +303,7 @@ class Register extends React.Component {
                                 </div>
                                 <div className={'cov-btn-save' + ' ' + (this.state.btnsave ? 'show' : ' ')}>
                                     <button onClick={() => { this.Saveprofile() }} type="button" className="btn btn-primary btn-save-data">
-                                        Save
+                                    {this.state.language == 'TH' ? 'บันทึก': 'Save'} 
                                     </button>
                                 </div>
                             </div>

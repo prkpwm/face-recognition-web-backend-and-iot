@@ -13,7 +13,7 @@ import 'jquery/dist/jquery.slim.min.js';
 import 'animate.css/animate.min.css';
 import 'antd/dist/antd.css';
 import './groupmanager.scss';
-
+import { GetLanguage } from "../../services/APIs/Setting";
 library.add(fas)
 
 
@@ -27,7 +27,8 @@ class GroupManager extends React.Component {
             listgroup: [],
             idgroupedit: "",
             name_group_edit: "",
-            name_search: ""
+            name_search: "",
+            language: 'TH',
         }
 
     }
@@ -47,8 +48,16 @@ class GroupManager extends React.Component {
                 }
             })
 
-            .catch(_GroupError =>{
+            .catch(_GroupError => {
                 window.location.href = "/password";
+            })
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+                if (_Edit.data.status) {
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+                    })
+                }
             })
     }
 
@@ -59,7 +68,7 @@ class GroupManager extends React.Component {
         element.classList.toggle("animate__fadeInUpBig");
     }
 
-    setEdit(value){   //set value modal edit
+    setEdit(value) {   //set value modal edit
         this.setState({
             idgroupedit: value._id,
             name_group_edit: value.group
@@ -80,120 +89,120 @@ class GroupManager extends React.Component {
             name_group_edit: e.target.value
         })
     }
-    onChangeSearch(e){ // Search Group
+    onChangeSearch(e) { // Search Group
         // console.log("Search",e.target)
         var value = e.target.value;
         var str = value.toLocaleLowerCase();
         const arrlist = [];
-        
+
         Getgroup()
-        .then(_Group => { 
+            .then(_Group => {
                 _Group.data.msg.filter(name => name.group.toLowerCase().includes(str)).map(filteredName => (
                     arrlist.push(filteredName)
                 ))
-            // console.log("ARR",arrlist)
-            this.setState({
-                listgroup: arrlist
+                // console.log("ARR",arrlist)
+                this.setState({
+                    listgroup: arrlist
+                })
             })
-        })
 
-        .catch(_GroupError => console.error(_GroupError))
+            .catch(_GroupError => console.error(_GroupError))
         // this.setState({
         //     name_search: e.target.value
         // })
     }
 
 
-    AddGroupName(){ //ADD GROUP
+    AddGroupName() { //ADD GROUP
         var data = {
-            name: this.state.name_group   
+            name: this.state.name_group
         }
         AddGroup(data)
-        .then(_Add => {
+            .then(_Add => {
 
-            if (_Add.data.status) {
+                if (_Add.data.status) {
 
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    // duration: 500,
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
+                    message.success({
+                        content: 'Done',
+                        className: 'message-done',
+                        // duration: 500,
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
 
-                setTimeout(function () {
-                    window.location.href = "/groupmanager";
-                  }, 300);
+                    setTimeout(function () {
+                        window.location.href = "/groupmanager";
+                    }, 300);
 
-            }else {
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    // duration: 200,
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
+                } else {
+                    message.error({
+                        content: 'Please try again.',
+                        className: 'message-alert',
+                        // duration: 200,
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
 
-        .catch(_AddError => console.error(_AddError))
+            .catch(_AddError => console.error(_AddError))
     }
 
 
-    EditGroupName(){ //ADD GROUP
+    EditGroupName() { //ADD GROUP
         var data = {
             id: this.state.idgroupedit,
-            name: this.state.name_group_edit  
+            name: this.state.name_group_edit
         }
         Editgroup(data)
-        .then(_Edit => {
+            .then(_Edit => {
 
-            if (_Edit.data.status) {
+                if (_Edit.data.status) {
 
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    // duration: 500,
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
+                    message.success({
+                        content: 'Done',
+                        className: 'message-done',
+                        // duration: 500,
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
 
-                setTimeout(function () {
-                    window.location.href = "/groupmanager";
-                  }, 300);
+                    setTimeout(function () {
+                        window.location.href = "/groupmanager";
+                    }, 300);
 
-            }else {
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    // duration: 200,
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
+                } else {
+                    message.error({
+                        content: 'Please try again.',
+                        className: 'message-alert',
+                        // duration: 200,
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
 
-        .catch(_EditError => console.error(_EditError))
+            .catch(_EditError => console.error(_EditError))
     }
 
 
-    DeleteGroupName(){ //Delete Group 
+    DeleteGroupName() { //Delete Group 
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 popup: 'popup-delete',
-              confirmButton: 'btn btn-success btn-confirm',
-              cancelButton: 'btn btn-danger btn-cancel',
-              title: 'txt-ask',
-              text: 'des-txt'
+                confirmButton: 'btn btn-success btn-confirm',
+                cancelButton: 'btn btn-danger btn-cancel',
+                title: 'txt-ask',
+                text: 'des-txt'
             },
             buttonsStyling: false
-          })
-          
-          swalWithBootstrapButtons.fire({
+        })
+
+        swalWithBootstrapButtons.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
@@ -201,51 +210,51 @@ class GroupManager extends React.Component {
             confirmButtonText: 'Delete',
             cancelButtonText: 'Cancel',
             reverseButtons: false
-          }).then((result) => {
+        }).then((result) => {
             // console.log("Respond",result)
             if (result.value) {
                 var data = {
                     id: this.state.idgroupedit,
                 }
                 Deletegroup(data)
-                .then(respond => {
-                    if (respond.data.status) {
-                        message.success({
-                            content: 'Done',
-                            className: 'message-done',
-                            // duration: 500,
-                            style: {
-                                marginTop: '2vh',
-                            },
-                        });
-        
-                        setTimeout(function () {
-                            window.location.href = "/groupmanager";
-                          }, 300);
-        
-                    }else{
-                        message.error({
-                            content: 'Please try again.',
-                            className: 'message-alert',
-                            // duration: 200,
-                            style: {
-                                marginTop: '2vh',
-                            },
-                        });
-                      }
-                })
-        
-                .catch(_respondError => console.error(_respondError))
-              
-            } 
-          })
+                    .then(respond => {
+                        if (respond.data.status) {
+                            message.success({
+                                content: 'Done',
+                                className: 'message-done',
+                                // duration: 500,
+                                style: {
+                                    marginTop: '2vh',
+                                },
+                            });
+
+                            setTimeout(function () {
+                                window.location.href = "/groupmanager";
+                            }, 300);
+
+                        } else {
+                            message.error({
+                                content: 'Please try again.',
+                                className: 'message-alert',
+                                // duration: 200,
+                                style: {
+                                    marginTop: '2vh',
+                                },
+                            });
+                        }
+                    })
+
+                    .catch(_respondError => console.error(_respondError))
+
+            }
+        })
     }
 
     // SearchGroup(){
     //     var value = this.state.name_search;
     //     var str = value.toLocaleLowerCase();
     //     const arrlist = [];
-        
+
     //     Getgroup()
     //     .then(_Group => { 
     //             _Group.data.msg.filter(name => name.group.toLowerCase().includes(str)).map(filteredName => (
@@ -259,10 +268,10 @@ class GroupManager extends React.Component {
 
     //     .catch(_GroupError => console.error(_GroupError))
 
-            
+
     // }
 
-
+    //{this.state.language == 'TH' ? '': ''}
 
     render() {
         return (
@@ -273,13 +282,13 @@ class GroupManager extends React.Component {
                             <div className="icon-back">
                                 <a href="/membersetting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Group manager</h1>
+                            <h1 className="hd">{this.state.language == 'TH' ? 'จัดการกลุ่ม': 'Group manager'}</h1>
                         </div>
                         <div className="cov-group-member">
                             <div className="boxadd">
                                 <div className="btn-add">
                                     {/* Button trigger modal */}
-                                    <button type="button" className="btn btn-primary btn-group" data-toggle="modal" data-target="#Modaladdgroup">New Group</button>
+                                    <button type="button" className="btn btn-primary btn-group" data-toggle="modal" data-target="#Modaladdgroup">{this.state.language == 'TH' ? 'กลุ่มใหม่': 'New Group'}</button>
 
 
                                 </div>
@@ -294,12 +303,12 @@ class GroupManager extends React.Component {
                             {this.state.listgroup ? this.state.listgroup.map(v => (
                                 <div className="box-manage" key={v._id}>
                                     <div className="boxmenuname" >
-                                        <a href={"/memberlist?id="+v._id} className="link-menu">
+                                        <a href={"/memberlist?id=" + v._id} className="link-menu">
                                             <p className="name">{v.group}</p>
                                         </a>
                                     </div>
                                     <div className="btn-action">
-                                        <button type="button" className="btn btn-primary btn-group" data-toggle="modal" onClick={()=>{this.setEdit(v)}} data-target="#Modaleditgroup">
+                                        <button type="button" className="btn btn-primary btn-group" data-toggle="modal" onClick={() => { this.setEdit(v) }} data-target="#Modaleditgroup">
                                             <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
                                         </button>
                                     </div>
@@ -308,9 +317,9 @@ class GroupManager extends React.Component {
                         </div>
                         <div id="animateSearch" className="animate__animated box-search">
                             <div className="input-group boxgroup">
-                                <input type="search" placeholder="..." aria-describedby="button-addon1" onChange={(e)=>{this.onChangeSearch(e)}} className="form-control border-0 bg-light search-group" />
+                                <input type="search" placeholder="..." aria-describedby="button-addon1" onChange={(e) => { this.onChangeSearch(e) }} className="form-control border-0 bg-light search-group" />
                                 <div className="input-group-append">
-                                    <button id="button-addon1" onClick={() => {this.SearchGroup()}} className="btn btn-link text-primary"><FontAwesomeIcon icon={['fas', 'search']} /></button>
+                                    <button id="button-addon1" onClick={() => { this.SearchGroup() }} className="btn btn-link text-primary"><FontAwesomeIcon icon={['fas', 'search']} /></button>
                                 </div>
                             </div>
                         </div>
@@ -326,13 +335,13 @@ class GroupManager extends React.Component {
                                 </div>
                                 <div className="modal-body">
                                     <div className="boxcreate">
-                                        <h3 className="hd">New group</h3>
+                                        <h3 className="hd">{this.state.language == 'TH' ? 'เพิ่มกลุ่มใหม่': 'Add New group'}</h3>
                                         <input type="text" onChange={(e) => { this.OnchangeName(e) }} placeholder="Group name" className="form-control boxdata" />
                                     </div>
                                     <div className="btnaddgroup">
-                                        <button type="button" onClick={()=>{this.AddGroupName()}} className="btn btn-primary btn-add-new">
-                                            Add new group
-                                    </button>
+                                        <button type="button" onClick={() => { this.AddGroupName() }} className="btn btn-primary btn-add-new">
+                                        {this.state.language == 'TH' ? 'เพิ่มกลุ่มใหม่': 'Add new group'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -347,19 +356,19 @@ class GroupManager extends React.Component {
                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><FontAwesomeIcon icon={['fas', 'less-than']} /></span>
                                     </button>
-                                    <button type="button" onClick={() => {this.DeleteGroupName()}} className="delete">
+                                    <button type="button" onClick={() => { this.DeleteGroupName() }} className="delete">
                                         <FontAwesomeIcon icon={['fas', 'trash']} />
                                     </button>
                                 </div>
                                 <div className="modal-body">
                                     <div className="boxcreate">
-                                        <h3 className="hd">Edit group</h3>
+                                        <h3 className="hd">{this.state.language == 'TH' ? 'แก้ไขกลุ่ม': 'Edit group'}</h3>
                                         <input value={this.state.name_group_edit ? this.state.name_group_edit : ""} type="text" onChange={(e) => { this.OnchangeEditName(e) }} placeholder="Group name" className="form-control boxdata" />
                                     </div>
                                     <div className="btnaddgroup">
-                                        <button onClick={()=>{this.EditGroupName()}} type="button" className="btn btn-primary btn-add-new">
-                                            Edit group
-                                    </button>
+                                        <button onClick={() => { this.EditGroupName() }} type="button" className="btn btn-primary btn-add-new">
+                                        {this.state.language == 'TH' ? 'แก้ไขกลุ่ม': 'Edit group'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

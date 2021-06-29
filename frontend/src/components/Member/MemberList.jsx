@@ -13,43 +13,53 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'jquery/dist/jquery.slim.min.js';
 import 'animate.css/animate.min.css';
 import './memberlist.scss'
-import { Getgroup,FindMemberByIDGroup } from "../../services/APIs/Group";
+import { Getgroup, FindMemberByIDGroup } from "../../services/APIs/Group";
 import { GetMemList } from '../../services/APIs/Member';
+import { GetLanguage } from "../../services/APIs/Setting";
 
 library.add(fas)
 
 
 class MemberList extends React.Component {
 
-    constructor(props) { 
+    constructor(props) {
 
         super(props)
         this.state = {
             listgroup: [],
-            list_data:"",
+            list_data: "",
             id: this.useQueryString().id,
+            language: 'TH',
         }
 
     }
 
 
     componentDidMount() {
-        let reiceve_id =  this.useQueryString()
-        console.log('pass id anoter:',reiceve_id['id'])
+        let reiceve_id = this.useQueryString()
+        console.log('pass id anoter:', reiceve_id['id'])
 
-        Getgroup({id: this.state.id})
-        .then(res => {
-            console.log('res :', res);
-            if (res.data.status) {
-                // console.log("DATAGRoup", res.data.msg)
-                this.setState({
-                    listgroup: res.data.msg
-                })
-            }
-        })
-        .catch(_GroupError =>{
-            window.location.href = "/password";
-        })
+        Getgroup({ id: this.state.id })
+            .then(res => {
+                console.log('res :', res);
+                if (res.data.status) {
+                    // console.log("DATAGRoup", res.data.msg)
+                    this.setState({
+                        listgroup: res.data.msg
+                    })
+                }
+            })
+            .catch(_GroupError => {
+                window.location.href = "/password";
+            })
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+                if (_Edit.data.status) {
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+                    })
+                }
+            })
 
         $(document).ready(function () {
             $('.cov-group').click(function () {
@@ -59,37 +69,37 @@ class MemberList extends React.Component {
             });
         });
 
-        console.log('recieve id: ',reiceve_id['id'])
-        if(reiceve_id['id'] !== null){
+        console.log('recieve id: ', reiceve_id['id'])
+        if (reiceve_id['id'] !== null) {
             console.log('get member list by id')
             FindMemberByIDGroup(reiceve_id['id'])
-            .then(res => {
-                if (res.data.status) {
-                    // console.log("DATAGRoup", res.data.msg)
-                    this.setState({
-                        list_data: res.data.msg
-                    })
-                    // console.log(this.state.listbyID)
-                }
-            })
-            .catch(_GroupError =>{
-                window.location.href = "/password";
-                // console.log(_GroupError)
-            })
-        }else{
+                .then(res => {
+                    if (res.data.status) {
+                        // console.log("DATAGRoup", res.data.msg)
+                        this.setState({
+                            list_data: res.data.msg
+                        })
+                        // console.log(this.state.listbyID)
+                    }
+                })
+                .catch(_GroupError => {
+                    window.location.href = "/password";
+                    // console.log(_GroupError)
+                })
+        } else {
             console.log('get member list')
             GetMemList()
-            .then(res => {
-                if (res.data.status) {
-                    this.setState({
-                        list_data: res.data.msg
-                    })
-                }
-            })
-            .catch(_GroupError =>{
-                window.location.href = "/password";
-                // console.log(_GroupError)
-            })
+                .then(res => {
+                    if (res.data.status) {
+                        this.setState({
+                            list_data: res.data.msg
+                        })
+                    }
+                })
+                .catch(_GroupError => {
+                    window.location.href = "/password";
+                    // console.log(_GroupError)
+                })
         }
     }
 
@@ -112,9 +122,9 @@ class MemberList extends React.Component {
 
 
     render() {
-// console.log('this.state.id: ', this.state.id);
-// console.log('list_data:',this.state.list_data)s
-// console.log('data mm:',this.state.list_data)
+        // console.log('this.state.id: ', this.state.id);
+        // console.log('list_data:',this.state.list_data)s
+        // console.log('data mm:',this.state.list_data)
         return (
             <div>
                 <div className="size-web">
@@ -123,20 +133,20 @@ class MemberList extends React.Component {
                             <div className="icon-back">
                                 <a href="/membersetting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Member List</h1>
+                            <h1 className="hd">{this.state.language == 'TH' ? 'รายชื่อสมาชิก': 'Member List'}</h1>
                         </div>
                         <div className="box-display">
                             <div className="cov-btnaction">
                                 <div className="lbtn">
-                                    <button type="button" onClick={() => {window.location.href = "/register";}} className="btn btn-secondary btn-list"><img src="/image/icon/plus@2x.png" alt="" className="img-fluid icon-plus" /></button>
-                                    <button type="button" onClick={() => {window.location.href = "/importfile";}} className="btn btn-secondary btn-list"><img src="/image/icon/import@2x.png" alt="" className="img-fluid icon-import" /></button>
+                                    <button type="button" onClick={() => { window.location.href = "/register"; }} className="btn btn-secondary btn-list"><img src="/image/icon/plus@2x.png" alt="" className="img-fluid icon-plus" /></button>
+                                    <button type="button" onClick={() => { window.location.href = "/importfile"; }} className="btn btn-secondary btn-list"><img src="/image/icon/import@2x.png" alt="" className="img-fluid icon-import" /></button>
                                     <button type="button" className="btn btn-secondary btn-list"><img src="/image/icon/select@2x.png" alt="" className="img-fluid icon-select" /></button>
                                 </div>
                                 <div className="rbtn">
                                     <button type="button" className="btn btn-secondary btn-list" onClick={() => { this.Toggleclass() }}><FontAwesomeIcon className="btn-search" icon={['fas', 'search']} /></button>
                                 </div>
                             </div>
-                            <p className="hd-group">Group type</p>
+                            <p className="hd-group">{this.state.language == 'TH' ? 'ประเภทกลุ่ม': 'Group type'}</p>
                             <div className="slide-member">
                                 <Slider
                                     // asNavFor={this.state.nav1}
@@ -153,29 +163,29 @@ class MemberList extends React.Component {
                                     className="slide-name"
                                 >
 
-                                <div>
+                                    <div>
                                         <div className="cov-group active">
                                             <div className="namegroup">
                                                 <p className="name">All</p>
                                             </div>
                                         </div>
-                                </div>
-                                {this.state.listgroup ? this.state.listgroup.map(v => (
-                                    <div key={v._id}>
-                                    <div className="cov-group">
-                                        <div className="namegroup">
-                                            <p className="name">{v.group}</p>
+                                    </div>
+                                    {this.state.listgroup ? this.state.listgroup.map(v => (
+                                        <div key={v._id}>
+                                            <div className="cov-group">
+                                                <div className="namegroup">
+                                                    <p className="name">{v.group}</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    </div>
-                                )) : null}
-                                    
+                                    )) : null}
+
                                 </Slider>
                                 <div className="detail-slide">
                                     <div className="slidebottom">
                                         <div className="cov-list-name">
-                                            {this.state.list_data ? this.state.list_data.map((v,index) => (
-                                                <div className="list-name" key={v.user_id} onClick={() =>{window.location.href = "/editmember?id="+v.user_id}}>
+                                            {this.state.list_data ? this.state.list_data.map((v, index) => (
+                                                <div className="list-name" key={v.user_id} onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>
                                                     <div className="ta-list">
                                                         <div className="code">
                                                             <p className="num">{index}</p>
@@ -191,7 +201,7 @@ class MemberList extends React.Component {
                                             )) : null}
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <div id="animateSearch" className="animate__animated box-search">
