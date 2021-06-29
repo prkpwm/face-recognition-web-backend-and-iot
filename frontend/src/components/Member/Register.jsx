@@ -240,7 +240,7 @@ class Register extends React.Component {
                                 <p className="hd-detail">{this.state.language == 'TH' ? 'โปรไฟล์ทั่วไป': 'General profile'}</p>
                                 <div className="form-row">
                                     <div className="col-lg-8 colname">
-                                        <input type="text" onChange={(e) => { this.OnchageNickname(e) }} className="form-control" placeholder="Nickname (show on display)" />
+                                        <input type="text" onChange={(e) => { this.OnchageNickname(e) }} className="form-control" placeholder={this.state.language == 'TH' ? "ชื่อเล่น (แสดงบนจอแสดงผล)" : "Nickname (show on display)"} />
                                     </div>
                                     <div className="col-lg-4 colgender">
                                         <div className="gender">
@@ -263,14 +263,14 @@ class Register extends React.Component {
                                 </div>
                                 <div className="form-row boxname">
                                     <div className="col-lg-6 colfirst">
-                                        <input type="text" onChange={(e) => { this.OnchageName(e) }} className="form-control" placeholder="Name" />
+                                        <input type="text" onChange={(e) => { this.OnchageName(e) }} className="form-control" placeholder={this.state.language == 'TH' ? 'ชื่อ': "Name"} />
                                     </div>
                                     <div className="col-lg-6 collast">
-                                        <input type="text" onChange={(e) => { this.OnchageLastname(e) }} className="form-control" placeholder="Last name" />
+                                        <input type="text" onChange={(e) => { this.OnchageLastname(e) }} className="form-control" placeholder={this.state.language == 'TH' ? 'นามสกุล': "Last name"} />
                                     </div>
                                 </div>
                                 <div className="form-group boxselect">
-                                    <Select className="tabselect" placeholder="Select group" defaultValue={null} value={this.state.Group} onChange={(e) => { this.handleChange(e) }}>
+                                    <Select className="tabselect" placeholder={this.state.language == 'TH' ? '': "Select group"} defaultValue={null} value={this.state.Group} onChange={(e) => { this.handleChange(e) }}>
 
                                         {(this.state.getGroup ? this.state.getGroup.map((v) => (
                                             // console.log(v)
@@ -282,13 +282,13 @@ class Register extends React.Component {
                             <div className="box-address-report">
                                 <p className="hd-detail">{this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</p>
                                 <div className="form-group boxemail">
-                                    <input type="email" onChange={(e) => { this.OnchageEmail(e) }} className="form-control" placeholder="Email" />
+                                    <input type="email" onChange={(e) => { this.OnchageEmail(e) }} className="form-control" placeholder={this.state.language == 'TH' ? 'อีเมล': "Email" }/>
                                 </div>
                                 <div className="form-group boxtel">
-                                    <input type="number" maxLength="10" onChange={(e) => { this.OnchagePhone(e) }} className="form-control" placeholder="Phone number" pattern="[0-9]{10}" />
+                                    <input type="number" maxLength="10" onChange={(e) => { this.OnchagePhone(e) }} className="form-control" placeholder={this.state.language == 'TH' ? 'หมายเลขโทรศัพท์': "Phone number"} pattern="[0-9]{10}" />
                                 </div>
                                 <div className="form-group boxline">
-                                    <input type="text" onChange={(e) => { this.OnchageLine(e) }} className="form-control" placeholder="Line id" />
+                                    <input type="text" onChange={(e) => { this.OnchageLine(e) }} className="form-control" placeholder={this.state.language == 'TH' ? 'ไลน์ไอดี': "Line id"} />
                                 </div>
                             </div>
                             <div className="box-img">

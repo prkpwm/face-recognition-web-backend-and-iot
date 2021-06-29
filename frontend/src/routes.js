@@ -26,7 +26,7 @@ export default () => {
                       <Route exact path={'/'} component={Home} />
                      
                       <Route exact path={'/password'} component={Password} />
-                      {localStorage.getItem('_Token') ? (
+                      {!localStorage.getItem('_Token') ? (
 
                       <Switch>
                       <Route exact path={'/menu'} component={Menu} />
