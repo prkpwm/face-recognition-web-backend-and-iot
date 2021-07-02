@@ -1,0 +1,158 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+    .loading{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background: linear-gradient(to bottom, #08202e 0%, #08202e 79%, #0e604c 94%, #107958 100%);
+
+        .rotate__Wrapper-sc-1b62bh9-0{
+            top: 45%;
+            left: 43%;
+
+        }
+    }
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .box-select {
+            margin-top: 100px;
+
+            .cov-lang {
+                .lang {
+
+                    &:nth-child(1){
+                        .container{
+                            border-bottom: solid 1px #15DE97;
+                        }
+                    }
+
+                    /* The container */
+                    .container {
+                        display            : block;
+                        position           : relative;
+                        padding-left       : 35px;
+                        padding-bottom: 80px;
+                        margin-bottom      : 80px;
+                        cursor             : pointer;
+                        font-size          : 22px;
+                        -webkit-user-select: none;
+                        -moz-user-select   : none;
+                        -ms-user-select    : none;
+                        user-select        : none;
+                        font-family: 'Anuphan';
+                        color: #707070;
+                        font-size: 46px;
+
+                        
+                        &.active{
+                            color: #15DE97;
+                        }
+                    }
+
+                    /* Hide the browser's default checkbox */
+                    .container input {
+                        position: absolute;
+                        opacity : 0;
+                        cursor  : pointer;
+                        height  : 0;
+                        width   : 0;
+                    }
+
+                    /* Create a custom checkbox */
+                    .checkmark {
+                        position        : absolute;
+                        top             : 0;
+                        right            : 20px;
+                        height          : 60px;
+                        width           : 60px;
+                        background-color: transparent;
+                        border: solid 2px #707070;
+                        border-radius: 20px;
+                    }
+
+                    /* On mouse-over, add a grey background color */
+                    .container:hover input~.checkmark {
+                        background-color: #ccc;
+                    }
+
+                    /* When the checkbox is checked, add a blue background */
+                    .container input:checked~.checkmark {
+                        background-color: #15DE97;
+                        border-color: #15DE97;
+                        border-radius: 20px;
+                    }
+
+                    /* Create the checkmark/indicator (hidden when not checked) */
+                    .checkmark:after {
+                        content : "";
+                        position: absolute;
+                        display : none;
+                    }
+
+                    /* Show the checkmark when checked */
+                    .container input:checked~.checkmark:after {
+                        display: block;
+                    }
+
+                    /* Style the checkmark/indicator */
+                    .container .checkmark:after {
+                        left             : 30px;
+                        top              : -20px;
+                        width            : 20px;
+                        height           : 60px;
+                        border           : solid white;
+                        border-width     : 0 8px 5px 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform    : rotate(45deg);
+                        transform        : rotate(45deg);
+                    }
+                }
+            }
+        }
+    }
+}

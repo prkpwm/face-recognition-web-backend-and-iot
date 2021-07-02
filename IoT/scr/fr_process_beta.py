@@ -24,6 +24,8 @@ from starlette.responses import JSONResponse
 
 from mongo_lib import insert_data_train_face, next_userid, register_mongo, get_frame_display, update_register_mongo, select_videoname_by_uid, get_status_mask, update_status_mask_predict
 import shutil
+
+import net_config
 # import subprocess
 # from flask_cors import CORS
 # import uuid
@@ -799,12 +801,23 @@ async def manage_camera(request):
 
     return JSONResponse(res_data)
 
+async def available_networks():
+    return JSONResponse(net_config.displayAvailableNetworks())
+
+async def new_connection(request):
+    request_config = await request.form()
+    name = request_config.get('name')
+    ssid = request_config.get('ssid')
+    password = request_config.get('password')
+    return JSONResponse(net_config.createNewConnection(name,ssid,password))
 
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
     Route("/update_register", endpoint=update_register, methods=["POST"]),
     Route("/insert_register", endpoint=insert_register, methods=["POST"]),
-    Route("/manage_camera", endpoint=manage_camera, methods=["POST"])
+    Route("/manage_camera", endpoint=manage_camera, methods=["POST"]),
+    Route("/available_networks", endpoint=available_networks, methods=["GET"]),
+    Route("/new_connection", endpoint=new_connection, methods=["POST"]),
 ]
 
 app = Starlette(middleware=middleware,routes= routes)
