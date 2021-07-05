@@ -1,0 +1,262 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    z-index: 4;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+    .loading{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, #08202e 0%, #08202e 79%, #0e604c 94%, #107958 100%);
+
+        &.check-page{
+            z-index: 2;
+        }
+
+        .rotate__Wrapper-sc-1b62bh9-0{
+            top: 45%;
+            left: 43%;
+
+        }
+    }
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .cov-switch{
+            margin-top: 100px;
+            padding-bottom: 80px;
+            border-bottom: solid 1px #15DE97;
+
+            .dis-ta{
+                display: table;
+                width: 100%;
+
+                .txt{
+                    display: table-cell;
+                    vertical-align: middle;
+
+                    .check{
+                        margin: 0;
+                        color: #15DE97;
+                        font-size: 46px;
+                        font-family: 'Anuphan';
+                    }
+                }
+                .switchset {
+                    display: table-cell;
+                    vertical-align: middle;
+                    .switcho {
+                        height          : 40px;
+                        min-width       : 100px;
+                        background-color: #BEBEBE;
+                        float           : right;
+
+                        &.ant-switch-checked {
+                            background-color: #15DE97;
+
+
+                            .ant-switch-handle {
+                                left: calc(100% - 18px - 15px);
+                            }
+                        }
+
+
+                        .ant-switch-handle {
+                            width : 32px;
+                            height: 32px;
+                            top   : 5px;
+
+
+                            &::before {
+                                border-radius: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .ontime{
+            margin-top: 80px;
+            padding-bottom: 80px;
+            border-bottom: solid 1px #15DE97;
+            min-height: 700px;
+
+            .txt{
+                color: #15DE97;
+                margin: 0;
+                font-size: 46px;
+                font-family: 'Anuphan';
+            }
+
+            .time{
+                .ant-picker{
+                    width: 100%;
+                    height: 60px;
+                    font-size: 46px;
+                    pointer-events: none;
+                    opacity: 0;
+
+                    .ant-picker-input{
+                        input{
+                            font-size: 46px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .onday{
+            margin-top: 80px;
+
+            .txt{
+                color: #15DE97;
+                margin: 0;
+                font-size: 46px;
+                font-family: 'Anuphan';
+            }
+            .select-day{
+                margin-top: 30px;
+                .cov-tab{
+                    margin-bottom: 20px;
+                    
+                    .tab-select{
+                        display: table;
+                        margin: 0 auto;
+                        .btn-day{
+
+                            &:first-child{
+                                padding-left: 0;
+                            }
+                            display: table-cell;
+                            vertical-align: middle;
+                            padding-left: 20px;
+
+                            .check-box{
+
+                                border: solid 3px #E63838;
+                                border-radius: 16px;
+                                padding: 5px 15px;
+                                width: 130px;
+                                text-align: center;
+
+                                &.ant-checkbox-wrapper-checked{
+                                    background-color: #15DE97;
+                                    border-color: #15DE97;
+
+                                    span{
+                                        color: #FFFFFF;
+                                        
+                                    }
+                                }
+                                span{
+                                    color: #E63838;
+                                    font-size: 40px;
+                                    font-family: 'Anuphan';
+
+                                    &.ant-checkbox{
+                                        display: none;
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+.select-time{
+    width: 72%;
+    position: relative;
+    .ant-picker-panel-container{
+        height: 460px;
+        background: transparent;
+        box-shadow: none;
+        .ant-picker-panel{
+            width: 100%;
+            height: 100%;
+            border: none;
+            .ant-picker-time-panel{
+                height: 100%;
+                .ant-picker-content{
+                    .ant-picker-time-panel-column{
+                        &::-webkit-scrollbar{
+                            display: none;
+                        }
+                        &:not(:first-child){
+                            border: none;
+                        }
+                        .ant-picker-time-panel-cell{
+                            margin-bottom: 10px;
+                            height: 80px;
+                            // font-family: 'Anuphan';
+
+
+                            &.ant-picker-time-panel-cell-selected{
+                                .ant-picker-time-panel-cell-inner{
+                                    border: solid 2px #15DE97;
+                                    border-radius: 16px;
+                                }
+                            }
+
+                            .ant-picker-time-panel-cell-inner{
+                                height: 80px;
+                                font-size: 64px;
+                                line-height: 1;
+                                color: #FFFFFF;
+                                background: transparent;
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            .ant-picker-footer{
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.bar {
+    position: fixed;
+    top     : 0;
+    padding : 0 15px;
+    width   : 100%;
+
+    .cov-date {
+        display: table;
+        width  : 100%;
+
+        .date {
+            display       : table-cell;
+            vertical-align: middle;
+
+            .numdate {
+                margin     : 0;
+                font-family: 'Anuphan';
+                color      : #FFFFFF;
+                font-size  : 30px;
+            }
+        }
+
+        .time {
+            display       : table-cell;
+            vertical-align: middle;
+            float         : right;
+
+            .cov-right {
+                display: table;
+
+                .img-wifi {
+                    display       : table-cell;
+                    vertical-align: middle;
+                }
+
+                .numtime {
+                    display       : table-cell;
+                    vertical-align: middle;
+                    margin        : 0;
+                    font-family   : 'Anuphan';
+                    color         : #FFFFFF;
+                    font-size     : 30px;
+                }
+            }
+        }
+    }
+}
