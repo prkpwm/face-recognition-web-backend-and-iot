@@ -1,0 +1,314 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .set-sound {
+            margin-top: 100px;
+
+            .master-volume {
+                display       : inline-block;
+                width         : 100%;
+                padding-bottom: 50px;
+                border-bottom : 3px solid #15DE97;
+
+                .name {
+                    margin     : 0;
+                    color      : #15DE97;
+                    font-size  : 46px;
+                    font-family: 'Anuphan';
+                }
+
+                .box-volume {
+                    width: 60%;
+                    float: right;
+                    margin-top: 20px;
+
+                    .volume {
+                        padding         : 1px 8px;
+                        background-color: #FFFFFF;
+                        border-radius   : 16px;
+
+                        .slide {
+                            .ant-slider {
+                                height : 20px;
+                                padding: 0;
+                                margin: 7px 6px;
+
+                                .ant-slider-rail {
+                                    height          : 20px;
+                                    background-color: #B8B8B8;
+                                    border-radius   : 16px;
+                                }
+
+                                .ant-slider-track {
+                                    height          : 20px;
+                                    border-radius   : 16px;
+                                    background-color: #15DE97;
+                                }
+
+                                .ant-slider-step {
+                                    height       : 20px;
+                                    border-radius: 16px;
+                                }
+
+
+                                &:hover {
+
+                                    .ant-slider-track {
+                                        background-color: #15DE97;
+                                        height          : 20px;
+                                    }
+
+                                    .ant-slider-handle:not(.ant-tooltip-open) {
+                                        border-color: #707070;
+                                    }
+                                }
+
+                                .ant-slider-handle {
+                                    width     : 25px;
+                                    height    : 25px;
+                                    margin-top: -3px;
+                                    border    : solid 1px #707070;
+                                }
+                            }
+                        }
+                    }
+
+                    .num {
+                        text-align: center;
+
+                        .ant-input-number {
+                            background-color: transparent;
+                            border          : none;
+                            font-size       : 34px;
+                            color           : #15DE97;
+                            font-family     : 'Anuphan';
+                            pointer-events  : none;
+
+                            .ant-input-number-input-wrap {
+                                .ant-input-number-input {
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .voice {
+                margin-top    : 50px;
+                display       : inline-block;
+                width         : 100%;
+                padding-bottom: 50px;
+                border-bottom : 3px solid #15DE97;
+
+                .name {
+                    margin     : 0;
+                    color      : #15DE97;
+                    font-size  : 46px;
+                    font-family: 'Anuphan';
+                }
+
+                .box-upload {
+                    width: 60%;
+                    float: right;
+                    margin-top: 20px;
+
+                    .cov-upload {
+                        background   : #B2B2B2 0% 0% no-repeat padding-box;
+                        border-radius: 20px;
+                        padding      : 15px;
+
+                        .name-file {
+                            background   : #ffffff52 0% 0% no-repeat padding-box;
+                            border-radius: 20px;
+                            padding: 10px 15px;
+
+                            .name{ 
+                                margin: 0;
+                                text-align: center;
+                                color: #FFFFFF;
+                                font-family: 'Anuphan';
+                                font-size: 46px;
+                            }
+                        }
+                        .btn-up{
+                            text-align: center;
+                            margin-top: 15px;
+
+                            .ant-upload{
+                                width: 100%;
+
+                                .ant-btn{
+                                    width: 100%;
+                                    background-color: transparent;
+                                    border: none;
+                                    color: #FFFFFF;
+                                    font-size: 46px;
+                                    font-family: 'Anuphan';
+                                    padding: 10px 15px;
+                                    height: 100%;
+                                }
+                            }
+                            .ant-upload-list{
+                                &.ant-upload-list-text{
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .sound-effect {
+                margin-top    : 50px;
+                display       : inline-block;
+                width         : 100%;
+                padding-bottom: 50px;
+                border-bottom : 3px solid #15DE97;
+
+                .name {
+                    margin     : 0;
+                    color      : #15DE97;
+                    font-size  : 46px;
+                    font-family: 'Anuphan';
+                }
+
+                .box-upload {
+                    width: 60%;
+                    float: right;
+                    margin-top: 20px;
+
+                    .cov-upload {
+                        background   : #B2B2B2 0% 0% no-repeat padding-box;
+                        border-radius: 20px;
+                        padding      : 15px;
+
+                        .name-file {
+                            background   : #ffffff52 0% 0% no-repeat padding-box;
+                            border-radius: 20px;
+                            padding: 10px 15px;
+
+                            .name{ 
+                                margin: 0;
+                                text-align: center;
+                                color: #FFFFFF;
+                                font-family: 'Anuphan';
+                                font-size: 46px;
+                            }
+                        }
+                        .btn-up{
+                            text-align: center;
+                            margin-top: 15px;
+
+                            .ant-upload{
+                                width: 100%;
+
+                                .ant-btn{
+                                    width: 100%;
+                                    background-color: transparent;
+                                    border: none;
+                                    color: #FFFFFF;
+                                    font-size: 46px;
+                                    font-family: 'Anuphan';
+                                    padding: 10px 15px;
+                                    height: 100%;
+                                }
+                            }
+                            .ant-upload-list{
+                                &.ant-upload-list-text{
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .voice-feedback{
+                margin-top    : 50px;
+                display       : inline-block;
+                width         : 100%;
+
+                .name {
+                    margin     : 0;
+                    color      : #15DE97;
+                    font-size  : 46px;
+                    font-family: 'Anuphan';
+                }
+                .boxsetfeed{
+                    text-align: right;
+                    margin-top: 20px;
+
+                    .switchset{
+                        .switcho{
+                            height: 40px;
+                            min-width: 100px;
+                            background-color: #BEBEBE;
+                            float: right;
+    
+                            &.ant-switch-checked{
+                                background-color: #15DE97;
+    
+    
+                                .ant-switch-handle{
+                                    left: calc(100% - 18px - 15px);
+                                }
+                            }
+    
+    
+                            .ant-switch-handle{
+                                width: 32px;
+                                height: 32px;
+                                top: 5px;
+                                
+    
+                                &::before{
+                                    border-radius: 15px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

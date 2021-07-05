@@ -1,0 +1,1034 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .box-viewsetting {
+            margin-top: 100px;
+
+            .list-col {
+                .btn-ac {
+                    .cov-set-header {
+                        height     : 330px;
+                        padding-top: 50%;
+
+
+                        .btnmodal-hd {
+                            background-color: #6960608a;
+                            border-color    : #6960608a;
+                            border-radius   : 50%;
+                            padding         : 10px 20px;
+                            width           : 120px;
+
+                            &:focus {
+                                box-shadow: none;
+                            }
+
+                            .box-icon {
+                                img {
+                                    width: 50px;
+                                }
+                            }
+                        }
+                    }
+
+                    .cov-set-frame {
+                        height     : 330px;
+                        padding-top: 50%;
+
+
+                        .btnmodal-hd {
+                            background-color: #6960608a;
+                            border-color    : #6960608a;
+                            border-radius   : 50%;
+                            padding         : 10px 20px;
+                            width           : 120px;
+
+                            &:focus {
+                                box-shadow: none;
+                            }
+
+                            .box-icon {
+                                img {
+                                    width: 50px;
+                                }
+                            }
+                        }
+                    }
+
+                    .cov-set-information {
+                        height     : 330px;
+                        padding-top: 50%;
+
+
+                        .btnmodal-hd {
+                            background-color: #6960608a;
+                            border-color    : #6960608a;
+                            border-radius   : 50%;
+                            padding         : 10px 20px;
+                            width           : 120px;
+
+                            &:focus {
+                                box-shadow: none;
+                            }
+
+                            .box-icon {
+                                img {
+                                    width: 50px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .display-set {
+                    .boxex {
+                        position  : relative;
+                        background: linear-gradient(360deg, rgba(21, 222, 151, 1) 0%, rgba(8, 32, 46, 1) 25%, rgba(8, 32, 46, 1) 75%, rgba(21, 222, 151, 1) 100%);
+
+
+                        .cov-img-default {
+                            max-height: 100%;
+                            overflow  : hidden;
+                        }
+
+                        .scan {
+                            position: absolute;
+                            top     : 0;
+                        }
+
+                        .name-official {
+                            position        : absolute;
+                            width           : 90%;
+                            left            : 5%;
+                            top             : 15px;
+                            background-color: #15DE97;
+                            border-radius   : 20px;
+                            padding         : 10px;
+
+                            .cov-ta {
+                                display: table;
+
+
+                                .logo {
+                                    display       : table-cell;
+                                    vertical-align: middle;
+
+                                    .circle {
+                                        background-color: #fff;
+                                        border-radius   : 50%;
+                                        padding         : 10px;
+                                        width: 100px;
+                                        height: 100px;
+
+                                        img {
+                                            border-radius: 50%;
+                                            width: 80px;
+                                            height: 80px;
+                                        }
+                                    }
+                                }
+
+                                .nameoff {
+                                    display       : table-cell;
+                                    vertical-align: middle;
+                                    padding-left  : 20px;
+
+                                    .name {
+                                        margin     : 0;
+                                        color      : #FFFFFF;
+                                        font-family: 'Anuphan_B';
+                                        font-size  : 30px;
+                                        text-align : center;
+                                    }
+                                }
+                            }
+                        }
+
+                        .result {
+                            position: absolute;
+                            bottom  : 0;
+                            width   : 100%;
+                            padding : 0 10px;
+
+                            .name-result {
+                                background-color: #0f66469c;
+                                padding         : 15px 0;
+
+                                .status-process {
+                                    margin     : 0;
+                                    text-align : center;
+                                    color      : #FFFFFF;
+                                    font-family: 'Anuphan';
+                                    font-size  : 20px;
+                                }
+
+                                .name-user {
+                                    margin     : 0;
+                                    text-align : center;
+                                    color      : #FFFFFF;
+                                    font-family: 'Anuphan_B';
+                                    font-size  : 32px;
+                                }
+
+                                .group {
+                                    margin     : 0;
+                                    text-align : center;
+                                    color      : #FFFFFF;
+                                    font-family: 'Anuphan';
+                                    font-size  : 14px;
+                                }
+                            }
+
+                            .list-result {
+                                margin-left : -5px;
+                                margin-right: -5px;
+
+                                .time {
+                                    padding: 5px;
+
+                                    .box-time {
+                                        background-color: #0f66469c;
+                                        padding         : 5px 10px;
+                                        height          : 100%;
+
+                                        .cov-ta-time {
+                                            display: table;
+
+                                            .img-result {
+                                                display       : table-cell;
+                                                vertical-align: middle;
+
+                                                img {
+                                                    width    : 30px;
+                                                    // height: 30px;
+                                                }
+                                            }
+
+                                            .result-num {
+                                                display       : table-cell;
+                                                vertical-align: middle;
+                                                padding-left  : 10px;
+
+                                                .num {
+                                                    margin     : 0;
+                                                    font-family: 'Anuphan_B';
+                                                    font-size  : 24px;
+                                                    color      : #FFFFFF;
+                                                }
+
+                                                .status-time {
+                                                    margin     : 0;
+                                                    font-family: 'Anuphan';
+                                                    font-size  : 16px;
+                                                    color      : #FFFFFF;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .temperature {
+                                    padding     : 5px;
+                                    padding-left: 0;
+
+                                    .box-tem {
+                                        background-color: #0f66469c;
+                                        padding         : 5px 10px;
+                                        height          : 100%;
+
+                                        .cov-ta-tem {
+                                            display: table;
+                                            float  : right;
+
+                                            .img-tem {
+                                                display       : table-cell;
+                                                vertical-align: middle;
+                                                padding-left  : 10px;
+
+                                                img {
+                                                    width    : 30px;
+                                                    // height: 30px;
+                                                }
+
+                                                .imgtem {
+                                                    height: 50px;
+                                                }
+                                            }
+
+                                            .result-temper {
+                                                display       : table-cell;
+                                                vertical-align: middle;
+
+                                                .num {
+                                                    margin     : 0;
+                                                    font-family: 'Anuphan_B';
+                                                    font-size  : 24px;
+                                                    color      : #FFFFFF;
+                                                }
+
+                                                .status-time {
+                                                    margin     : 0;
+                                                    font-family: 'Anuphan';
+                                                    font-size  : 16px;
+                                                    color      : #FFFFFF;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .cov-color-preset {
+            margin-top: 30px;
+
+            .cov-menu {
+                .hname {
+                    text-align : center;
+                    margin     : 0;
+                    font-family: 'Anuphan';
+                    font-size  : 46px;
+                    color      : #FFFFFF;
+                }
+            }
+
+            .box-list-color {
+                // margin-top: 50px;
+                text-align: center;
+
+                .ant-radio-group {
+                    .ant-radio-wrapper {
+                        margin-right: 20px;
+
+                        .ant-radio {
+                            position: absolute;
+                            top     : 80%;
+                            left    : 29%;
+
+                            .ant-radio-inner {
+                                width           : 50px;
+                                height          : 50px;
+                                border-radius   : 10px;
+                                border          : none;
+                                background-color: transparent;
+
+
+                            }
+                        }
+
+
+                        &.ant-radio-wrapper-checked {
+                            .ant-radio {
+                                .ant-radio-inner {
+
+                                    border: solid 3px #FFFFFF;
+
+                                    &::after {
+                                        left            : 25px;
+                                        top             : -20px;
+                                        width           : 20px;
+                                        height          : 60px;
+                                        border          : solid white;
+                                        border-width    : 0 8px 5px 0;
+                                        transform       : rotate(45deg);
+                                        background-color: transparent;
+                                    }
+                                }
+                            }
+                        }
+
+                        span {
+                            display: inline-block;
+
+                            .color {
+                                width        : 100px;
+                                height       : 100px;
+                                border       : solid 3px;
+                                padding      : 10px;
+                                border-radius: 50%;
+
+
+
+                                .circle {
+                                    width        : 75px;
+                                    height       : 75px;
+                                    border       : solid 1px;
+                                    border-radius: 50%;
+                                }
+
+                                &.green {
+                                    border-color: #15DE97;
+
+
+                                    .circle {
+                                        background-color: #15DE97;
+                                        background-color: #15DE97;
+                                    }
+                                }
+
+                                &.blue {
+                                    border-color: #15A8DE;
+
+
+                                    .circle {
+                                        background-color: #15A8DE;
+                                        background-color: #15A8DE;
+                                    }
+                                }
+
+                                &.purple {
+                                    border-color: #684DDB;
+
+
+                                    .circle {
+                                        background-color: #684DDB;
+                                        background-color: #684DDB;
+                                    }
+                                }
+
+
+                                &.red {
+                                    border-color: #D6475D;
+
+
+                                    .circle {
+                                        background-color: #D6475D;
+                                        background-color: #D6475D;
+                                    }
+                                }
+
+                                &.yellow {
+                                    border-color: #D6AA47;
+
+
+                                    .circle {
+                                        background-color: #D6AA47;
+                                        background-color: #D6AA47;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+#Header {
+    .modal-dialog {
+        max-width: 900px;
+        .modal-content {
+            background: rgba(8, 32, 46, 1);
+            background: -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+            background: -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+
+
+            padding      : 80px 20px;
+            border-radius: 20px;
+
+            .modal-header {
+                border-bottom: none;
+
+                .close {
+                    margin   : 2rem 0;
+                    color    : #15DE97;
+                    font-size: 40px;
+                }
+
+                .modal-title {
+                    color        : #15DE97;
+                    font-size    : 84px;
+                    font-family  : 'Anuphan_B';
+                    padding-right: 85px;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem 4rem;
+
+                .cov-setlogo {
+                    display       : table;
+                    width         : 100%;
+                    padding-bottom: 50px;
+                    border-bottom : solid 1px #15DE97;
+
+                    .browse-logo {
+                        display       : table-cell;
+                        vertical-align: middle;
+
+                        .avatar-uploader {
+                            .ant-upload-select {
+                                border          : none;
+                                background-color: transparent;
+
+                                .ant-upload {
+                                    .cov-btn-img {
+                                        display     : table;
+                                        padding-left: 250px;
+
+                                        .box-img {
+                                            display       : table-cell;
+                                            vertical-align: middle;
+
+                                            .br-img {
+                                                display    : block;
+                                                width      : 120px;
+                                                height     : 120px;
+                                                position   : relative;
+                                                // border  : solid 1px #15DE97;
+
+                                                .icon-add {
+                                                    position : absolute;
+                                                    left     : 38%;
+                                                    top      : 40%;
+                                                    font-size: 34px;
+                                                    color    : #15DE97;
+                                                }
+
+
+                                                img {
+                                                    position: relative;
+                                                    z-index : 3;
+                                                }
+                                            }
+                                        }
+
+                                        .box-btnup {
+                                            display       : table-cell;
+                                            vertical-align: middle;
+                                            padding-left  : 20px;
+
+                                            .cover-btnupload {
+                                                .btn-upload {
+                                                    color        : #15de9775;
+                                                    font-family  : 'Anuphan';
+                                                    font-size    : 40px;
+                                                    border       : solid 3px #15DE97;
+                                                    border-radius: 20px;
+                                                    padding      : 0 10px;
+                                                    width        : 200px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .cov-switch {
+                        display       : table-cell;
+                        vertical-align: middle;
+
+                        .switcho {
+                            height          : 40px;
+                            min-width       : 100px;
+                            background-color: #BEBEBE;
+                            float           : right;
+
+                            &.ant-switch-checked {
+                                background-color: #15DE97;
+
+
+                                .ant-switch-handle {
+                                    left: calc(100% - 18px - 15px);
+                                }
+                            }
+
+
+                            .ant-switch-handle {
+                                width : 32px;
+                                height: 32px;
+                                top   : 5px;
+
+
+                                &::before {
+                                    border-radius: 15px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .set-name {
+                    margin-top: 50px;
+
+                    .cov-boxsett {
+                        display: table;
+                        width  : 100%;
+
+                        .input-box {
+                            display       : table-cell;
+                            vertical-align: middle;
+
+
+                            .namescreen {
+                                background   : #F0F0F0 0% 0% no-repeat padding-box;
+                                border-radius: 20px;
+                                height       : 85px;
+                                font-size    : 40px;
+                                font-family  : 'Anuphan';
+
+
+                                &::placeholder {
+                                    font-size  : 40px;
+                                    font-family: 'Anuphan';
+                                    color      : #6A6A6A;
+                                }
+                            }
+                        }
+
+                        .switch {
+                            display       : table-cell;
+                            vertical-align: middle;
+
+
+                            .switcho {
+                                height          : 40px;
+                                min-width       : 100px;
+                                background-color: #BEBEBE;
+                                float           : right;
+
+                                &.ant-switch-checked {
+                                    background-color: #15DE97;
+
+
+                                    .ant-switch-handle {
+                                        left: calc(100% - 18px - 15px);
+                                    }
+                                }
+
+
+                                .ant-switch-handle {
+                                    width : 32px;
+                                    height: 32px;
+                                    top   : 5px;
+
+
+                                    &::before {
+                                        border-radius: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+#Frame {
+    .modal-dialog {
+        max-width: 900px;
+        .modal-content {
+            background: rgba(8, 32, 46, 1);
+            background: -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+            background: -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+
+
+            padding      : 80px 20px;
+            border-radius: 20px;
+
+            .modal-header {
+                border-bottom: none;
+
+                .close {
+                    margin   : 2rem 0;
+                    color    : #15DE97;
+                    font-size: 40px;
+                }
+
+                .modal-title {
+                    color        : #15DE97;
+                    font-size    : 84px;
+                    font-family  : 'Anuphan_B';
+                    padding-right: 250px;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem 4rem;
+
+                .box-detect {
+
+                    .cov-tadetect {
+                        display       : table;
+                        width         : 100%;
+                        padding-bottom: 50px;
+                        border-bottom : solid 1px #15DE97;
+
+                        .img-detect {
+                            display       : table-cell;
+                            vertical-align: middle;
+
+                            img {
+                                width: 100px;
+                            }
+                        }
+
+                        .switch {
+                            display       : table-cell;
+                            vertical-align: middle;
+
+
+                            .switcho {
+                                height          : 40px;
+                                min-width       : 100px;
+                                background-color: #BEBEBE;
+                                float           : right;
+
+                                &.ant-switch-checked {
+                                    background-color: #15DE97;
+
+
+                                    .ant-switch-handle {
+                                        left: calc(100% - 18px - 15px);
+                                    }
+                                }
+
+
+                                .ant-switch-handle {
+                                    width : 32px;
+                                    height: 32px;
+                                    top   : 5px;
+
+
+                                    &::before {
+                                        border-radius: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .cov-face {
+                        margin-top: 50px;
+                        display   : table;
+                        width     : 100%;
+
+                        .img-detect {
+                            display       : table-cell;
+                            vertical-align: middle;
+
+                            img {
+                                width: 100px;
+                            }
+                        }
+
+                        .switch {
+                            display       : table-cell;
+                            vertical-align: middle;
+
+
+                            .switcho {
+                                height          : 40px;
+                                min-width       : 100px;
+                                background-color: #BEBEBE;
+                                float           : right;
+
+                                &.ant-switch-checked {
+                                    background-color: #15DE97;
+
+
+                                    .ant-switch-handle {
+                                        left: calc(100% - 18px - 15px);
+                                    }
+                                }
+
+
+                                .ant-switch-handle {
+                                    width : 32px;
+                                    height: 32px;
+                                    top   : 5px;
+
+
+                                    &::before {
+                                        border-radius: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+#Information {
+    .modal-dialog {
+        max-width: 900px;
+        .modal-content {
+            background: rgba(8, 32, 46, 1);
+            background: -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+            background: -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            background: linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+            filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+
+
+            padding      : 80px 10px;
+            border-radius: 20px;
+
+            .modal-header {
+                border-bottom: none;
+
+                .close {
+                    margin   : 2rem 0;
+                    color    : #15DE97;
+                    font-size: 40px;
+                }
+
+                .modal-title {
+                    color        : #15DE97;
+                    font-size    : 84px;
+                    font-family  : 'Anuphan_B';
+                    padding-right: 150px;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem 2rem;
+
+                .show-result{
+                    .cov-txt-result {
+                        background   : #00906499 0% 0% no-repeat padding-box;
+                        border-radius: 4px;
+                        padding: 30px 15px;
+    
+                        .status-result{
+                            color: #FFFFFF;
+                            font-size: 36px;
+                            font-family: 'Anuphan_M';
+                            margin: 0;
+                            text-align: center  ;
+                        }
+    
+                        .name-user{
+                            color: #FFFFFF;
+                            font-family: 'Anuphan_B';
+                            font-size: 79px;
+                            margin: 0;
+                            text-align: center;
+                            
+                        }
+    
+                        .group{
+                            margin: 0;
+                            color: #FFFFFF;
+                            font-size: 27px;
+                            text-align: center;
+                            font-family: 'Anuphan_Se';
+                        }
+                    }
+
+                    .setting-show{
+                        padding: 1rem 2rem;
+                        .cov-tasetword{
+                            display: table;
+                            width: 100%;
+                            padding-bottom: 30px;
+                            padding-top: 30px;
+
+                            .cov-input-word{
+                                display: table-cell;
+                                vertical-align: middle;
+
+                                .hd-input{
+                                    margin: 0;
+                                    color: #FFFFFF;
+                                    font-size: 46px;
+                                    font-family: 'Anuphan';
+                                }
+
+                                .wordwel{
+                                    font-size: 40px;
+                                    font-family: 'Anuphan';
+                                    color: #6A6A6A;
+                                    height: 83px;
+                                    border-radius: 20px;
+                                    width: 450px;
+
+                                    &::placeholder{
+                                        font-size: 40px;
+                                        color: #6a6a6a3b;
+                                    }
+                                }
+                                .box-dis-time{
+                                    background-color: #00906499;
+                                    border-radius: 4px;
+                                    padding: 30px 50px;
+                                    width: 400px;
+                                    .cov-tdata{
+                                        display: table;
+                                        .img-time{
+                                            display: table-cell;
+                                            vertical-align: middle;
+                                            width: 40%;
+                                            text-align: center;
+
+                                            img{
+                                                width: 80px;
+                                            }
+                                            .tems{
+                                                width: 40px;
+                                            }
+                                        }
+                                        .txt-time{
+                                            padding-left: 20px;
+                                            display: table-cell;
+                                            vertical-align: middle;
+                                            .numtime{
+                                                margin: 0;
+                                                color: #FFFFFF;
+                                                font-size: 58px;
+                                                font-family: 'Anuphan_B';
+                                                line-height: 1;
+                                            }
+                                            .result-time{
+                                                margin: 0;
+                                                color: #FFFFFF;
+                                                font-size: 23px;
+                                                font-family: 'Anuphan_Se';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .switch {
+                                display       : table-cell;
+                                vertical-align: bottom;
+                                padding-bottom: 20px;
+    
+    
+                                .switcho {
+                                    height          : 40px;
+                                    min-width       : 100px;
+                                    background-color: #BEBEBE;
+                                    float           : right;
+    
+                                    &.ant-switch-checked {
+                                        background-color: #15DE97;
+    
+    
+                                        .ant-switch-handle {
+                                            left: calc(100% - 18px - 15px);
+                                        }
+                                    }
+    
+    
+                                    .ant-switch-handle {
+                                        width : 32px;
+                                        height: 32px;
+                                        top   : 5px;
+    
+    
+                                        &::before {
+                                            border-radius: 15px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .switchtwo {
+                                display       : table-cell;
+                                vertical-align: middle;
+    
+    
+                                .switcho {
+                                    height          : 40px;
+                                    min-width       : 100px;
+                                    background-color: #BEBEBE;
+                                    float           : right;
+    
+                                    &.ant-switch-checked {
+                                        background-color: #15DE97;
+    
+    
+                                        .ant-switch-handle {
+                                            left: calc(100% - 18px - 15px);
+                                        }
+                                    }
+    
+    
+                                    .ant-switch-handle {
+                                        width : 32px;
+                                        height: 32px;
+                                        top   : 5px;
+    
+    
+                                        &::before {
+                                            border-radius: 15px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

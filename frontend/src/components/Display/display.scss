@@ -1,0 +1,258 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .list-setting {
+            margin-top: 100px;
+
+            .set-dis {
+                .box-display {
+
+                    .bt-set{
+                        margin-top: 100px;
+                    }
+                    .list-exam {
+                        .left-dis {
+                            .cov-example {
+                                .boxex {
+                                    position  : relative;
+                                    height    : 380px;
+                                    background: linear-gradient(360deg, rgba(21, 222, 151, 1) 0%, rgba(8, 32, 46, 1) 25%, rgba(8, 32, 46, 1) 75%, rgba(21, 222, 151, 1) 100%);
+
+
+                                    .cov-img-default {
+                                        max-height: 100%;
+                                        overflow  : hidden;
+                                    }
+
+                                    .scan {
+                                        position: absolute;
+                                        top     : 0;
+                                    }
+
+                                    .name-official {
+                                        position        : absolute;
+                                        width           : 90%;
+                                        left            : 5%;
+                                        top             : 15px;
+                                        background-color: #15DE97;
+                                        border-radius   : 20px;
+                                        padding         : 10px;
+
+                                        .cov-ta {
+                                            display: table;
+
+
+                                            .logo {
+                                                display       : table-cell;
+                                                vertical-align: middle;
+
+                                                .circle {
+                                                    background-color: #fff;
+                                                    border-radius   : 50%;
+
+                                                    img {
+                                                        border-radius: 50%;
+                                                    }
+                                                }
+                                            }
+
+                                            .nameoff {
+                                                display       : table-cell;
+                                                vertical-align: middle;
+                                                padding-left  : 10px;
+
+                                                .name {
+                                                    margin     : 0;
+                                                    color      : #FFFFFF;
+                                                    font-family: 'Anuphan_B';
+                                                    font-size  : 10px;
+                                                    text-align : center;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .result{
+                                        position: absolute;
+                                        bottom: 0;
+                                        width: 100%;
+                                        padding: 0 10px;
+
+                                        .name-result{
+                                            background-color: #0f66469c;
+                                            padding: 5px 0;
+
+                                            .status-process{
+                                                margin: 0;
+                                                text-align: center;
+                                                color: #FFFFFF;
+                                                font-family: 'Anuphan';
+                                                font-size: 12px;
+                                            }
+                                            .name-user{
+                                                margin: 0;
+                                                text-align: center;
+                                                color: #FFFFFF;
+                                                font-family: 'Anuphan_B';
+                                                font-size: 16px;
+                                            }
+                                            .group{
+                                                margin: 0;
+                                                text-align: center;
+                                                color: #FFFFFF;
+                                                font-family: 'Anuphan';
+                                                font-size: 8px;
+                                            }
+                                        }
+                                        .list-result{
+                                            margin-left: -5px;
+                                            margin-right: -5px;
+                                            
+                                            .time{
+                                                padding: 5px;
+                                                .box-time{
+                                                    background-color: #0f66469c;
+                                                    padding: 5px 10px;
+
+                                                    .cov-ta-time{
+                                                        display: table;
+
+                                                        .img-result{
+                                                            display: table-cell;
+                                                            vertical-align: middle;
+                                                            img{
+                                                                width: 20px;
+                                                                height: 20px;
+                                                            }
+                                                        }
+                                                        .result-num{
+                                                            display: table-cell;
+                                                            vertical-align: middle;
+                                                            padding-left: 5px;
+
+                                                            .num{
+                                                                margin: 0;
+                                                                font-family: 'Anuphan_B';
+                                                                font-size: 16px;
+                                                                color: #FFFFFF;
+                                                            }
+                                                            .status-time{
+                                                                margin: 0;
+                                                                font-family: 'Anuphan';
+                                                                font-size: 8px;
+                                                                color: #FFFFFF;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .temperature{
+                                                padding: 5px;
+                                                padding-left: 0;
+                                                .box-tem{
+                                                    background-color: #0f66469c;
+                                                    padding: 5px 10px;
+
+                                                    .cov-ta-tem{
+                                                        display: table;
+
+                                                        .img-tem{
+                                                            display: table-cell;
+                                                            vertical-align: middle;
+                                                            padding-left: 5px;
+                                                            img{
+                                                                width: 20px;
+                                                                height: 20px;
+                                                            }
+                                                        }
+                                                        .result-temper{
+                                                            display: table-cell;
+                                                            vertical-align: middle;
+
+                                                            .num{
+                                                                margin: 0;
+                                                                font-family: 'Anuphan_B';
+                                                                font-size: 16px;
+                                                                color: #FFFFFF;
+                                                            }
+                                                            .status-time{
+                                                                margin: 0;
+                                                                font-family: 'Anuphan';
+                                                                font-size: 8px;
+                                                                color: #FFFFFF;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .right-dis{
+                            .cov-link{
+                                padding-top: 25%;
+                                .link-set{
+                                    display: inline-block;
+                                    padding: 15px 10px;
+                                    border: 3px solid #15DE97;
+                                    border-radius: 20px;
+                                    color: #15DE97;
+                                    font-family: 'Anuphan';
+                                    font-size: 46px;
+                                    width: 100%;
+                                    text-align: center;
+
+                                     &:hover{
+                                        text-decoration: none;
+                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

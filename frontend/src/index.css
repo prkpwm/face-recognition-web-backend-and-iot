@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'Anuphan';
+  src: url('./font/Anuphan-Regular.woff2') format('woff2'),
+      url('./font/Anuphan-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anuphan_Se';
+  src: url('./font/Anuphan-SemiBold.woff2') format('woff2'),
+      url('./font/Anuphan-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anuphan_B';
+  src: url('./font/Anuphan-Bold.woff2') format('woff2'),
+      url('./font/Anuphan-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anuphan_M';
+  src: url('./font/Anuphan-Medium.woff2') format('woff2'),
+      url('./font/Anuphan-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

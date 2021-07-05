@@ -1,0 +1,278 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left    : -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .select-file {
+                .cov-box {
+                    display    : table;
+                    margin-left: 30px;
+
+                    .txt {
+                        display       : table-cell;
+                        margin        : 0;
+                        color         : #FFFFFF;
+                        font-family   : 'Anuphan';
+                        font-size     : 46px;
+                        vertical-align: middle;
+                    }
+
+                    .cov-btn-file {
+                        display       : table-cell;
+                        vertical-align: middle;
+                        padding-left  : 20px;
+
+                        .btn-list {
+                            width           : 100px;
+                            height          : 100px;
+                            border          : solid 2px #15DE97;
+                            border-radius   : 16px;
+                            background-color: transparent;
+                            margin-right    : 15px;
+                            position        : relative;
+
+                            .icon-import {
+                                position: absolute;
+                                width   : 70px;
+                                top     : 20px;
+                                left    : 20px;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .cov-btn-add {
+            text-align: right;
+            margin-top: 30px;
+
+            .btn-add {
+                color           : #FFFFFF;
+                font-family     : 'Anuphan';
+                font-size       : 36px;
+                background-color: #15DE97;
+                border-color    : #15DE97;
+                opacity         : 1;
+                width           : 200px;
+            }
+        }
+
+        .list-member-add {
+            margin-top: 30px;
+
+            .bs-example {
+                .accordion {
+                    .card {
+                        margin-bottom: 30px;
+                        background   : #FFFFFF 0% 0% no-repeat padding-box;
+                        border-radius: 23px;
+
+                        .card-header {
+                            border-bottom: none;
+                            background-color: transparent;
+                            padding: 15px 30px;
+                            .cov-part {
+                                display: table;
+                                width  : 100%;
+
+                                .cov-checked {
+                                    display       : table-cell;
+                                    vertical-align: middle;
+                                    width         : 12%;
+
+                                    .ant-checkbox {
+
+                                        width : 50px;
+                                        height: 50px;
+
+                                        &.ant-checkbox-checked {
+                                            .ant-checkbox-inner {
+                                                background-color: #15DE97;
+
+                                                &::after {
+                                                    border     : 5px solid #fff;
+                                                    border-top : 0;
+                                                    width      : 40%;
+                                                    height     : 85%;
+                                                    left       : 15%;
+                                                    top        : 45%;
+                                                    border-left: 0;
+
+                                                }
+                                            }
+
+                                            &::after {
+                                                border: none;
+                                            }
+
+                                        }
+
+                                        .ant-checkbox-inner {
+                                            width        : 100%;
+                                            height       : 100%;
+                                            border       : 5px solid #70707066;
+                                            border-radius: 16px;
+
+
+                                        }
+                                    }
+                                }
+
+                                .cov-btn {
+                                    vertical-align: middle;
+                                    display       : table-cell;
+
+                                    .btn-link {
+                                        text-decoration: none;
+
+                                        &:hover {
+                                            text-decoration: none;
+                                        }
+
+                                        &:focus {
+                                            box-shadow: none;
+                                        }
+
+                                        .txt {
+                                            margin     : 0;
+                                            color      : #08202E;
+                                            font-family: 'Anuphan_M';
+                                            font-size  : 46px;
+                                        }
+                                    }
+                                }
+
+                                .status {
+                                    display       : table-cell;
+                                    vertical-align: middle;
+
+                                    .color-red {
+                                        width           : 30px;
+                                        height          : 30px;
+                                        border-radius   : 50%;
+                                        background-color: red;
+                                    }
+                                }
+                            }
+                        }
+                        .collapse{
+                            .card-body{
+                                padding: 15px 100px;
+
+                                .edit-profile{
+                                    .form-group{
+                                        .hinput{
+                                            color: #00000082;
+                                            font-family: 'Anuphan_M';
+                                            font-size: 30px;
+                                        }
+                                        .form-control{
+                                            background-color: #70707047;
+                                            color: #08202E;
+                                            font-size: 46px;
+                                            font-family: 'Anuphan_M';
+                                            border-radius: 20px;
+                                            padding: 15px 40px;
+
+
+                                            &::placeholder{
+                                                color: #08202e2e;
+                                                font-size: 46px;
+                                                font-family: 'Anuphan_M';
+                                            }
+
+                                            &.full{
+                                                margin-bottom: 15px;
+                                            }
+                                            &.email{
+                                                margin-bottom: 15px;
+                                            }
+                                            &.phone{
+                                                margin-bottom: 15px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                        .collapsing{
+                            .card-body{
+                                padding: 15px 100px;
+
+                                .edit-profile{
+                                    .form-group{
+                                        .hinput{
+                                            color: #00000082;
+                                            font-family: 'Anuphan_M';
+                                            font-size: 30px;
+                                        }
+                                        .form-control{
+                                            background-color: #70707047;
+                                            color: #08202E;
+                                            font-size: 46px;
+                                            font-family: 'Anuphan_M';
+                                            border-radius: 20px;
+                                            padding: 15px 40px;
+
+
+                                            &::placeholder{
+                                                color: #08202e2e;
+                                                font-size: 46px;
+                                                font-family: 'Anuphan_M';
+                                            }
+
+                                            &.full{
+                                                margin-bottom: 15px;
+                                            }
+                                            &.email{
+                                                margin-bottom: 15px;
+                                            }
+                                            &.phone{
+                                                margin-bottom: 15px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
