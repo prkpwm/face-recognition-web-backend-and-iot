@@ -8,9 +8,20 @@ import { getDailyReport, setSms, setEmail } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
 import 'antd/dist/antd.css';
 import './report.scss'
-
+import { GetLanguage } from "../../services/APIs/Setting";
 
 library.add(fas)
+
+let word = {
+    'Done': { 'EN': 'Done', 'TH': 'เสร็จแล้ว' },
+    'Please try again.': { 'EN': 'Please try again.', 'TH': 'กรุณาลองอีกครั้ง.' },
+    'Report': { 'EN': 'Report', 'TH': 'เสร็จแล้ว' },
+    'Daily report': { 'EN': 'Daily report', 'TH': 'เสร็จแล้ว' },
+    'Group selection': { 'EN': 'Group selection', 'TH': 'เสร็จแล้ว' },
+    'SMS': { 'EN': 'SMS', 'TH': 'เสร็จแล้ว' },
+    'Email': { 'EN': 'Email', 'TH': 'เสร็จแล้ว' },
+
+}
 
 class Report extends React.Component {
 
@@ -18,6 +29,7 @@ class Report extends React.Component {
 
         super(props)
         this.state = {
+            language:"TH",
             reportdaily: [],
             loading: false
         }
@@ -50,6 +62,25 @@ class Report extends React.Component {
             .catch(_DailyError => {
                 window.location.href = "/password";
             })
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+
+
+                if (_Edit.data.status) {
+
+                    setTimeout(() => {
+                        this.setState({
+                            loading: false
+                        })
+                    }, 800);
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+
+                    })
+
+
+                }
+            })
 
     }
 
@@ -69,7 +100,7 @@ class Report extends React.Component {
                 if (_StautsSms.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -78,7 +109,7 @@ class Report extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -110,7 +141,7 @@ class Report extends React.Component {
                 if (_StautsEmail.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -119,7 +150,7 @@ class Report extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -150,14 +181,14 @@ class Report extends React.Component {
                             <div className="icon-back">
                                 <a href="/setting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Report</h1>
+                            <h1 className="hd">{word['Report'][this.state.language]}</h1>
                         </div>
                         <div className="hd-report">
-                            <p className="type-report">Daily report</p>
+                            <p className="type-report">{word['Daily report'][this.state.language]}</p>
                         </div>
                         <div className="setgroup">
                             <div className="must-do">
-                                <p className="txt">Group selection</p>
+                                <p className="txt">{word['Group selection'][this.state.language]}</p>
                             </div>
                             <div className="box-list-group">
                                 <div className="bs-example">
@@ -190,7 +221,7 @@ class Report extends React.Component {
                                                         <div className="cov-setting">
                                                             <div className="cov-tasms">
                                                                 <div className="txt-sms">
-                                                                    <p className="txt">SMS</p>
+                                                                    <p className="txt">{word['SMS'][this.state.language]}</p>
                                                                 </div>
                                                                 <div className="switchset">
                                                                     <Switch className="switcho" checked={value.smsReport}
@@ -207,7 +238,7 @@ class Report extends React.Component {
                                                             <hr className="green" />
                                                             <div className="cov-tasms">
                                                                 <div className="txt-sms">
-                                                                    <p className="txt">Email</p>
+                                                                    <p className="txt">{word['Email'][this.state.language]}</p>
                                                                 </div>
                                                                 <div className="switchset">
                                                                     <Switch className="switcho" checked={value.emailReport} onChange={(e) => { this.onChangeEmail(e, value) }} />

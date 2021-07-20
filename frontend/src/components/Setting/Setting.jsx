@@ -7,7 +7,15 @@ import './setting.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
 
 library.add(fas)
-
+let word = {
+    'Setting': { 'EN': 'Setting', 'TH': 'การตั้งค่า' },
+    'Scanner mode': { 'EN': 'Scanner mode', 'TH': 'โหมดสแกนเนอร์' },
+    'Display': { 'EN': 'Display', 'TH': 'จอแสดงผล' },
+    'Sound': { 'EN': 'Sound', 'TH': 'เสียง' },
+    'Language': { 'EN': 'Language', 'TH': 'ภาษา' },
+    'Check in': { 'EN': 'Check in', 'TH': 'เช็คอิน' },
+    'Report': { 'EN': 'Report', 'TH': 'รายงาน' },
+}
 class Setting extends React.Component {
 
     constructor(props) {
@@ -44,7 +52,7 @@ class Setting extends React.Component {
                             <div className="icon-back">
                                 <a href="/menu" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Setting</h1>
+                            <h1 className="hd">{word['Setting'][this.state.language]}</h1>
                         </div>
                         <div className="cov-list-menu">
                             <div className="box-menu">
@@ -53,7 +61,7 @@ class Setting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/scanner.svg" alt="" className="img-fluid imgsetting img-b" />
                                         </div>
-                                        <p className="name">Scanner mode</p>
+                                        <p className="name">{word['Scanner mode'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -61,7 +69,7 @@ class Setting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/display.svg" alt="" className="img-fluid imgsetting img-b" />
                                         </div>
-                                        <p className="name">Display</p>
+                                        <p className="name">{word['Display'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -69,7 +77,7 @@ class Setting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/sound.svg" alt="" className="img-fluid imgsetting" />
                                         </div>
-                                        <p className="name">Sound</p>
+                                        <p className="name">{word['Sound'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -77,7 +85,7 @@ class Setting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/language.svg" alt="" className="img-fluid imgsetting" />
                                         </div>
-                                        <p className="name">Language</p>
+                                        <p className="name">{word['Language'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -85,7 +93,7 @@ class Setting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/checkin.svg" alt="" className="img-fluid imgsetting" />
                                         </div>
-                                        <p className="name">Check in</p>
+                                        <p className="name">{word['Check in'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -93,7 +101,7 @@ class Setting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/report.svg" alt="" className="img-fluid imgsetting" />
                                         </div>
-                                        <p className="name">Report</p>
+                                        <p className="name">{word['Report'][this.state.language]}</p>
                                     </a>
                                 </div>
                             </div>

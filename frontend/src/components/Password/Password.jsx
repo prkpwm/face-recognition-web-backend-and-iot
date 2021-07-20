@@ -6,6 +6,11 @@ import './password.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
 
 
+let word = {
+    'Wrong password': { 'EN': 'Wrong password', 'TH': 'รหัสผ่านไม่ถูกต้อง' },
+    'Password': { 'EN': 'Password', 'TH': 'รหัสผ่าน' },
+}
+
 class Password extends React.Component {
 
     constructor(props) {
@@ -69,7 +74,7 @@ class Password extends React.Component {
 
                     } else {
                         message.error({
-                            content: this.state.language == "TH" ? 'รหัสผ่านไม่ถูกต้อง':'Wrong password',
+                            content: word['Wrong password'][this.state.language],
                             className: 'message-alert',
                             // duration: 200,
                             style: {
@@ -104,7 +109,7 @@ class Password extends React.Component {
                         </div>
                         <div className="input-pass">
                             <div className="covbox">
-                                <input type="password" onChange={(e) => { this.Login(e) }} className="form-control box-pass" maxLength="8" placeholder = {this.state.language == "TH" ? "รหัสผ่าน": "Password"} />
+                                <input type="password" onChange={(e) => { this.Login(e) }} className="form-control box-pass" maxLength="8" placeholder = {word['Password'][this.state.language]} />
                             </div>
                         </div>
                     </div>

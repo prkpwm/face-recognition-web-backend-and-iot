@@ -78,7 +78,7 @@ class Menu extends React.Component {
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
-                                    <a href="" className="pagemenu">
+                                    <a href="/NetworkConfig" className="pagemenu">
                                         <div className="img-icon">
                                             <img src="/image/icon/wifi.svg" alt="" className="img-fluid img-menu" />
                                         </div>

@@ -7,11 +7,22 @@ import { Slider, InputNumber, Upload, message, Button, Switch } from 'antd';
 import 'antd/dist/antd.css';
 import './sound.scss'
 import {selectStatusSound, setStatusSound, uploadVoiceFile ,uploadVoiceEffect, getVoiceMaster, setVoiceMaster} from "../../services/APIs/sound"
-
+import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
 
 library.add(fas)
 
+let word = {
+    'Setting': { 'EN': 'Setting', 'TH': 'การตั้งค่า' },
+    'Sound': { 'EN': 'Sound', 'TH': 'เสียง' },
+    'Master Volume': { 'EN': 'Master Volume', 'TH': 'ควบคุมการขยายกำลัง' },
+    'Thai': { 'EN': 'Thai', 'TH': 'ไทย' },
+    'Voice': { 'EN': 'Voice', 'TH': 'เสียง' },
+    'Sound Effect': { 'EN': 'Sound Effect', 'TH': 'เสียงประกอบ' },
+    'Upload': { 'EN': 'Upload', 'TH': 'อัพโหลด' },
+    'Bell': { 'EN': 'Bell', 'TH': 'ระฆัง' },
+    'Voice feedback': { 'EN': 'Voice feedback', 'TH': 'เสียงตอบรับ' },
 
+}
 
 class Sound extends React.Component {
 
@@ -19,6 +30,7 @@ class Sound extends React.Component {
 
         super(props)
         this.state = {
+            language: 'TH',
             inputValue: 0,
             loading: false,
             loading_page: false,
@@ -75,6 +87,14 @@ class Sound extends React.Component {
             // console.log(errorVoice[0])
             window.location.href = "/password";
         })
+        GetLanguage() // Get language for display
+        .then(_Edit => {
+            if (_Edit.data.status) {
+                this.setState({
+                    language: _Edit.data.msg[0].lang,
+                })
+            }
+        })
 
         // print log status sound
         // console.log(this.state.statusSound)
@@ -89,7 +109,7 @@ class Sound extends React.Component {
         .then(_welcomeWord => {
             if(_welcomeWord.data.status){
                 message.success({
-                    content: 'Done',
+                    content: word['Done'][this.state.language],
                     className: 'message-done',
                     style: {
                         marginTop: '2vh',
@@ -97,7 +117,7 @@ class Sound extends React.Component {
                 });
             }else{
                 message.error({
-                    content: 'Please try again.',
+                    content: word['Please try again.'][this.state.language],
                     className: 'message-alert',
                     style: {
                         marginTop: '2vh',
@@ -136,7 +156,7 @@ class Sound extends React.Component {
               console.log('res---> ', res)
               if(res.data.status){
                   message.success({
-                      content: 'Done',
+                      content: word['Done'][this.state.language],
                       className: 'message-done',
                       style: {
                           marginTop: '2vh',
@@ -145,7 +165,7 @@ class Sound extends React.Component {
                   
               }else{
                   message.error({
-                      content: 'Please try again.',
+                      content: word['Please try again.'][this.state.language],
                       className: 'message-alert',
                       style: {
                           marginTop: '2vh',
@@ -184,7 +204,7 @@ class Sound extends React.Component {
             console.log('res---> ', res)
             if(res.data.status){
                 message.success({
-                    content: 'Done',
+                    content: word['Done'][this.state.language],
                     className: 'message-done',
                     style: {
                         marginTop: '2vh',
@@ -193,7 +213,7 @@ class Sound extends React.Component {
                 
             }else{
                 message.error({
-                    content: 'Please try again.',
+                    content: word['Please try again.'][this.state.language],
                     className: 'message-alert',
                     style: {
                         marginTop: '2vh',
@@ -215,7 +235,7 @@ class Sound extends React.Component {
         .then(_statusSound => {
             if(_statusSound.data.status){
                 message.success({
-                    content: 'Done',
+                    content: word['Done'][this.state.language],
                     className: 'message-done',
                     style: {
                         marginTop: '2vh',
@@ -223,7 +243,7 @@ class Sound extends React.Component {
                 });
             }else{
                 message.error({
-                    content: 'Please try again.',
+                    content: word['Please try again.'][this.state.language],
                     className: 'message-alert',
                     style: {
                         marginTop: '2vh',
@@ -269,11 +289,11 @@ class Sound extends React.Component {
                             <div className="icon-back">
                                 <a href="/setting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Sound</h1>
+                            <h1 className="hd">{word['Sound'][this.state.language]}</h1>
                         </div>
                         <div className="set-sound">
                             <div className="master-volume">
-                                <p className="name">Master Volume</p>
+                                <p className="name">{word['Master Volume'][this.state.language]}</p>
                                 <div className="box-volume">
                                     <div className="volume">
                                         <div className="slide">
@@ -296,37 +316,37 @@ class Sound extends React.Component {
                                 </div>
                             </div>
                             <div className="voice">
-                                <p className="name">Voice</p>
+                                <p className="name">{word['Voice'][this.state.language]}</p>
                                 <div className="box-upload">
                                     <div className="cov-upload">
                                         <div className="name-file">
-                                            <p className="name">Thai</p>
+                                            <p className="name">{word['Thai'][this.state.language]}</p>
                                         </div>
                                         <div className="btn-up">
                                             <Upload {...props_voice} fileList={this.state.fileList}>
-                                                <Button>Upload</Button>
+                                                <Button>{word['Upload'][this.state.language]}</Button>
                                             </Upload>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="sound-effect">
-                                <p className="name">Sound Effect</p>
+                                <p className="name">{word['Sound Effect'][this.state.language]}</p>
                                 <div className="box-upload">
                                     <div className="cov-upload">
                                         <div className="name-file">
-                                            <p className="name">Bell</p>
+                                            <p className="name">{word['Bell'][this.state.language]}</p>
                                         </div>
                                         <div className="btn-up">
                                             <Upload {...props_effect} fileList={this.state.fileList}>
-                                                <Button>Upload</Button>
+                                                <Button>{word['Upload'][this.state.language]}</Button>
                                             </Upload>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="voice-feedback">
-                                <p className="name">Voice feedback</p>
+                                <p className="name">{word['Voice feedback'][this.state.language]}</p>
                                 <div className="boxsetfeed">
                                     <div className="switchset">
                                         <Switch className="switcho" defaultChecked checked={this.state.statusSound} onChange={(e) => this.onChangevoice(e)} />

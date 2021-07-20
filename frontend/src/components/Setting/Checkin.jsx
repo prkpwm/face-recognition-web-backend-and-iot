@@ -11,14 +11,28 @@ import { RotateSpinner } from "react-spinners-kit";
 
 import 'antd/dist/antd.css';
 import './checkin.scss'
-
+import { GetLanguage } from "../../services/APIs/Setting";
 
 library.add(fas)
 
 
 const format = 'HH:mm';
 
+let word = {
+    'Done': { 'EN': 'Done', 'TH': 'เสร็จแล้ว' },
+    'Please try again.': { 'EN': 'Please try again.', 'TH': 'กรุณาลองอีกครั้ง.' },
+    'Check in': { 'EN': 'Check in', 'TH': 'เช็คอิน' },
+    'On time': { 'EN': 'On time', 'TH': 'ตรงเวลา' },
+    'Working day': { 'EN': 'Working day', 'TH': 'วันทำงาน' },
+    'Mon': { 'EN': 'Mon', 'TH': 'จันทร์' },
+    'Tue': { 'EN': 'Tue', 'TH': 'อังคาร' },
+    'Wed': { 'EN': 'Wed', 'TH': 'พุธ' },
+    'Thu': { 'EN': 'Thu', 'TH': 'พฤหัสบดี' },
+    'Fri': { 'EN': 'Fri', 'TH': 'ศุกร์' },
+    'Sat': { 'EN': 'Sat', 'TH': 'เสาร์' },
+    'Sun': { 'EN': 'Sun', 'TH': 'อาทิตย์' },
 
+}
 
 class Checkin extends React.Component {
 
@@ -26,6 +40,7 @@ class Checkin extends React.Component {
 
         super(props)
         this.state = {
+            language:"TH",
             mon: true,
             tue: true,
             wed: true,
@@ -78,6 +93,25 @@ class Checkin extends React.Component {
             .catch(_ModeError => {
                 window.location.href = "/password";
             })
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+
+
+                if (_Edit.data.status) {
+
+                    setTimeout(() => {
+                        this.setState({
+                            loading: false
+                        })
+                    }, 800);
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+
+                    })
+
+
+                }
+            })
     }
 
     onChangeOpenCheck(checked) { // status open-close checkin
@@ -90,7 +124,7 @@ class Checkin extends React.Component {
                 if (_StatusOpen.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -99,7 +133,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -126,7 +160,7 @@ class Checkin extends React.Component {
                 if (_TimeOpen.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -135,7 +169,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -159,7 +193,7 @@ class Checkin extends React.Component {
                 if (_SetMon.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -168,7 +202,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -190,7 +224,7 @@ class Checkin extends React.Component {
                 if (_SetTue.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -199,7 +233,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -220,7 +254,7 @@ class Checkin extends React.Component {
                 if (_SetWed.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -229,7 +263,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -251,7 +285,7 @@ class Checkin extends React.Component {
                 if (_SetThu.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -260,7 +294,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -281,7 +315,7 @@ class Checkin extends React.Component {
                 if (_SetFri.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -290,7 +324,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -311,7 +345,7 @@ class Checkin extends React.Component {
                 if (_SetSat.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -320,7 +354,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -341,7 +375,7 @@ class Checkin extends React.Component {
                 if (_SetSun.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -350,7 +384,7 @@ class Checkin extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -376,12 +410,12 @@ class Checkin extends React.Component {
                             <div className="icon-back">
                                 <a href="/setting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Check in</h1>
+                            <h1 className="hd"> {word['Check in'][this.state.language]}</h1>
                         </div>
                         <div className="cov-switch">
                             <div className="dis-ta">
                                 <div className="txt">
-                                    <p className="check">Check in</p>
+                                    <p className="check">{word['Check in'][this.state.language]}</p>
                                 </div>
                                 <div className="switchset">
                                     <Switch className="switcho" checked={this.state.open} onChange={(e) => this.onChangeOpenCheck(e)} />
@@ -389,7 +423,7 @@ class Checkin extends React.Component {
                             </div>
                         </div>
                         <div className="ontime">
-                            <p className="txt">On time</p>
+                            <p className="txt">{word['On time'][this.state.language]}</p>
                             <div className="time">
                                 <TimePicker
                                     format={"HH:mm"}
@@ -404,35 +438,35 @@ class Checkin extends React.Component {
                         </div>
 
                         <div className="onday">
-                            <p className="txt">Working day</p>
+                            <p className="txt">{word['Working day'][this.state.language]}</p>
                             <div className="select-day">
                                 {/* <Checkbox.Group style={{ width: '100%' }} onChange={(e) => { this.onChangeDay(e) }}> */}
                                 <div className="cov-tab">
                                     <div className="tab-select">
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeMon(e)} checked={this.state.mon}>Mon</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeMon(e)} checked={this.state.mon}>{word['Mon'][this.state.language]}</Checkbox>
                                         </div>
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeTue(e)} checked={this.state.tue}>Tue</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeTue(e)} checked={this.state.tue}>{word['Tue'][this.state.language]}</Checkbox>
                                         </div>
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeWed(e)} checked={this.state.wed}>Wed</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeWed(e)} checked={this.state.wed}>{word['Wed'][this.state.language]}</Checkbox>
                                         </div>
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeThu(e)} checked={this.state.thu}>Thu</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeThu(e)} checked={this.state.thu}>{word['Thu'][this.state.language]}</Checkbox>
                                         </div>
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeFri(e)} checked={this.state.fri}>Fri</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeFri(e)} checked={this.state.fri}>{word['Fri'][this.state.language]}</Checkbox>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="cov-tab">
                                     <div className="tab-select">
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeSat(e)} checked={this.state.sat}>Sat</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeSat(e)} checked={this.state.sat}>{word['Sat'][this.state.language]}</Checkbox>
                                         </div>
                                         <div className="btn-day">
-                                            <Checkbox className="check-box" onChange={(e) => this.onChangeSun(e)} checked={this.state.sun}>Sun</Checkbox>
+                                            <Checkbox className="check-box" onChange={(e) => this.onChangeSun(e)} checked={this.state.sun}>{word['Sun'][this.state.language]}</Checkbox>
                                         </div>
 
                                     </div>

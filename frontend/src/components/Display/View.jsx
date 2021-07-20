@@ -9,9 +9,15 @@ import { RotateSpinner } from "react-spinners-kit";
 import 'antd/dist/antd.css';
 import './view.scss'
 
-
+import { GetLanguage } from "../../services/APIs/Setting";
 library.add(fas)
+let word = {
 
+    'Save': { 'EN': 'Save', 'TH': 'บันทึก' },
+    'Please try again.': { 'EN': 'Please try again.', 'TH': 'กรุณาลองอีกครั้ง.' },
+    'Done': { 'EN': 'Save', 'TH': 'เสร็จแล้ว' },
+
+}
 function getBase64(img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -36,6 +42,7 @@ class Views extends React.Component {
 
         super(props)
         this.state = {
+            language: "TH",
             loading: false,
             loading_page: false,
             logo: "",
@@ -51,7 +58,7 @@ class Views extends React.Component {
             status_time: true,
             status_temp: true,
             color: "green",
-            fileImg:undefined
+            fileImg: undefined
         }
         this.onKeyUpWordWelcome = this.onKeyUpWordWelcome.bind(this);
         this.onKeyUpPlaceName = this.onKeyUpPlaceName.bind(this);
@@ -96,6 +103,25 @@ class Views extends React.Component {
             .catch(_DisplayError => {
                 window.location.href = "/password";
             })
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+
+
+                if (_Edit.data.status) {
+
+                    setTimeout(() => {
+                        this.setState({
+                            loading: false
+                        })
+                    }, 800);
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+
+                    })
+
+
+                }
+            })
     }
 
     onChangeColor = (e) => {
@@ -104,7 +130,7 @@ class Views extends React.Component {
         });
     };
 
-// upload image 
+    // upload image 
     handleChange = (info) => {
         if (info.file.status === 'uploading') {
             this.setState({ loading: true });
@@ -112,374 +138,374 @@ class Views extends React.Component {
         }
 
         setTimeout(() => {
-          const isLt2M = info.file.size / 1024 / 1024 < 2;
-          if (isLt2M && (info.file.type === 'image/jpeg' || info.file.type === 'image/png')) {
-            info.file.status = 'done'
-          } else {
-            info.file.status = 'error'
-          }
-          if (info.file.status === "done") {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, async  (imageUrl) =>{
-                console.log('img----',info.file.originFileObj)
-                this.setState({
-                    imageUrl,
-                    loading: false,
-                    fileImg:info.file.originFileObj
-                })
-                
-                const res = await updateLogo({
-                    image:this.state.fileImg
-                })
-                console.log('res---> ', res)
-                if(res.data.status){
+            const isLt2M = info.file.size / 1024 / 1024 < 2;
+            if (isLt2M && (info.file.type === 'image/jpeg' || info.file.type === 'image/png')) {
+                info.file.status = 'done'
+            } else {
+                info.file.status = 'error'
+            }
+            if (info.file.status === "done") {
+                // Get this url from response in real world.
+                getBase64(info.file.originFileObj, async (imageUrl) => {
+                    console.log('img----', info.file.originFileObj)
+                    this.setState({
+                        imageUrl,
+                        loading: false,
+                        fileImg: info.file.originFileObj
+                    })
+
+                    const res = await updateLogo({
+                        image: this.state.fileImg
+                    })
+                    console.log('res---> ', res)
+                    if (res.data.status) {
+                        message.success({
+                            content: word['Done'][this.state.language],
+                            className: 'message-done',
+                            style: {
+                                marginTop: '2vh',
+                            },
+                        });
+
+                    } else {
+                        message.error({
+                            content: word['Please try again.'][this.state.language],
+                            className: 'message-alert',
+                            style: {
+                                marginTop: '2vh',
+                            },
+                        });
+                    }
+                });
+            }
+        }, 1000)
+    }
+
+
+    onChangeStatuslogo(checked) {
+        this.setState({
+            status_logo: checked
+        })
+
+        setStatusLogo(checked)
+            .then(statusLogo => {
+                if (statusLogo.data.status) {
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
                         },
                     });
-                    
-                }else{
+                } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
                         },
                     });
                 }
-            });
-          }
-        }, 1000)    
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
-
-    onChangeStatuslogo(checked) {
-        this.setState({
-            status_logo:checked
-        })
-
-        setStatusLogo(checked)
-        .then(statusLogo => {
-            if(statusLogo.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
-    }
-
-    onKeyUpPlaceName(event){
+    onKeyUpPlaceName(event) {
         // var value = event.target.value
         if (event.charCode === 13) {
             // this.setState({ word_welcome: event.target.value });
             this.updatePlaceName(event.target.value)
-          }
+        }
     }
 
-    updatePlaceName(name_place){
+    updatePlaceName(name_place) {
         let PlaceValue = name_place;
-        console.log("placeValue: "+PlaceValue)
+        console.log("placeValue: " + PlaceValue)
         setNamePlace(PlaceValue)
-        .then(_Nameplace => {
-            if(_Nameplace.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
-        
+            .then(_Nameplace => {
+                if (_Nameplace.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
+
     }
 
 
     onChangeStatusname(checked) {
         this.setState({
-            status_name_place:checked
+            status_name_place: checked
         })
 
         setStatusNamePlace(checked)
-        .then(statusNamePlace => {
-            if(statusNamePlace.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(statusNamePlace => {
+                if (statusNamePlace.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
 
 
     onChangeDetect(checked) {
         this.setState({
-            status_frame:checked
+            status_frame: checked
         })
-        
+
         setStatusFrame(checked)
-        .then(_statusFrame => {
-            if(_statusFrame.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusFrame => {
+                if (_statusFrame.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
 
     onChangeFace(checked) {
         this.setState({
-            status_person:checked
+            status_person: checked
         })
-        
+
         setStatusPerson(checked)
-        .then(_statusFace => {
-            if(_statusFace.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusFace => {
+                if (_statusFace.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
-    updateWordWelcome(welcomeValue){
+    updateWordWelcome(welcomeValue) {
         let WelcomeValue = welcomeValue;
-        console.log("welcomeValue: "+WelcomeValue)
+        console.log("welcomeValue: " + WelcomeValue)
         setWelcomeWord(WelcomeValue)
-        .then(_welcomeWord => {
-            if(_welcomeWord.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_welcomeWord => {
+                if (_welcomeWord.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
-    onKeyUpWordWelcome(event){
+    onKeyUpWordWelcome(event) {
         // var value = event.target.value
         if (event.charCode === 13) {
             // this.setState({ word_welcome: event.target.value });
             this.updateWordWelcome(event.target.value)
-          }
+        }
     }
 
     onChangeStatusWordwelcome(checked) {
         this.setState({
-            status_word_welcome:checked
+            status_word_welcome: checked
         })
 
         setStatusWelcomeWord(checked)
-        .then(_statusWelcomeWord => {
-            if(_statusWelcomeWord.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusWelcomeWord => {
+                if (_statusWelcomeWord.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
 
     onChangeNickname(checked) {
         this.setState({
-            status_nickname:checked
+            status_nickname: checked
         })
-        
+
         setStatusNickname(checked)
-        .then(_statusNickname => {
-            if(_statusNickname.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusNickname => {
+                if (_statusNickname.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
     onChangeGroup(checked) {
         this.setState({
-            status_group:checked
+            status_group: checked
         })
-        
+
         setStatusGroup(checked)
-        .then(_statusGroup => {
-            if(_statusGroup.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusGroup => {
+                if (_statusGroup.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
     onChangeTime(checked) {
         this.setState({
-            status_time:checked
+            status_time: checked
         })
-        
+
         setStatusTime(checked)
-        .then(_statusCheckTime => {
-            if(_statusCheckTime.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusCheckTime => {
+                if (_statusCheckTime.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
     onChangeTem(checked) {
         this.setState({
-            status_temp:checked
+            status_temp: checked
         })
-        
+
         setStatusTemp(checked)
-        .then(_statusTemp => {
-            if(_statusTemp.data.status){
-                message.success({
-                    content: 'Done',
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: 'Please try again.',
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+            .then(_statusTemp => {
+                if (_statusTemp.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
     render() {
@@ -542,8 +568,8 @@ class Views extends React.Component {
                                             <div className="cov-ta">
                                                 <div className="logo">
                                                     <div className="circle">
-                                                        {this.state.logo? <img src={"/image/Logo/" + this.state.logo} alt="" className="img-fluid" /> : null }
-                                                        
+                                                        {this.state.logo ? <img src={"/image/Logo/" + this.state.logo} alt="" className="img-fluid" /> : null}
+
                                                     </div>
                                                 </div>
                                                 <div className="nameoff">
@@ -557,12 +583,12 @@ class Views extends React.Component {
                                         {this.state.status_person ? <div className="cov-img-default">
                                             <img src="/image/Human.png" alt="" className="img-fluid" />
                                         </div> : null}
-                                        
+
                                         <div className="result">
                                             <div className="name-result">
                                                 <p className="status-process">SUCCESS</p>
-                                                {this.state.status_nickname ? <p className="name-user">Bai toeyyy</p> : null} 
-                                                {this.state.status_group ? <p className="group">Student</p> : null}   
+                                                {this.state.status_nickname ? <p className="name-user">Bai toeyyy</p> : null}
+                                                {this.state.status_group ? <p className="group">Student</p> : null}
                                             </div>
                                             <div className="row list-result">
                                                 <div className="col-lg-6 time">
@@ -576,7 +602,7 @@ class Views extends React.Component {
                                                                 <p className="status-time">มาสาย</p>
                                                             </div>
                                                         </div>
-                                                    </div> : null}    
+                                                    </div> : null}
                                                 </div>
                                                 <div className="col-lg-6 temperature">
                                                     {this.state.status_temp ? <div className="box-tem">
@@ -602,7 +628,7 @@ class Views extends React.Component {
                                 <p className="hname">Color Preset</p>
                             </div>
                             <div className="box-list-color">
-                                <Radio.Group className="group-check" onChange={(e) => {this.onChangeColor(e)}} value={this.state.color}>
+                                <Radio.Group className="group-check" onChange={(e) => { this.onChangeColor(e) }} value={this.state.color}>
                                     <Radio className="radio-check" style={radioStyle} value={"Green"}>
                                         <div className="color green">
                                             <div className="circle"></div>
@@ -737,7 +763,7 @@ class Views extends React.Component {
                                         <div className="cov-tasetword">
                                             <div className="cov-input-word">
                                                 <p className="hd-input">Welcome word</p>
-                                                <Input className="wordwel" onKeyPress={this.onKeyUpWordWelcome} placeholder={this.state.word_welcome ? this.state.word_welcome : ""}/>
+                                                <Input className="wordwel" onKeyPress={this.onKeyUpWordWelcome} placeholder={this.state.word_welcome ? this.state.word_welcome : ""} />
                                             </div>
                                             <div className="switch">
                                                 <Switch className="switcho" defaultChecked checked={this.state.status_word_welcome} onChange={(e) => this.onChangeStatusWordwelcome(e)} />
@@ -758,7 +784,7 @@ class Views extends React.Component {
                                                 <p className="hd-input">Group</p>
                                             </div>
                                             <div className="switchtwo">
-                                                <Switch className="switcho" defaultChecked checked ={this.state.status_group} onChange={(e) => this.onChangeGroup(e)} />
+                                                <Switch className="switcho" defaultChecked checked={this.state.status_group} onChange={(e) => this.onChangeGroup(e)} />
                                             </div>
                                         </div>
 
@@ -777,7 +803,7 @@ class Views extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="switchtwo">
-                                                <Switch className="switcho" defaultChecked checked ={this.state.status_time} onChange={(e) => this.onChangeTime(e)} />
+                                                <Switch className="switcho" defaultChecked checked={this.state.status_time} onChange={(e) => this.onChangeTime(e)} />
                                             </div>
                                         </div>
 
@@ -796,7 +822,7 @@ class Views extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="switchtwo">
-                                                <Switch className="switcho" defaultChecked checked = {this.state.status_temp} onChange={(e) => this.onChangeTem(e)} />
+                                                <Switch className="switcho" defaultChecked checked={this.state.status_temp} onChange={(e) => this.onChangeTem(e)} />
                                             </div>
                                         </div>
                                     </div>

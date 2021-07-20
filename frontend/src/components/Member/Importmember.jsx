@@ -7,7 +7,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import 'antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './importmember.scss'
-
+import { GetLanguage } from "../../services/APIs/Setting";
 library.add(fas)
 
 const { Option } = Select;
@@ -19,10 +19,20 @@ class Importmember extends React.Component {
 
         super(props)
         this.state = {
+            language: 'TH',
         }
 
     }
-
+    componentDidMount() {
+        GetLanguage() // Get language for display
+            .then(_Edit => {
+                if (_Edit.data.status) {
+                    this.setState({
+                        language: _Edit.data.msg[0].lang,
+                    })
+                }
+            })
+    }
 
     handleChange(value) {
         console.log(`selected ${value}`);
@@ -50,7 +60,7 @@ class Importmember extends React.Component {
                             </div>
                             <div className="select-file">
                                 <div className="cov-box">
-                                    <p className="txt">Select file</p>
+                                    <p className="txt">{this.state.language == 'TH' ? 'เลือกไฟล์': 'Select file'}</p>
                                     <div className="cov-btn-file">
                                         <button type="button" className="btn btn-secondary btn-list"><img src="/image/icon/import@2x.png" alt="" className="img-fluid icon-import" /></button>
                                     </div>
@@ -58,7 +68,7 @@ class Importmember extends React.Component {
                             </div>
                         </div>
                         <div className="cov-btn-add">
-                            <button type="button" disabled className="btn btn-secondary btn-add">Add</button>
+                            <button type="button" disabled className="btn btn-secondary btn-add">{this.state.language == 'TH' ? 'เพิ่ม': 'Add'}</button>
                         </div>
                         <div className="list-member-add">
                             <div className="bs-example">
@@ -84,17 +94,17 @@ class Importmember extends React.Component {
                                                 <div className="card-body">
                                                     <div className="edit-profile">
                                                         <div className="form-group">
-                                                            <label className="hinput">Nickname</label>
+                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเล่น': 'Nickname'}</label>
                                                             <input type="text" className="form-control" placeholder="Nickname" />
                                                         </div>
                                                         <div className="form-group">
-                                                            <label className="hinput">Full Name</label>
+                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเต็ม': 'Full Name'}</label>
                                                             <input type="text" className="form-control full" placeholder="Name" />
                                                             <input type="text" className="form-control last" placeholder="Lastname" />
                                                         </div>
 
                                                         <div className="form-group">
-                                                            <label className="hinput">Report to</label>
+                                                            <label className="hinput">{this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</label>
                                                             <input type="email" className="form-control email" placeholder="Email" />
                                                             <input type="text" className="form-control phone" placeholder="Phone number" />
                                                             <input type="text" className="form-control line" placeholder="LineID" />
@@ -121,17 +131,17 @@ class Importmember extends React.Component {
                                                 <div className="card-body">
                                                     <div className="edit-profile">
                                                         <div className="form-group">
-                                                            <label className="hinput">Nickname</label>
+                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเล่น': 'Nickname'}</label>
                                                             <input type="text" className="form-control" placeholder="Nickname" />
                                                         </div>
                                                         <div className="form-group">
-                                                            <label className="hinput">Full Name</label>
+                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเต็ม': 'Full Name'}</label>
                                                             <input type="text" className="form-control full" placeholder="Name" />
                                                             <input type="text" className="form-control last" placeholder="Lastname" />
                                                         </div>
 
                                                         <div className="form-group">
-                                                            <label className="hinput">Report to</label>
+                                                            <label className="hinput">{this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</label>
                                                             <input type="email" className="form-control email" placeholder="Email" />
                                                             <input type="text" className="form-control phone" placeholder="Phone number" />
                                                             <input type="text" className="form-control line" placeholder="LineID" />
