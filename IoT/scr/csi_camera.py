@@ -116,7 +116,7 @@ class CSI_Camera:
     # Here we directly select sensor_mode 3 (1280x720, 59.9999 fps)
     def create_gstreamer_pipeline(
         self,
-        sensor_id=0,
+        sensor_id=1,
         sensor_mode=3,
         display_width=1280,
         display_height=720,

@@ -5,17 +5,10 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import './setting.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
 library.add(fas)
-let word = {
-    'Setting': { 'EN': 'Setting', 'TH': 'การตั้งค่า' },
-    'Scanner mode': { 'EN': 'Scanner mode', 'TH': 'โหมดสแกนเนอร์' },
-    'Display': { 'EN': 'Display', 'TH': 'จอแสดงผล' },
-    'Sound': { 'EN': 'Sound', 'TH': 'เสียง' },
-    'Language': { 'EN': 'Language', 'TH': 'ภาษา' },
-    'Check in': { 'EN': 'Check in', 'TH': 'เช็คอิน' },
-    'Report': { 'EN': 'Report', 'TH': 'รายงาน' },
-}
+let word = require('../../word.json');
 class Setting extends React.Component {
 
     constructor(props) {
@@ -23,18 +16,18 @@ class Setting extends React.Component {
         super(props)
         this.state = {
             language: 'TH',
+            loading: true
+
         }
 
     }
     componentDidMount(){
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-                if (_Edit.data.status) {
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-                    })
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
     }
 
 
@@ -47,6 +40,9 @@ class Setting extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

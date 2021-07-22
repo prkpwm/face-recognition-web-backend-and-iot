@@ -1,0 +1,354 @@
+{
+    "Network Connection": {
+        "EN": "Network Connection",
+        "TH": "การเชื่อมต่อเครือข่าย"
+    },
+    "oclock": {
+        "EN": "O'clock",
+        "TH": "นาฬิกา"
+    },
+    "Scanning pass": {
+        "EN": "Scanning pass",
+        "TH": "อุณหภูมิผ่านเกณฑ์"
+    },
+    "Scanning not pass": {
+        "EN": "Scanning not pass",
+        "TH": "อุณหภูมิไม่ผ่านเกณฑ์"
+    },
+    "Please stand in front of camara.": {
+        "EN": "Please stand in front of camara.",
+        "TH": "กรุณายืนอยู่หน้ากล้อง"
+    },
+    "Contact us": {
+        "EN": "Contact us",
+        "TH": "ติดต่อเรา"
+    },
+    "GridWhiz Descripter": {
+        "EN": "GridWhiz is a system consulting company and deploy technology for administration and Electrical work for various organizations",
+        "TH": "GridWhiz เป็น บริษัท ที่รับปรึกษาวางระบบและ ปรับใช้เทคโนโลยีเพื่อการบริหารงานและ งานระบบไฟฟ้าให้กับองค์กรต่างๆ"
+    },
+    "GridWhiz Headquarters": {
+        "EN": "GridWhiz (Thailand) Co. Ltd. (Headquarters)",
+        "TH": "บริษัท กริดวิซ (ประเทศไทย) จำกัด สำนักงานใหญ่"
+    },
+    "GridWhiz Address": {
+        "EN": "184/185 Forum Tower 28th Fl. Ratchadapisek Rd. Huai Khwang, Bangkok 10310\n Tel: +66 2061 9519\n Fax: +66 2061 9519 \nHot-line Support Tel: +66 9 7185 0083",
+        "TH": "เลขที่ 184/185 อาคารฟอรั่มทาวเวอร์ ชั้น 28 ถนนรัชดาภิเษก แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพมหานคร 10310\n โทรศัพท์: +66 2062 9519 \nโทรสาร: +66 2062 9519 \nโทรศัพท์สายด่วน: +66 8 3777 8822"
+    },
+    "Check": {
+        "EN": "Check",
+        "TH": "ตรวจสอบ"
+    },
+    "Scanner Ver.": {
+        "EN": "Scanner Ver.",
+        "TH": "เวอร์ชั่นระบบ"
+    },
+    "Last update": {
+        "EN": "Last update",
+        "TH": "อัพเดทครั้งล่าสุดเมื่อ"
+    },
+    "Display setting": {
+        "EN": "Display setting",
+        "TH": "การตั้งค่าจอแสดงผล"
+    },
+    "SUCCESS": {
+        "EN": "SUCCESS",
+        "TH": "สำเร็จ"
+    },
+    "Late": {
+        "EN": "Late",
+        "TH": "มาสาย"
+    },
+    "Pass": {
+        "EN": "Pass",
+        "TH": "อุณหภูมิผ่านเกณฑ์"
+    },
+    "Screen saver": {
+        "EN": "Screen saver",
+        "TH": " สกรีน เซฟเวอร์"
+    },
+    "Wrong password": {
+        "EN": "Wrong password",
+        "TH": "รหัสผ่านไม่ถูกต้อง"
+    },
+    "Face recognition": {
+        "EN": "Face recognition",
+        "TH": "การจดจำใบหน้า"
+    },
+    "Thermal scan": {
+        "EN": "Thermal scan",
+        "TH": "สแกนความร้อน"
+    },
+    "Temperature range set": {
+        "EN": "Temperature range set",
+        "TH": "ตั้งช่วงอุณหภูมิ"
+    },
+    "Highest": {
+        "EN": "Highest",
+        "TH": "สูงสุด"
+    },
+    "Lowest": {
+        "EN": "Lowest",
+        "TH": "ต่ำสุด"
+    },
+    "On time": {
+        "EN": "On time",
+        "TH": "ตรงเวลา"
+    },
+    "Working day": {
+        "EN": "Working day",
+        "TH": "วันทำงาน"
+    },
+    "Mon": {
+        "EN": "Mon",
+        "TH": "จ"
+    },
+    "Tue": {
+        "EN": "Tue",
+        "TH": "อ"
+    },
+    "Wed": {
+        "EN": "Wed",
+        "TH": "พ"
+    },
+    "Thu": {
+        "EN": "Thu",
+        "TH": "พฤ"
+    },
+    "Fri": {
+        "EN": "Fri",
+        "TH": "ศ"
+    },
+    "Sat": {
+        "EN": "Sat",
+        "TH": "ส"
+    },
+    "Sun": {
+        "EN": "Sun",
+        "TH": "อา"
+    },
+    "Connect": {
+        "EN": "Connect",
+        "TH": "เชื่อมต่อ"
+    },
+    "Connection failed.": {
+        "EN": "Connection failed.",
+        "TH": "รหัสผ่าน"
+    },
+    "Main Menu": {
+        "EN": "Main Menu",
+        "TH": "เมนูหลัก"
+    },
+    "Member Setting": {
+        "EN": "Member Setting",
+        "TH": "การตั้งค่าสมาชิก"
+    },
+    "Network configuration": {
+        "EN": "Network configuration",
+        "TH": "ระบบเครือข่าย"
+    },
+    "Check for update": {
+        "EN": "Check for update",
+        "TH": "อัพเดทระบบ"
+    },
+    "About us": {
+        "EN": "About us",
+        "TH": "เกี่ยวกับเรา"
+    },
+    "Nickname (show on display)": {
+        "EN": "Nickname (show on display)",
+        "TH": "ชื่อเล่น (แสดงบนจอแสดงผล)"
+    },
+    "Name": {
+        "EN": "Name",
+        "TH": "ชื่อ"
+    },
+    "Last name": {
+        "EN": "Last name",
+        "TH": "นามสกุล"
+    },
+    "Register": {
+        "EN": "Register",
+        "TH": "การลงทะเบียน"
+    },
+    "Phone number": {
+        "EN": "Phone number",
+        "TH": "หมายเลขโทรศัพท์"
+    },
+    "Line id": {
+        "EN": "Line id",
+        "TH": "ไลน์ไอดี"
+    },
+    "Member List": {
+        "EN": "Member List",
+        "TH": "รายชื่อสมาชิก"
+    },
+    "Add": {
+        "EN": "Add",
+        "TH": "เพิ่ม"
+    },
+    "Select file": {
+        "EN": "Select file",
+        "TH": "เลือกไฟล์"
+    },
+    "Nickname": {
+        "EN": "Nickname",
+        "TH": "ชื่อเล่น"
+    },
+    "Full Name": {
+        "EN": "Full Name",
+        "TH": "ชื่อเต็ม"
+    },
+    "Group type": {
+        "EN": "Group type",
+        "TH": "ประเภทกลุ่ม"
+    },
+    "Done": {
+        "EN": "Done",
+        "TH": "เสร็จแล้ว"
+    },
+    "Please try again.": {
+        "EN": "Please try again.",
+        "TH": "กรุณาลองอีกครั้ง."
+    },
+    "Group manager": {
+        "EN": "Group manager",
+        "TH": "จัดการกลุ่ม"
+    },
+    "Edit group": {
+        "EN": "Edit group",
+        "TH": "แก้ไขกลุ่ม"
+    },
+    "Add new group": {
+        "EN": "Add new group",
+        "TH": "เพิ่มกลุ่มใหม่"
+    },
+    "New Group": {
+        "EN": "New Group",
+        "TH": "กลุ่มใหม่"
+    },
+    "Setting": {
+        "EN": "Setting",
+        "TH": "การตั้งค่า"
+    },
+    "Sound": {
+        "EN": "Sound",
+        "TH": "เสียง"
+    },
+    "Master Volume": {
+        "EN": "Master Volume",
+        "TH": "ปรับระดับเสียง"
+    },
+    "Thai": {
+        "EN": "Thai",
+        "TH": "ไทย"
+    },
+    "Voice": {
+        "EN": "Voice",
+        "TH": "เสียงภาษา"
+    },
+    "Sound Effect": {
+        "EN": "Sound Effect",
+        "TH": "เสียงประกอบ"
+    },
+    "Upload": {
+        "EN": "Upload",
+        "TH": "อัพโหลด"
+    },
+    "Bell": {
+        "EN": "Bell",
+        "TH": "ระฆัง"
+    },
+    "Voice feedback": {
+        "EN": "Voice feedback",
+        "TH": "เสียงตอบรับ"
+    },
+    "Scanner mode": {
+        "EN": "Scanner mode",
+        "TH": "โหมดสแกนเนอร์"
+    },
+    "Display": {
+        "EN": "Display",
+        "TH": "จอแสดงผล"
+    },
+    "Language": {
+        "EN": "Language",
+        "TH": "ภาษา"
+    },
+    "Check in": {
+        "EN": "Check in",
+        "TH": "เช็คอิน"
+    },
+    "Daily report": {
+        "EN": "Daily report",
+        "TH": "รายงานประจำวัน"
+    },
+    "Report": {
+        "EN": "Report",
+        "TH": "รายงาน"
+    },
+    "Group selection": {
+        "EN": "Group selection",
+        "TH": "เลือกกลุ่ม"
+    },
+    "SMS": {
+        "EN": "SMS",
+        "TH": "ข้อความ"
+    },
+    "Email": {
+        "EN": "Email",
+        "TH": "อีเมล"
+    },
+    "Member setting": {
+        "EN": "Member setting",
+        "TH": "การตั้งค่าสมาชิก"
+    },
+    "General profile": {
+        "EN": "General profile",
+        "TH": "โปรไฟล์ทั่วไป"
+    },
+    "Student": {
+        "EN": "Student",
+        "TH": "นักเรียน"
+    },
+    "Teacher": {
+        "EN": "Teacher",
+        "TH": "ครู"
+    },
+    "Report to": {
+        "EN": "Report to",
+        "TH": "รายงานถึง"
+    },
+    "Save": {
+        "EN": "Save",
+        "TH": "บันทึก"
+    },
+    "Password Setting": {
+        "EN": "Password Setting",
+        "TH": "การตั้งค่ารหัสผ่าน"
+    },
+    "Old Password": {
+        "EN": "Old Password",
+        "TH": "รหัสผ่านเดิม"
+    },
+    "New Password": {
+        "EN": "New Password",
+        "TH": "รหัสผ่านใหม่"
+    },
+    "Password": {
+        "EN": "Password",
+        "TH": "รหัสผ่าน"
+    },
+    "Confirm Password": {
+        "EN": "Confirm Password",
+        "TH": "ยืนยันรหัสผ่าน"
+    },
+    "The password is less than 8 characters.": {
+        "EN": "Save",
+        "TH": "รหัสผ่านมีความยาวน้อยกว่า 8 ตัวอักษร"
+    },
+    "Not Change Password": {
+        "EN": "Save",
+        "TH": "ไม่เปลี่ยนรหัสผ่าน"
+    }
+}

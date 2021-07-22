@@ -18,21 +18,7 @@ library.add(fas)
 
 const format = 'HH:mm';
 
-let word = {
-    'Done': { 'EN': 'Done', 'TH': 'เสร็จแล้ว' },
-    'Please try again.': { 'EN': 'Please try again.', 'TH': 'กรุณาลองอีกครั้ง.' },
-    'Check in': { 'EN': 'Check in', 'TH': 'เช็คอิน' },
-    'On time': { 'EN': 'On time', 'TH': 'ตรงเวลา' },
-    'Working day': { 'EN': 'Working day', 'TH': 'วันทำงาน' },
-    'Mon': { 'EN': 'Mon', 'TH': 'จันทร์' },
-    'Tue': { 'EN': 'Tue', 'TH': 'อังคาร' },
-    'Wed': { 'EN': 'Wed', 'TH': 'พุธ' },
-    'Thu': { 'EN': 'Thu', 'TH': 'พฤหัสบดี' },
-    'Fri': { 'EN': 'Fri', 'TH': 'ศุกร์' },
-    'Sat': { 'EN': 'Sat', 'TH': 'เสาร์' },
-    'Sun': { 'EN': 'Sun', 'TH': 'อาทิตย์' },
-
-}
+let word = require('../../word.json');
 
 class Checkin extends React.Component {
 
@@ -40,7 +26,7 @@ class Checkin extends React.Component {
 
         super(props)
         this.state = {
-            language:"TH",
+            language: "TH",
             mon: true,
             tue: true,
             wed: true,
@@ -50,7 +36,7 @@ class Checkin extends React.Component {
             sun: true,
             time: moment().format(),
             open: true,
-            loading: false
+            loading: true
         }
 
     }
@@ -93,25 +79,12 @@ class Checkin extends React.Component {
             .catch(_ModeError => {
                 window.location.href = "/password";
             })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-
-
-                if (_Edit.data.status) {
-
-                    setTimeout(() => {
-                        this.setState({
-                            loading: false
-                        })
-                    }, 800);
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-
-                    })
-
-
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
     }
 
     onChangeOpenCheck(checked) { // status open-close checkin
@@ -422,7 +395,7 @@ class Checkin extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="ontime">
+                        <div className="ontime" >
                             <p className="txt">{word['On time'][this.state.language]}</p>
                             <div className="time">
                                 <TimePicker
@@ -433,7 +406,10 @@ class Checkin extends React.Component {
                                     popupClassName={'select-time'}
                                     showNow={false}
                                     onSelect={(t) => { this.TimeSelect(t) }}
+                                    autoFocus={true}
+                       
                                 />
+                               
                             </div>
                         </div>
 

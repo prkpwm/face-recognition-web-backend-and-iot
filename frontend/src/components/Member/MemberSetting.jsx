@@ -4,11 +4,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
 import './membersetting.scss'
 
 library.add(fas)
-
+let word = require('../../word.json');
 
 class MemberSetting extends React.Component {
 
@@ -17,18 +18,17 @@ class MemberSetting extends React.Component {
         super(props)
         this.state = {
             language: 'TH',
+            loading: true
         }
 
     }
     componentDidMount() {
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-                if (_Edit.data.status) {
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-                    })
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
     }
 
 
@@ -41,12 +41,15 @@ class MemberSetting extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                 <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
                                 <a href="/menu" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">{this.state.language == 'TH' ? 'การตั้งค่าสมาชิก': 'Member setting'}</h1>
+                            <h1 className="hd">{word['Member setting'][this.state.language]}</h1>
                         </div>
                         <div className="cov-list-menu">
                             <div className="box-menu">
@@ -55,7 +58,7 @@ class MemberSetting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/Member/group.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == 'TH' ? 'การจัดการกลุ่ม': 'Group manager'}</p>
+                                        <p className="name">{word['Group manager'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -63,7 +66,7 @@ class MemberSetting extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/Member/memberlist.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == 'TH' ? 'รายชื่อสมาชิก': 'Member list'}</p>
+                                        <p className="name">{word['Member List'][this.state.language]}</p>
                                     </a>
                                 </div>
                             </div>

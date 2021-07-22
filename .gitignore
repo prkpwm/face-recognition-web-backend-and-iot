@@ -1,4 +1,3 @@
-IoT/model/*
 IoT/video_freeze/*
 IoT/video/*
 IoT/scr/image_face_cropped/*
@@ -7,3 +6,4 @@ backend/go/*
 .DS_Store
 .env
 *.swp
+*.vscode

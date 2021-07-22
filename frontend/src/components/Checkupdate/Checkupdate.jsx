@@ -7,6 +7,7 @@ import { Switch } from 'antd';
 import 'antd/dist/antd.css';
 import './checkupdate.scss'
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
 
 library.add(fas)
@@ -16,13 +17,7 @@ library.add(fas)
 // let word = {'':{'EN':'','TH':''},
 
 //         }
-
-let word = {'Check for update':{'EN':'Check for update','TH':'ตรวจสอบสำหรับการปรับปรุง'},
-            'Check':{'EN':'Check','TH':'ตรวจสอบ'},
-            'Scanner Ver.':{'EN':'Scanner Ver.','TH':'เวอร์ชั่นสแกนเนอร์'},
-            'Last update':{'EN':'Last update','TH':'การปรับปรุงครั้งล่าสุด'},
-
-        }
+let word = require('../../word.json');
 
 class Checkupdate extends React.Component {
 
@@ -79,6 +74,9 @@ class Checkupdate extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

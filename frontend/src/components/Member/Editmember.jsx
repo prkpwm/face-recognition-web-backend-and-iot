@@ -9,10 +9,12 @@ import "antd/dist/antd.css";
 import "./editmember.scss";
 import { GetMemberListByID } from "../../services/APIs/Member"
 import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
 library.add(fas);
 
 const { Option } = Select;
+let word = require('../../word.json');
 
 class Editmember extends React.Component {
   constructor(props) {
@@ -28,6 +30,7 @@ class Editmember extends React.Component {
       phone: "",
       line: "",
       language: 'TH',
+      loading: true
     };
   }
 
@@ -40,12 +43,13 @@ class Editmember extends React.Component {
       .then(memberByID => {
         console.log(memberByID.data.msg)
         if (memberByID.data.status) {
-
           setTimeout(() => {
             this.setState({
-              loading_page: false
+              language: localStorage.getItem('lang'),
+              loading: false
             })
           }, 800);
+
 
 
           this.setState({
@@ -65,14 +69,7 @@ class Editmember extends React.Component {
       .catch(_DisplayError => {
         window.location.href = "/password";
       })
-    GetLanguage() // Get language for display
-      .then(_Edit => {
-        if (_Edit.data.status) {
-          this.setState({
-            language: _Edit.data.msg[0].lang,
-          })
-        }
-      })
+
   }
 
   handleChange(event) {
@@ -93,6 +90,9 @@ class Editmember extends React.Component {
     return (
       <div>
         <div className="size-web">
+          <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+            <RotateSpinner size={150} loading={this.state.loading} />
+          </div>
           <div className="cov-menu">
             <div className="hmenu">
               <div className="icon-back">
@@ -100,11 +100,11 @@ class Editmember extends React.Component {
                   <FontAwesomeIcon icon={["fas", "less-than"]} />
                 </a>
               </div>
-              <h1 className="hd">{ this.state.language == 'TH' ? 'การตั้งค่าสมาชิก': 'Member setting'}</h1>
+              <h1 className="hd">{word['Member setting'][this.state.language]}</h1>
             </div>
             <div className="form-regis">
               <div className="box-general">
-                <p className="hd-detail">{ this.state.language == 'TH' ? 'โปรไฟล์ทั่วไป': 'General profile'}</p>
+                <p className="hd-detail">{word['Save'][this.state.language]}</p>
                 <div className="form-row">
                   <div className="col-lg-8 colname">
                     <input
@@ -170,19 +170,17 @@ class Editmember extends React.Component {
                     }}
                   >
                     <Option className="option-segroup" value="STUDENT">
-                    { this.state.language == 'TH' ? 'นักเรียน': 'Student'}
+                      {word['Student'][this.state.language]}
                     </Option>
                     <Option className="option-segroup" value="TEACHER">
-                    { this.state.language == 'TH' ? 'Teacher': 'Teacher'}
+                      {word['Teacher'][this.state.language]}
                     </Option>
-                    <Option className="option-segroup" value="STUDENT2">
-                    { this.state.language == 'TH' ? 'นักเรียน2': 'Student2'}
-                    </Option>
+
                   </Select>
                 </div>
               </div>
               <div className="box-address-report">
-                <p className="hd-detail">{ this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</p>
+                <p className="hd-detail">{word['Report to'][this.state.language]}</p>
                 <div className="form-group boxemail">
                   <input
                     type="email"
@@ -229,7 +227,7 @@ class Editmember extends React.Component {
                     type="button"
                     className="btn btn-primary btn-save-data"
                   >
-                   { this.state.language == 'TH' ? 'บันทึก': 'Save'} 
+                    {word['Save'][this.state.language]}
                   </button>
                 </div>
               </div>

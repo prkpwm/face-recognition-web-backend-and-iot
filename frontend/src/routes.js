@@ -16,7 +16,7 @@ import {Checkupdate} from './components/Checkupdate';
 import {SettingPassword} from './components/SettingPassword';
 import {MaskDetection} from './components/MaskDetection';
 import {Display, Views} from './components/Display';
-import {NetworkConfig} from './components/NetworkConfig';
+import {NetworkConfig,NetworkConnect} from './components/NetworkConfig';
 
 
 
@@ -50,6 +50,7 @@ export default () => {
                       <Route exact path={'/report'} component={Report} />
                       <Route exact path={'/check'} component={Checkin} />
                       <Route exact path={'/maskdetection'} component={MaskDetection} />
+                      <Route exact path={'/NetworkConnect'} component={NetworkConnect} />
                       <Route exact path={'/NetworkConfig'} component={NetworkConfig} />
                       <Route component={NotFound} />
                       </Switch>

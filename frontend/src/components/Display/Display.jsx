@@ -7,19 +7,10 @@ import { Slider, InputNumber, Upload, message, Button, Switch } from 'antd';
 import 'antd/dist/antd.css';
 import './display.scss'
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
-
+import { RotateSpinner } from "react-spinners-kit";
 
 library.add(fas)
-let word = {
-    'Display setting': { 'EN': 'Display setting', 'TH': 'การตั้งค่าการแสดงผล' },
-    'SUCCESS': { 'EN': 'SUCCESS', 'TH': 'สำเร็จ' },
-    'Late': { 'EN': 'Late', 'TH': 'มาสาย' },
-    'Pass': { 'EN': 'Pass', 'TH': 'อุณหภูมิผ่านเกณฑ์' },
-    'Display': { 'EN': 'Display', 'TH': 'การแสดงผล' },
-    'Screen saver': { 'EN': 'Screen saver', 'TH': ' สกรีน เซฟเวอร์' },
-
-
-}
+let word = require('../../word.json');
 
 
 class Display extends React.Component {
@@ -29,6 +20,7 @@ class Display extends React.Component {
         super(props)
         this.state = {
             language:"TH",
+            loading: false
 
         }
 
@@ -53,6 +45,7 @@ class Display extends React.Component {
                         language: _Edit.data.msg[0].lang,
 
                     })
+                    localStorage.setItem('lang',_Edit.data.msg[0].lang) 
 
 
                 }
@@ -67,6 +60,9 @@ class Display extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

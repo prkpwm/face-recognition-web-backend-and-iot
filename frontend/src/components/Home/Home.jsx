@@ -8,12 +8,13 @@ import socketIOClient from "socket.io-client";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { GetLanguage } from "../../services/APIs/Setting";
-
+import { getResult } from "../../services/APIs/recognition";
+import { RotateSpinner } from "react-spinners-kit";
 import './home.scss'
 const axios = require('axios');
 library.add(fas)
 
-
+let word = require('../../word.json');
 // const defaultOptions = {
 //     loop: true,
 //     autoplay: true,
@@ -46,6 +47,7 @@ class Home extends React.Component {
             response: [],
             weather_info: [],
             language: 'TH',
+            loading: false
         }
 
     }
@@ -77,14 +79,20 @@ class Home extends React.Component {
                     })
                 }
             })
-        // const socket = socketIOClient(ENDPOINT);
-        // socket.on("predict_face", data => {
-        //     this.setState({
-        //         response: data
-        //     })
-        // });
+        const socket = socketIOClient(ENDPOINT);
+        socket.on("predict_face", data => {
+            this.setState({
+                response: data
+            })
+        });
 
     }
+
+    Switchtosetting() { // action show button 
+        var element = document.getElementById("setting");
+        element.classList.toggle("show");
+    }
+
     TimeValid() { // action show button 
         if (hours > hour_set) {
             return true
@@ -94,9 +102,13 @@ class Home extends React.Component {
         return false
     }
 
-    Switchtosetting() { // action show button 
-        var element = document.getElementById("setting");
-        element.classList.toggle("show");
+    getRes() { // action show button 
+        getResult() // Get language for display
+            .then(_Edit => {
+                if (_Edit.data.status) {
+                    console.log(_Edit.data)
+                }
+            })
     }
 
     pm25_color(num) {
@@ -105,10 +117,10 @@ class Home extends React.Component {
         let means_en = ["Very good", "good", "moderate", "starting to affect health", "affect health"]
         for (let i = 0; i < colors.length; i++) {
             if (num <= colors[i]) {
-                return (this.state.language=="TH" ? means_th[i] :means_en[i]) 
+                return (this.state.language == "TH" ? means_th[i] : means_en[i])
             }
         }
-        return (this.state.language=="TH" ? means_th[means_th.length - 1] :means_en[means_en.length - 1]) 
+        return (this.state.language == "TH" ? means_th[means_th.length - 1] : means_en[means_en.length - 1])
     }
 
 
@@ -266,6 +278,9 @@ class Home extends React.Component {
             // </div>
             <div>
                 <div className="size-web">
+                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="stream" onClick={() => { this.Switchtosetting() }}>
                         <div className="btn-tologin" id="setting">
                             <a href="/password" className="link-login"><FontAwesomeIcon icon={['fas', 'tools']} /></a>
@@ -301,7 +316,7 @@ class Home extends React.Component {
                             face_valid ?
                                 <div className="result">
                                     <div className="name-result">
-                                        <p className="status-process">SUCCESS</p>
+                                        <p className="status-process">{word['Language'][this.state.language]}SUCCESS</p>
                                         <p className="name-user">Bai toeyyy</p>
                                         <p className="group">Student</p>
                                     </div>
@@ -314,7 +329,7 @@ class Home extends React.Component {
                                                     </div>
                                                     <div className="result-num">
                                                         <p className="num">09.09</p>
-                                                        <p className="status-time">มาสาย</p>
+                                                        <p className="status-time">{word['Language'][this.state.language]}มาสาย</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,7 +339,7 @@ class Home extends React.Component {
                                                 <div className="cov-ta-tem">
                                                     <div className="result-temper">
                                                         <p className="num">35.6</p>
-                                                        <p className="status-time">อุณหภูมิผ่านเกณฑ์</p>
+                                                        <p className="status-time">{word['Language'][this.state.language]}อุณหภูมิผ่านเกณฑ์</p>
                                                     </div>
                                                     <div className="img-tem">
                                                         <img src="/image/icon/temg.svg" alt="" className="img-fluid" />
@@ -353,8 +368,8 @@ class Home extends React.Component {
                                                                 </div>
                                                             }
                                                             <div className="result-num">
-                                                                <p className="num">{hours + "." + minutes + " น."}</p>
-                                                                <p className="status-time">{hours < 9 ? "มาตรงเวลา" : "มาสาย"}</p>
+                                                                <p className="num">{hours + "." + minutes + word['oclock'][this.state.language] }</p>
+                                                                <p className="status-time">{hours < 9 ? word['On time'][this.state.language] : word['Late'][this.state.language]}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -365,7 +380,7 @@ class Home extends React.Component {
                                                         <div className="cov-ta-tem">
                                                             <div className="result-temper">
                                                                 <p className="num">{temp}</p>
-                                                                <p className="status-time">{temp < 37.5 ? "อุณหภูมิผ่านเกณฑ์" : "อุณหภูมิไม่ผ่านเกณฑ์"}</p>
+                                                                <p className="status-time">{temp < 37.5 ? word['Scanning pass'][this.state.language]: word['Scanning not pass'][this.state.language]}</p>
                                                             </div>
 
                                                             <div className="img-tem">
@@ -380,10 +395,10 @@ class Home extends React.Component {
                                                 </div>
                                             </div>
                                             : <div className="name-result">
-                                                <p className="status-process">{this.state.language == "TH" ? "กรุณายืนอยู่หน้ากล้อง": "Please stand in front of camara."}</p>
+                                                <p className="status-process">{word['Please stand in front of camara.'][this.state.language]}</p>
                                             </div>
                                     }
-
+                                    {this.getRes()}
                                     {
                                         this.state.weather_info.length != 0 ?
                                             <div className="row list-result">

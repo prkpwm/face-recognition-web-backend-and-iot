@@ -16,9 +16,9 @@ import './memberlist.scss'
 import { Getgroup, FindMemberByIDGroup } from "../../services/APIs/Group";
 import { GetMemList } from '../../services/APIs/Member';
 import { GetLanguage } from "../../services/APIs/Setting";
-
+import { RotateSpinner } from "react-spinners-kit";
 library.add(fas)
-
+let word = require('../../word.json');
 
 class MemberList extends React.Component {
 
@@ -30,6 +30,7 @@ class MemberList extends React.Component {
             list_data: "",
             id: this.useQueryString().id,
             language: 'TH',
+            loading: true
         }
 
     }
@@ -52,14 +53,12 @@ class MemberList extends React.Component {
             .catch(_GroupError => {
                 window.location.href = "/password";
             })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-                if (_Edit.data.status) {
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-                    })
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
 
         $(document).ready(function () {
             $('.cov-group').click(function () {
@@ -128,12 +127,15 @@ class MemberList extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
                                 <a href="/membersetting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">{this.state.language == 'TH' ? 'รายชื่อสมาชิก': 'Member List'}</h1>
+                            <h1 className="hd">{word['Member List'][this.state.language]}</h1>
                         </div>
                         <div className="box-display">
                             <div className="cov-btnaction">
@@ -146,7 +148,7 @@ class MemberList extends React.Component {
                                     <button type="button" className="btn btn-secondary btn-list" onClick={() => { this.Toggleclass() }}><FontAwesomeIcon className="btn-search" icon={['fas', 'search']} /></button>
                                 </div>
                             </div>
-                            <p className="hd-group">{this.state.language == 'TH' ? 'ประเภทกลุ่ม': 'Group type'}</p>
+                            <p className="hd-group">{word['Group type'][this.state.language]}</p>
                             <div className="slide-member">
                                 <Slider
                                     // asNavFor={this.state.nav1}

@@ -1,48 +1,37 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Camera} from "../../services/APIs/Camera";
+import { Camera } from "../../services/APIs/Camera";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import './menu.scss'
-import { GetLanguage} from "../../services/APIs/Setting";
-
+import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
 library.add(fas)
-
+let word = require('../../word.json');
 class Menu extends React.Component {
 
     constructor(props) {
 
         super(props)
         this.state = {
-            language:"TH"
+            language: localStorage.getItem('lang'),
+            loading: true
         }
 
     }
 
-    componentDidMount(){ 
-        GetLanguage() // Get language for display
-        .then(_Edit => {
-            
-
-            if (_Edit.data.status) {
-
-                setTimeout(() => {
-                    this.setState({
-                        loading: false
-                    })
-                  }, 800);
-                this.setState({
-                    language: _Edit.data.msg[0].lang,
-
-                })
-            }
+    componentDidMount() {
+        this.setState({
+            loading: true
         })
-
-        .catch(_EditError => {
-            window.location.href = "/password";
-        })
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
+            })
+        }, 800);
         console.log(this.state.language)
     }
 
@@ -51,13 +40,16 @@ class Menu extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
                                 <a href="/" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
                             {console.log(this.state.language)}
-                            <h1 className="hd"> {this.state.language == "TH" ? "เมนูหลัก" : "Main Menu" }</h1>
+                            <h1 className="hd">{word['Main Menu'][this.state.language]}</h1>
                         </div>
                         <div className="cov-list-menu">
                             <div className="box-menu">
@@ -66,7 +58,7 @@ class Menu extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/member.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == "TH" ? "การตั้งค่าสมาชิก" : "Member Setting" }</p>
+                                        <p className="name">{word['Member Setting'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -74,7 +66,7 @@ class Menu extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/setting.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == "TH" ? "การตั้งค่า" : "Setting" }</p>
+                                        <p className="name">{word['Setting'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -82,7 +74,7 @@ class Menu extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/wifi.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == "TH" ? "การกำหนดค่าเครือข่าย" : "Network configuration" }</p>
+                                        <p className="name">{word['Network configuration'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -90,7 +82,7 @@ class Menu extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/update.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == "TH" ? "อัพเดทระบบ" : "Check for update" }</p>
+                                        <p className="name">{word['Check for update'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -98,7 +90,7 @@ class Menu extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/password.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == "TH" ? "การตั้งรหัสผ่าน" : "Password Setting" }</p>
+                                        <p className="name">{word['Password Setting'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">
@@ -106,7 +98,7 @@ class Menu extends React.Component {
                                         <div className="img-icon">
                                             <img src="/image/icon/gw.svg" alt="" className="img-fluid img-menu" />
                                         </div>
-                                        <p className="name">{this.state.language == "TH" ? "เกี่ยวกับเรา" : "About us" }</p>
+                                        <p className="name">{word['About us'][this.state.language]}</p>
                                     </a>
                                 </div>
                             </div>

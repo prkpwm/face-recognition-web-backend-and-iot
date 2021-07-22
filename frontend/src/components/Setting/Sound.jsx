@@ -6,23 +6,13 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { Slider, InputNumber, Upload, message, Button, Switch } from 'antd';
 import 'antd/dist/antd.css';
 import './sound.scss'
-import {selectStatusSound, setStatusSound, uploadVoiceFile ,uploadVoiceEffect, getVoiceMaster, setVoiceMaster} from "../../services/APIs/sound"
+import { selectStatusSound, setStatusSound, uploadVoiceFile, uploadVoiceEffect, getVoiceMaster, setVoiceMaster } from "../../services/APIs/sound"
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
 library.add(fas)
 
-let word = {
-    'Setting': { 'EN': 'Setting', 'TH': 'การตั้งค่า' },
-    'Sound': { 'EN': 'Sound', 'TH': 'เสียง' },
-    'Master Volume': { 'EN': 'Master Volume', 'TH': 'ควบคุมการขยายกำลัง' },
-    'Thai': { 'EN': 'Thai', 'TH': 'ไทย' },
-    'Voice': { 'EN': 'Voice', 'TH': 'เสียง' },
-    'Sound Effect': { 'EN': 'Sound Effect', 'TH': 'เสียงประกอบ' },
-    'Upload': { 'EN': 'Upload', 'TH': 'อัพโหลด' },
-    'Bell': { 'EN': 'Bell', 'TH': 'ระฆัง' },
-    'Voice feedback': { 'EN': 'Voice feedback', 'TH': 'เสียงตอบรับ' },
-
-}
+let word = require('../../word.json');
 
 class Sound extends React.Component {
 
@@ -31,70 +21,66 @@ class Sound extends React.Component {
         super(props)
         this.state = {
             language: 'TH',
-            inputValue: 0,
-            loading: false,
+            inputValue: localStorage.getItem('VoiceMaster'),
+            loading: true,
             loading_page: false,
             statusSound: true,
-            soundFile:undefined,
-            soundEffect:undefined
+            soundFile: undefined,
+            soundEffect: undefined
         }
 
     }
 
     componentDidMount() {
-        this.setState({
-            loading_page: true
-        })
         // get data from mongodb
         selectStatusSound()
-        .then(_Sound => {
-            // console.log("_Sound.data.msg:",_Sound.data.msg[0].statusSound)
-            if (_Sound.data.status) {
+            .then(_Sound => {
+                // console.log("_Sound.data.msg:",_Sound.data.msg[0].statusSound)
+                if (_Sound.data.status) {
 
-                setTimeout(() => {
+                    setTimeout(() => {
+                        this.setState({
+                            loading_page: false
+                        })
+                    }, 800);
                     this.setState({
-                        loading_page: false
+                        statusSound: _Sound.data.msg[0].statusSound,
                     })
-                }, 800);
-                this.setState({
-                    statusSound: _Sound.data.msg[0].statusSound,
-                })
 
-            }
-        })
-        .catch(_DisplayError => {
-            window.location.href = "/password";
-        })
+                }
+            })
+            .catch(_DisplayError => {
+                window.location.href = "/password";
+            })
         // inputValue
         getVoiceMaster()
-        .then(_SoundMaster => {
-            // console.log("_SoundMaster.data.msg[0]:",_SoundMaster.data.msg)
-            // console.log(_SoundMaster.data);
-            if (_SoundMaster.data.status) {
+            .then(_SoundMaster => {
+                // console.log("_SoundMaster.data.msg[0]:",_SoundMaster.data.msg)
+                // console.log(_SoundMaster.data);
+                if (_SoundMaster.data.status) {
 
-                setTimeout(() => {
+                    setTimeout(() => {
+                        this.setState({
+                            loading_page: false
+                        })
+                    }, 800);
                     this.setState({
-                        loading_page: false
+                        inputValue: _SoundMaster.data.msg,
                     })
-                }, 800);
-                this.setState({
-                    inputValue: _SoundMaster.data.msg,
-                })
+                    localStorage.setItem('VoiceMaster', _SoundMaster.data.msg)
 
-            }
-        })
-        .catch(errorVoice => {
-            // console.log(errorVoice[0])
-            window.location.href = "/password";
-        })
-        GetLanguage() // Get language for display
-        .then(_Edit => {
-            if (_Edit.data.status) {
-                this.setState({
-                    language: _Edit.data.msg[0].lang,
-                })
-            }
-        })
+                }
+            })
+            .catch(errorVoice => {
+                // console.log(errorVoice[0])
+                window.location.href = "/password";
+            })
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
+            })
+        }, 800);
 
         // print log status sound
         // console.log(this.state.statusSound)
@@ -104,32 +90,35 @@ class Sound extends React.Component {
         this.setState({
             inputValue: value,
         });
-
-        setVoiceMaster(value)
-        .then(_welcomeWord => {
-            if(_welcomeWord.data.status){
-                message.success({
-                    content: word['Done'][this.state.language],
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: word['Please try again.'][this.state.language],
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
+        localStorage.setItem('VoiceMaster', value)
+        this.setState({
+            inputValue: value,
         })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
+        setVoiceMaster(value)
+            .then(_welcomeWord => {
+                if (_welcomeWord.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            })
+            .catch(_StatusFaceError => console.error(_StatusFaceError))
     };
 
 
-    handleChange_effect_voice = (info) =>{
+    handleChange_effect_voice = (info) => {
         if (info.file.status === 'uploading') {
             this.setState({ loading: true });
             return;
@@ -138,42 +127,42 @@ class Sound extends React.Component {
         setTimeout(async () => {
             const isLt2M = info.file.size / 1024 / 1024 < 2;
             if (isLt2M && (info.file.type === 'audio/mpeg' || info.file.type === 'audio/x-wav')) {
-              info.file.status = 'done'
+                info.file.status = 'done'
             } else {
-              info.file.status = 'error'
+                info.file.status = 'error'
             }
             if (info.file.status === "done") {
-              // Get this url from response in real world.
-              console.log('img----',info.file.originFileObj)
-              this.setState({
-                  loading: false,
-                  soundEffect:info.file.originFileObj
-              })
-              
-              const res = await uploadVoiceEffect({
-                  soundEffects:this.state.soundEffect
-              })
-              console.log('res---> ', res)
-              if(res.data.status){
-                  message.success({
-                      content: word['Done'][this.state.language],
-                      className: 'message-done',
-                      style: {
-                          marginTop: '2vh',
-                      },
-                  });
-                  
-              }else{
-                  message.error({
-                      content: word['Please try again.'][this.state.language],
-                      className: 'message-alert',
-                      style: {
-                          marginTop: '2vh',
-                      },
-                  });
-              }
+                // Get this url from response in real world.
+                console.log('img----', info.file.originFileObj)
+                this.setState({
+                    loading: false,
+                    soundEffect: info.file.originFileObj
+                })
+
+                const res = await uploadVoiceEffect({
+                    soundEffects: this.state.soundEffect
+                })
+                console.log('res---> ', res)
+                if (res.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
             }
-          }, 1000) 
+        }, 1000)
     }
 
 
@@ -184,74 +173,53 @@ class Sound extends React.Component {
         }
 
         setTimeout(async () => {
-          const isLt2M = info.file.size / 1024 / 1024 < 2;
-          if (isLt2M && (info.file.type === 'audio/mpeg' || info.file.type === 'audio/x-wav')) {
-            info.file.status = 'done'
-          } else {
-            info.file.status = 'error'
-          }
-          if (info.file.status === "done") {
-            // Get this url from response in real world.
-            console.log('img----',info.file.originFileObj)
-            this.setState({
-                loading: false,
-                soundFile:info.file.originFileObj
-            })
-            
-            const res = await uploadVoiceFile({
-                soundVoice:this.state.soundFile
-            })
-            console.log('res---> ', res)
-            if(res.data.status){
-                message.success({
-                    content: word['Done'][this.state.language],
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-                
-            }else{
-                message.error({
-                    content: word['Please try again.'][this.state.language],
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
+            const isLt2M = info.file.size / 1024 / 1024 < 2;
+            if (isLt2M && (info.file.type === 'audio/mpeg' || info.file.type === 'audio/x-wav')) {
+                info.file.status = 'done'
+            } else {
+                info.file.status = 'error'
             }
-          }
-        }, 1000)    
+            if (info.file.status === "done") {
+                // Get this url from response in real world.
+                console.log('img----', info.file.originFileObj)
+                this.setState({
+                    loading: false,
+                    soundFile: info.file.originFileObj
+                })
+
+                const res = await uploadVoiceFile({
+                    soundVoice: this.state.soundFile
+                })
+                console.log('res---> ', res)
+                if (res.data.status) {
+                    message.success({
+                        content: word['Done'][this.state.language],
+                        className: 'message-done',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+
+                } else {
+                    message.error({
+                        content: word['Please try again.'][this.state.language],
+                        className: 'message-alert',
+                        style: {
+                            marginTop: '2vh',
+                        },
+                    });
+                }
+            }
+        }, 1000)
     }
 
 
     onChangevoice(checked) {
         // console.log(`switch to ${checked}`);
         this.setState({
-            statusSound:checked
+            statusSound: checked
         })
 
-        setStatusSound(checked)
-        .then(_statusSound => {
-            if(_statusSound.data.status){
-                message.success({
-                    content: word['Done'][this.state.language],
-                    className: 'message-done',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }else{
-                message.error({
-                    content: word['Please try again.'][this.state.language],
-                    className: 'message-alert',
-                    style: {
-                        marginTop: '2vh',
-                    },
-                });
-            }
-        })
-        .catch(_StatusFaceError => console.error(_StatusFaceError))
     }
 
 
@@ -284,6 +252,9 @@ class Sound extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
@@ -302,7 +273,7 @@ class Sound extends React.Component {
                                                 min={0}
                                                 max={10}
                                                 onChange={this.onChange}
-                                                value={typeof inputValue === 'number' ? inputValue : 0}
+                                                value={typeof inputValue === 'number' ? inputValue : this.state.inputValue}
                                             /></div>
                                     </div>
                                     <div className="num">

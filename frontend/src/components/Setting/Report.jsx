@@ -12,16 +12,7 @@ import { GetLanguage } from "../../services/APIs/Setting";
 
 library.add(fas)
 
-let word = {
-    'Done': { 'EN': 'Done', 'TH': 'เสร็จแล้ว' },
-    'Please try again.': { 'EN': 'Please try again.', 'TH': 'กรุณาลองอีกครั้ง.' },
-    'Report': { 'EN': 'Report', 'TH': 'เสร็จแล้ว' },
-    'Daily report': { 'EN': 'Daily report', 'TH': 'เสร็จแล้ว' },
-    'Group selection': { 'EN': 'Group selection', 'TH': 'เสร็จแล้ว' },
-    'SMS': { 'EN': 'SMS', 'TH': 'เสร็จแล้ว' },
-    'Email': { 'EN': 'Email', 'TH': 'เสร็จแล้ว' },
-
-}
+let word = require('../../word.json');
 
 class Report extends React.Component {
 
@@ -29,7 +20,7 @@ class Report extends React.Component {
 
         super(props)
         this.state = {
-            language:"TH",
+            language: "TH",
             reportdaily: [],
             loading: false
         }
@@ -62,25 +53,12 @@ class Report extends React.Component {
             .catch(_DailyError => {
                 window.location.href = "/password";
             })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-
-
-                if (_Edit.data.status) {
-
-                    setTimeout(() => {
-                        this.setState({
-                            loading: false
-                        })
-                    }, 800);
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-
-                    })
-
-
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 10);
 
     }
 

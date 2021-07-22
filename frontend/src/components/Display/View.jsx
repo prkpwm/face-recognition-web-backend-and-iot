@@ -11,13 +11,9 @@ import './view.scss'
 
 import { GetLanguage } from "../../services/APIs/Setting";
 library.add(fas)
-let word = {
 
-    'Save': { 'EN': 'Save', 'TH': 'บันทึก' },
-    'Please try again.': { 'EN': 'Please try again.', 'TH': 'กรุณาลองอีกครั้ง.' },
-    'Done': { 'EN': 'Save', 'TH': 'เสร็จแล้ว' },
+let word = require('../../word.json');
 
-}
 function getBase64(img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));

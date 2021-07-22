@@ -7,16 +7,9 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import './settingpassword.scss'
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
-let word = {
-    'Password Setting': { 'EN': 'Password Setting', 'TH': 'การตั้งค่ารหัสผ่าน' },
-    'Old Password': { 'EN': 'Old Password', 'TH': 'รหัสผ่านเก่า' },
-    'New Password': { 'EN': 'New Password', 'TH': 'รหัสผ่านใหม่' },
-    'Confirm Password': { 'EN': 'Confirm Password', 'TH': 'ยืนยันรหัสผ่าน' },
-    'Save': { 'EN': 'Save', 'TH': 'บันทึก' },
-    'The password is less than 8 characters.': { 'EN': 'Save', 'TH': 'รหัสผ่านมีความยาวน้อยกว่า 8 ตัวอักษร' },
-    'Done': { 'EN': 'Save', 'TH': 'เสร็จแล้ว' },
-    'Not Change Password': { 'EN': 'Save', 'TH': 'ไม่เปลี่ยนรหัสผ่าน' },
-}
+import { RotateSpinner } from "react-spinners-kit";
+
+let word = require('../../word.json');
 
 library.add(fas)
 
@@ -39,27 +32,12 @@ class SettingPassword extends React.Component {
 
     }
     componentDidMount() {
-        this.setState({
-            loading: true
-        })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-
-                if (_Edit.data.status) {
-
-                    setTimeout(() => {
-                        this.setState({
-                            loading: false
-                        })
-                    }, 800);
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-
-                    })
-
-
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
 
 
     }
@@ -187,6 +165,9 @@ class SettingPassword extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

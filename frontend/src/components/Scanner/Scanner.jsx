@@ -14,6 +14,7 @@ library.add(fas)
 
 const { Option } = Select;
 
+let word = require('../../word.json');
 
 class Scanner extends React.Component {
 
@@ -21,29 +22,25 @@ class Scanner extends React.Component {
 
         super(props)
         this.state = {
+            language: "TH",
             StatusFace: true,
             StatusThermal: true,
             ThermalLowest: "35.0",
             ThermalHeightest: "38.0",
-            loading: false
+            loading: true
         }
-
-
 
     }
 
 
-
     componentDidMount() {
-        this.setState({
-            loading: true
-        })
         GetMode() // API Get Status Scanner
             .then(_Mode => {
                 if (_Mode.data.status) {
 
                     setTimeout(() => {
                         this.setState({
+                            language: localStorage.getItem('lang'),
                             loading: false
                         })
                     }, 800);
@@ -76,7 +73,7 @@ class Scanner extends React.Component {
                 if (_StatusFace.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -85,7 +82,7 @@ class Scanner extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -109,7 +106,7 @@ class Scanner extends React.Component {
                 if (_StatusFace.data.status) {
 
                     message.success({
-                        content: 'Done',
+                       content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -118,7 +115,7 @@ class Scanner extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                       content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -142,7 +139,7 @@ class Scanner extends React.Component {
                 if (_ThermalHigh.data.status) {
 
                     message.success({
-                        content: 'Done',
+                       content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -151,7 +148,7 @@ class Scanner extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                       content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',
@@ -178,7 +175,7 @@ class Scanner extends React.Component {
                 if (_ThermalLow.data.status) {
 
                     message.success({
-                        content: 'Done',
+                       content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
@@ -187,7 +184,7 @@ class Scanner extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                       content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         style: {
                             marginTop: '2vh',

@@ -14,9 +14,11 @@ import 'animate.css/animate.min.css';
 import 'antd/dist/antd.css';
 import './groupmanager.scss';
 import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
+
 library.add(fas)
 
-
+let word = require('../../word.json');
 class GroupManager extends React.Component {
 
     constructor(props) {
@@ -29,6 +31,7 @@ class GroupManager extends React.Component {
             name_group_edit: "",
             name_search: "",
             language: 'TH',
+            loading: true
         }
 
     }
@@ -51,14 +54,12 @@ class GroupManager extends React.Component {
             .catch(_GroupError => {
                 window.location.href = "/password";
             })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-                if (_Edit.data.status) {
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-                    })
-                }
-            })
+            setTimeout(() => {
+                this.setState({
+                    language: localStorage.getItem('lang'),
+                    loading: false
+                })
+            }, 800);
     }
 
 
@@ -123,7 +124,7 @@ class GroupManager extends React.Component {
                 if (_Add.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         // duration: 500,
                         style: {
@@ -137,7 +138,7 @@ class GroupManager extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         // duration: 200,
                         style: {
@@ -162,7 +163,7 @@ class GroupManager extends React.Component {
                 if (_Edit.data.status) {
 
                     message.success({
-                        content: 'Done',
+                        content: word['Done'][this.state.language],
                         className: 'message-done',
                         // duration: 500,
                         style: {
@@ -176,7 +177,7 @@ class GroupManager extends React.Component {
 
                 } else {
                     message.error({
-                        content: 'Please try again.',
+                        content: word['Please try again.'][this.state.language],
                         className: 'message-alert',
                         // duration: 200,
                         style: {
@@ -220,7 +221,7 @@ class GroupManager extends React.Component {
                     .then(respond => {
                         if (respond.data.status) {
                             message.success({
-                                content: 'Done',
+                                content: word['Done'][this.state.language],
                                 className: 'message-done',
                                 // duration: 500,
                                 style: {
@@ -234,7 +235,7 @@ class GroupManager extends React.Component {
 
                         } else {
                             message.error({
-                                content: 'Please try again.',
+                                content: word['Please try again.'][this.state.language],
                                 className: 'message-alert',
                                 // duration: 200,
                                 style: {
@@ -277,18 +278,21 @@ class GroupManager extends React.Component {
         return (
             <div>
                 <div className="size-web group-page">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
                                 <a href="/membersetting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">{this.state.language == 'TH' ? 'จัดการกลุ่ม': 'Group manager'}</h1>
+                            <h1 className="hd">{word['Group manager'][this.state.language]}</h1>
                         </div>
                         <div className="cov-group-member">
                             <div className="boxadd">
                                 <div className="btn-add">
                                     {/* Button trigger modal */}
-                                    <button type="button" className="btn btn-primary btn-group" data-toggle="modal" data-target="#Modaladdgroup">{this.state.language == 'TH' ? 'กลุ่มใหม่': 'New Group'}</button>
+                                    <button type="button" className="btn btn-primary btn-group" data-toggle="modal" data-target="#Modaladdgroup">{word['New Group'][this.state.language]}</button>
 
 
                                 </div>
@@ -335,12 +339,12 @@ class GroupManager extends React.Component {
                                 </div>
                                 <div className="modal-body">
                                     <div className="boxcreate">
-                                        <h3 className="hd">{this.state.language == 'TH' ? 'เพิ่มกลุ่มใหม่': 'Add New group'}</h3>
+                                        <h3 className="hd">{word['Add new group'][this.state.language]} </h3>
                                         <input type="text" onChange={(e) => { this.OnchangeName(e) }} placeholder="Group name" className="form-control boxdata" />
                                     </div>
                                     <div className="btnaddgroup">
                                         <button type="button" onClick={() => { this.AddGroupName() }} className="btn btn-primary btn-add-new">
-                                        {this.state.language == 'TH' ? 'เพิ่มกลุ่มใหม่': 'Add new group'}
+                                        {word['Add new group'][this.state.language]} 
                                         </button>
                                     </div>
                                 </div>
@@ -362,12 +366,12 @@ class GroupManager extends React.Component {
                                 </div>
                                 <div className="modal-body">
                                     <div className="boxcreate">
-                                        <h3 className="hd">{this.state.language == 'TH' ? 'แก้ไขกลุ่ม': 'Edit group'}</h3>
+                                        <h3 className="hd">{word['Edit group'][this.state.language]}</h3>
                                         <input value={this.state.name_group_edit ? this.state.name_group_edit : ""} type="text" onChange={(e) => { this.OnchangeEditName(e) }} placeholder="Group name" className="form-control boxdata" />
                                     </div>
                                     <div className="btnaddgroup">
                                         <button onClick={() => { this.EditGroupName() }} type="button" className="btn btn-primary btn-add-new">
-                                        {this.state.language == 'TH' ? 'แก้ไขกลุ่ม': 'Edit group'}
+                                        {word['Edit group'][this.state.language]}
                                         </button>
                                     </div>
                                 </div>

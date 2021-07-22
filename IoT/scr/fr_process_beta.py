@@ -22,7 +22,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware import Middleware
 from starlette.responses import JSONResponse
 # import json
-
+import dlib
 from mongo_lib import insert_data_train_face, next_userid, register_mongo, get_frame_display, update_register_mongo, select_videoname_by_uid, get_status_mask, update_status_mask_predict
 import shutil
 # import subprocess
@@ -36,6 +36,11 @@ except RuntimeError:
 
 check_reg = False
 classifier = cv2.CascadeClassifier('../model/haarcascade_frontalface_default.xml')
+detector = dlib.get_frontal_face_detector()
+predictor = dlib.shape_predictor(
+    '../model/face_landmarks68.dat')
+face_recognition = dlib.face_recognition_model_v1(
+    '../model/dlib_face_recognition_resnet_model_v1.dat')
 #is_detect = False
 port = 3050
 require_login = False
@@ -46,7 +51,8 @@ check_camera_mask = mp.Value('i',False)
 
 # thread for face prediction
 thread_predict = None
-
+face_desc = []
+face_name = []
 #check_video_success = mp.Value('i',True)
 #video_array = mp.Array('i',640)
 #video_data = list()
@@ -85,7 +91,9 @@ def thread_function(image_name, log_predict_id):
     print("Thread")
     url = 'http://192.168.0.252:2323/recognition/predict'
     image_msg = {'image_name': image_name, 'log_predicted':log_predict_id}
-    requests.post(url,image_msg)
+    r = requests.post(url,image_msg)
+    res_json = r.json()
+    print('Thread predict:',res_json)
    
 # send thread request to fr_api
 # receive data for crop face mask
@@ -156,8 +164,363 @@ def saveVideo(video_frame,uuid):
     print('done')
     del video_frame
 
-
 def camera_recognition(check_camera_register, check_camera_detection, check_camera_mask):
+    #global video_data
+    global thread_predict
+    #print('thread_rec_mask:',thread_rec_mask)
+    is_detect = False
+    N_SAMPLE = 5
+    shifter = 200
+    # image_wait = None
+    checkis_detection = True # do one time, for get data from mongodb to check draw rectangle in image 
+    q = deque([time.time() for i in range(N_SAMPLE)])
+    
+    # #start_time = time.time()
+    # left_camera = CSI_Camera()
+    # left_camera.create_gstreamer_pipeline(
+    #         sensor_id=1,
+    #         sensor_mode=SENSOR_MODE_720,
+    #         framerate=30,
+    #         flip_method=0,
+    #         display_height=DISPLAY_HEIGHT,
+    #         display_width=DISPLAY_WIDTH,
+    # )
+    # left_camera.open(left_camera.gstreamer_pipeline)
+    # left_camera.start()
+
+    list_file_in_folder = os.listdir(os.getcwd())
+    print(list_file_in_folder)
+    print('list file in folder src')
+    if 'image_no_crop' not in list_file_in_folder:
+        print('create image_no_crop folder')
+        os.mkdir('image_no_crop') 
+    
+    if 'image_face_cropped' not in list_file_in_folder:
+        print('create image_face_cropped folder')
+        os.mkdir('image_face_cropped')
+
+    print('pass to check create folder')
+
+
+    # if (not left_camera.video_capture.isOpened()):
+    #     print("Unable to open any cameras")
+    #     SystemExit(0)
+    cap = cv2.VideoCapture('http://192.168.1.28:4747/video')
+    try:
+        while True:
+            ret, img = cap.read()
+            # rotate image
+            img = cv2.rotate(img,cv2.ROTATE_90_COUNTERCLOCKWISE)
+         
+            # extract width , height
+            w_origin = img.shape[1]
+
+            frame_regular = img.copy()
+            video_streaming(frame_regular)
+            # streaming frame
+            
+            # check camera detection
+            if check_camera_detection.value == False:
+                rec = None
+                check_mask = None
+                
+                print('camera detection mode')
+                print('start check draw rectangle')
+                print('get data from mongodb')
+                if checkis_detection:
+                    data_frame_setting = get_frame_display()
+                    rec = data_frame_setting[0]['display']['frame_setting']['rectangle_frame']
+                    #data_scanner_mode = getStatusFace()
+                    #is_recognition = data_scanner_mode[0]['scanner_mode']['face_recognition']['status']
+                    checkis_detection = False
+                    print('status rec',rec)
+                    #print('status predict',is_recognition)
+                    
+                check_mask = get_status_mask()
+                
+                while True:
+                    ret, img = cap.read()
+                    img = cv2.rotate(img,cv2.ROTATE_90_COUNTERCLOCKWISE)
+                  
+
+                    w_origin = img.shape[1]
+                    # img = img[:,shifter:shifter+int(w_origin*0.3)]
+                    h,w = img.shape[:2]
+                    new_width = int(w/2)
+                    new_height = int(h/2)
+                    left = (w - new_width)/2
+                    top = (h - new_height)/2
+                    right = (w + new_width)/2
+                    bottom = (h + new_height)/2.5
+
+                    frame_detection = img.copy()
+
+                    open_cv_image = cv2.cvtColor(frame_detection, cv2.COLOR_BGR2GRAY)
+                    
+                    # detection
+                    bboxes = classifier.detectMultiScale(open_cv_image, 1.3, 5)
+                    if len(bboxes) == 1:
+                        #print('1',is_detect)
+                        if is_detect == False:
+                            for box in bboxes:
+                                x, y, width, height = box
+                                x2, y2 = x + width, y + height
+
+                                # check face movement
+                                # if x < left:
+                                #     thread1 = mp.Process(target=thread_send2socket_checkmovement_face,args=('R',))
+                                #     thread1.start()
+                                
+                                # if x2 > right:
+                                #     thread2 = mp.Process(target=thread_send2socket_checkmovement_face,args=('L',))
+                                #     thread2.start()
+
+                                # if y < top:
+                                #     thread3 = mp.Process(target=thread_send2socket_checkmovement_face,args=('B',))
+                                #     thread3.start()
+
+                                # if y2 > bottom:
+                                #     thread4 = mp.Process(target=thread_send2socket_checkmovement_face,args=('T',))
+                                #     thread4.start()
+
+                                x_percent = (x2-x)/min(w, h)
+                                print('percent:',x_percent)
+                                # check distance between face and camera
+                                if x_percent >= 0.4 and x_percent <= 0.8:
+                                    check_reg = True
+                                    
+                                    id_log_prediction = generate_uuid()
+                                    id_log_prediction = id_log_prediction[:24]
+                                    
+                                    #generate uuid for image name
+                                    image_name = generate_uuid()
+                                    #save image for send to api
+                                    cv2.imwrite(os.path.join(os.getcwd(),'image_no_crop','{}.bmp'.format(image_name)),img)
+                                    print('path predicted:',os.path.join(os.getcwd(),'image_no_crop','{}.bmp'.format(image_name)))
+                                    thread_predict = threading.Thread(target=thread_function,args=('{}.bmp'.format(image_name),id_log_prediction,))
+                                    thread_predict.start()
+
+                                    # check mask model status
+                                    # variable mask recognition
+                                    if check_mask:
+                                        print('mask recognition')
+                                        start_time_mask = time.time()
+                                        waittime_mask = 20
+                                        current = time.time() # get once
+                                        check_current_once = False # check 
+                                        
+                                        # send and receive id of log_predict
+                                        #thread_rec_mask = threading.Thread(target=thread_function,args=('{}.bmp'.format(image_name),image_name,))
+                                        #thread_rec_mask.start()
+                                        # define font
+                                        font = cv2.FONT_HERSHEY_PLAIN
+
+                                        while True:
+                                            ret, img = cap.read()
+                                            img = cv2.rotate(img,cv2.ROTATE_180)
+                                            img = cv2.flip(img,1)
+                                            h_mask,w_mask = img.shape[:2]
+                                            #w_origin = img.shape[1]
+                                            # img = img[:720,shifter:shifter+int(w_mask*0.3)]
+
+                                            # get current time and change variable 
+                                            if check_current_once == False:
+                                                current = time.time()
+                                                check_current_once = True
+                                                
+                                            # if mask detected then loop exit
+                                            if check_camera_mask.value:
+                                                check_camera_mask.value = False
+                                                break
+                                            
+                                            # send wait message to frontend 
+                                            
+                                            # waiting for mask recognition
+                                            if int(time.time() - current) == 5:
+                                                print('now!! predict mask')
+                                                print('check camera mask:',check_camera_mask.value)
+                                                
+                                                #TODO
+                                                image_name_mask = generate_uuid()
+                                                cv2.imwrite(os.path.join(os.getcwd(),'image_no_crop','{}.bmp'.format(image_name_mask)),img)
+                                                print('path mask predicted:',os.path.join(os.getcwd(),'image_no_crop','{}.bmp'.format(image_name_mask)))
+                                                thread_predict_mask = threading.Thread(target=thread_mask_prediction,args=('{}.bmp'.format(image_name_mask),id_log_prediction,))
+                                                thread_predict_mask.start()
+                                                
+                                                check_current_once = False
+                                                
+                                            # crete text
+                                            frame = Image.fromarray(img)
+                                            draw = ImageDraw.Draw(frame)
+                                            # wait record video
+                                            font = ImageFont.truetype(os.path.join(os.getcwd(),'font',"Anuphan-Bold.ttf"),200)
+
+                                            text = str('{}'.format(waittime_mask-int(time.time()-start_time_mask)))
+                                            draw.text((int(w_mask*0.45),int(h_mask*0.25)),text,font=font,fill=(255,255,255))
+                                            
+                                            frame = cv2.cvtColor(np.array(frame),cv2.COLOR_RGB2BGR)
+                                            frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+                                                
+                                            # check timeout when unmask
+                                            if int(time.time() - start_time_mask) >= waittime_mask:
+                                                print('time out')
+                                                break
+                                                
+                                            # steam video
+                                            video_streaming(frame)
+
+                                    is_detect = True
+                                else:
+                                    check_reg = False
+                    else:
+                        is_detect = False
+                        check_reg = False
+                    
+                    fps = N_SAMPLE/(time.time()-q.popleft())
+                    q.append(time.time())
+                    #position x,y
+                    
+                    # wait test
+                    frame_detection = Image.fromarray(frame_detection)
+                    draw = ImageDraw.Draw(frame_detection)
+
+                    #print('start font')
+                    #print('os path',os.getcwd())
+                    font = ImageFont.truetype(os.path.join(os.getcwd(),'font',"Anuphan-Bold.ttf"),50)
+                    # draw.text((int(h*0.1),int(w*0.1)),'{:6.3f} fps'.format(fps),font=font,fill=(255,255,255))
+                    #print('end font')
+
+                    frame_detection = cv2.cvtColor(np.array(frame_detection),cv2.COLOR_RGB2BGR)					
+                    frame_detection = cv2.cvtColor(frame_detection,cv2.COLOR_BGR2RGB)
+                    #cv2.putText(frame_detection,'{:6.3f} fps'.format(fps),(int(h*0.2),int(w*0.1)),cv2.FONT_HERSHEY_PLAIN,1,(255,255,0))
+
+                    # if rec:
+                        # if check_reg:
+                        #     frame_detection = draw_border(frame_detection, (int(left), int(top)), (int(right),int(bottom)), (0, 255, 0))
+                        # else:
+                        #     frame_detection = draw_border(frame_detection, (int(left), int(top)), (int(right), int(bottom)), (255, 0, 0))
+
+                    video_streaming(frame_detection)
+
+                    if check_camera_detection.value == True:
+                        checkis_detection = True
+                        break
+
+            # check camera register
+            if check_camera_register.value == False:
+                print('camera register mode')
+                video_data = list()
+                #uuid_video= ''
+                waittime = 5
+                capture_duration =5
+                font = cv2.FONT_HERSHEY_PLAIN
+                check_break = False
+                start_time = time.time()
+                #wait to ready
+                while True:
+                    #start_time = time.time()
+                    ret, frame = cap.read()
+                    frame = cv2.rotate(frame,cv2.ROTATE_90_COUNTERCLOCKWISE)
+                  
+                    w_origin = frame.shape[1]
+                    #frame = frame[:720,shifter:shifter+int(w_origin*0.3)]
+                    h,w = frame.shape[:2]
+
+                    frame = Image.fromarray(frame)
+                    draw = ImageDraw.Draw(frame)
+                    # wait record video
+                    font = ImageFont.truetype(os.path.join(os.getcwd(),'font',"Anuphan-Bold.ttf"),200)
+
+                    text = str('{}'.format(waittime-int(np.subtract(time.time(),start_time))))
+                    draw.text((int(w*0.45),int(h*0.25)),text,font=font,fill=(255,255,255))
+                    
+                    frame = cv2.cvtColor(np.array(frame),cv2.COLOR_RGB2BGR)
+                    frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+                    #cv2.putText(frame, text, (int(w*0.3),int(h*0.6)), font, 10, (255, 255, 0),8)
+
+                    video_streaming(frame)
+                    #start_time = time.time()
+                    if int(time.time() - start_time) >= waittime:
+                    
+
+                        # check wait success and then send socket
+                        # send socket
+                        print('send wait socket')
+                        send_socket = mp.Process(target=thread_send2socket,args=('wait',))
+                        send_socket.start()
+                        
+                        uuid = generate_uuid()
+                        #out = cv2.VideoWriter('../video_freeze/{}.mp4'.format(uuid),cv2.VideoWriter_fourcc('M','J','P','G'), 30, (DISPLAY_WIDTH,DISPLAY_HEIGHT))
+                        start_time = time.time()
+                        #record
+                        while True:
+                            ret, frame = cap.read()
+                            frame = cv2.rotate(frame,cv2.ROTATE_90_COUNTERCLOCKWISE)
+                   
+                            #w_origin = frame.shape[1]
+                            #frame = frame[:720,shifter:shifter+int(w_origin*0.3)]
+
+                            frame_copy = frame.copy()
+                            h, w = frame_copy.shape[:2]
+
+                            #frame_copy = frame_copy[:720,shifter:shifter+int(w*0.3)]
+                            # = frame_copy.shape[:2]
+                            
+                            frame_copy = Image.fromarray(frame_copy)
+                            draw = ImageDraw.Draw(frame_copy)
+                            font = ImageFont.truetype(os.path.join(os.getcwd(),'font','Anuphan-Bold.ttf'),80)
+
+                            text = str('{}'.format('Rec.. ',capture_duration-int(np.subtract(time.time(),start_time))))
+                            draw.text((0,int((h/2)+((h/2)*(-0.7)))),text,font=font,fill=(255, 255, 255))
+
+                            frame_copy = cv2.cvtColor(np.array(frame_copy),cv2.COLOR_RGB2BGR)
+                            frame_copy = cv2.cvtColor(frame_copy,cv2.COLOR_BGR2RGB)
+                            #cv2.putText(frame_copy, text, (0,int((frame_copy.shape[0]/2)+((frame_copy.shape[0]/2)*(-0.7)))), font, 5, (255, 255, 0),5)
+                            #keep video to variable
+                            video_data.append(frame)
+
+                            video_streaming(frame_copy)
+                            
+                            # save image when video time == 0 sec
+                            '''if int(time.time() - start_time) == 0:
+                                image_wait = frame.copy()
+                                image_wait = image_wait[:720,shifter:shifter+int(w*0.3)]'''
+                                
+                            if int(time.time() - start_time) >= capture_duration:
+                                check_break = True
+                                break
+                    if check_break == True:
+                        break
+
+                check_camera_register.value = True
+                saveVideo(video_data,uuid)
+                #pp = mp.Process(target=saveVideo,args = (video_data,uuid,))
+                #pp.start()
+                
+                # test
+                print('wait recorded')
+                '''while True:
+                    video_streaming(image_wait)
+                    if check_camera_register.value == False or check_camera_detection.value == False:
+                        break
+                '''       
+                #pp.join()
+                del video_data
+                print('send done socket')
+                send_socket = mp.Process(target=thread_send2socket,args=('process',))
+                send_socket.start()
+                
+    except Exception as e:
+       print('error process:',e)
+    #    left_camera.stop()
+    #    left_camera.release()
+
+    finally:
+        # left_camera.stop()
+        # left_camera.release()
+        cv2.destroyAllWindows()
+
+def camera_recognition2(check_camera_register, check_camera_detection, check_camera_mask):
     #global video_data
     global thread_predict
     #print('thread_rec_mask:',thread_rec_mask)
@@ -171,7 +534,7 @@ def camera_recognition(check_camera_register, check_camera_detection, check_came
     #start_time = time.time()
     left_camera = CSI_Camera()
     left_camera.create_gstreamer_pipeline(
-            sensor_id=0,
+            sensor_id=1,
             sensor_mode=SENSOR_MODE_720,
             framerate=30,
             flip_method=0,
@@ -810,13 +1173,106 @@ async def get_weather(request):
         print('error get sound volume:',e)
         return JSONResponse({"status":False})
 
+async def get_network(request):
+    net2d = []
+    net=os.popen("nmcli dev wifi").read().split('\n')
+    for i in range(1,len(net)-1):
+        net2d.append(net[i][8:].strip().replace("Infra"," : Channel"))
+    try:
+
+        return JSONResponse({"available":net2d})
+    except Exception as e:
+        return JSONResponse({"status":False,"network":"error networking"})
+
+
+async def connect_network(request):
+    
+    # if request.method == 'GET':
+    try:
+        config = await request.form()
+        print(config)
+        net = os.popen('nmcli dev wifi connect {} password {}'.format(config['ssid'],config['password'])).read()
+        if net.split(':')[0]=="Error":
+            return JSONResponse({"status":False})
+        return JSONResponse({"status":True})
+    except Exception as e:
+        return JSONResponse({"status":False,"network":"error networking"})
+
+
+
+def recognitionMember():
+    frame = cv2.imread("../img/test3.jpg")
+    bboxes = classifier.detectMultiScale(frame, 1.3, 5)
+    if len(bboxes) == 1:
+        for box in bboxes:
+            x, y, w, h = box
+            frame = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            dets = detector(frame, 1)
+            if len(dets) != 0:
+                for k, d in enumerate(dets):
+                    shape = predictor(frame, d)
+                    face_descriptor = face_recognition.compute_face_descriptor(
+                        frame, shape, 1)
+                    face_desc.append(face_descriptor)
+                    face_name.append("ทักษิฯ")
+                    print(face_desc)
+
+def recognitionSearch():
+    cap = cv2.VideoCapture('http://192.168.1.28:4747/video')
+    # Check if camera opened successfully
+    if (cap.isOpened()== False): 
+        print("Error opening video stream or file")
+
+    # Read until video is completed
+    while(cap.isOpened()):
+        # Capture frame-by-frame
+        ret, frame = cap.read()
+        if ret == True:
+            frame = cv2.rotate(frame,cv2.ROTATE_90_COUNTERCLOCKWISE)
+            # frame = cv2.flip(frame,1)
+            # Display the resulting frame
+            bboxes = classifier.detectMultiScale(frame, 1.8, 5)
+            if len(bboxes) == 1:
+                for box in bboxes:
+                    x, y, w, h = box
+                    frame = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                    dets = detector(frame, 1)
+                    if len(dets) != 0:
+                        for k, d in enumerate(dets):
+                            shape = predictor(frame, d)
+                            face_descriptor = face_recognition.compute_face_descriptor(
+                                frame, shape, 1)
+                            for i,FACE_DESC in enumerate(face_desc):
+                                if np.linalg.norm(np.array(FACE_DESC) - np.array(face_descriptor)) < 0.2:
+                                    print(face_name[i])
+                                    break
+            # cv2.imshow('',frame)
+            video_streaming(frame)
+            # cv2.imshow('Frame',frame)
+
+            # Press Q on keyboard to  exit
+            if cv2.waitKey(25) & 0xFF == ord('q'):
+                break
+
+        # Break the loop
+        else: 
+            break
+
+    # When everything done, release the video capture object
+    cap.release()
+
+    # Closes all the frames
+    cv2.destroyAllWindows()
+
 
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
     Route("/update_register", endpoint=update_register, methods=["POST"]),
     Route("/insert_register", endpoint=insert_register, methods=["POST"]),
     Route("/manage_camera", endpoint=manage_camera, methods=["POST"]),
-    Route("/get_weather", endpoint=get_weather, methods=["POST"])
+    Route("/get_weather", endpoint=get_weather, methods=["POST"]),
+    Route("/available_networks", endpoint=get_network, methods=["POST"]),
+    Route("/new_connection", endpoint=connect_network, methods=["POST"])
 ]
 
 app = Starlette(middleware=middleware,routes= routes)
@@ -825,7 +1281,8 @@ app = Starlette(middleware=middleware,routes= routes)
 if __name__ == '__main__':
     p_process = mp.Process(target=camera_recognition,args=(check_camera_register,check_camera_detection,check_camera_mask,))
     p_process.start()
-    
+    # p_process = mp.Process(target=recognitionSearch)
+    # p_process.start()
     #server_wsgi = WSGIServer(('0.0.0.0',2424),app)
     #server_wsgi.serve_forever()
     # app.run(host = '192.168.0.252',port=2424,threaded=True)

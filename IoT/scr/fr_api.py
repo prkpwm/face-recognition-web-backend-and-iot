@@ -34,14 +34,16 @@ import requests
 middleware = [
     Middleware(
         CORSMiddleware, 
-        allow_origins=["http://localhost:3000/*"]
+        allow_origins=["*"]
         )
 ]
 
 
 
 # declear socketio  and cross origin
-socketio = SocketIO(cors_allowed_origins="http://localhost:3000/*")
+socketio = SocketIO(cors_allowed_origins="*")
+
+pred_res = []
 
 prepare_prediction()
 
@@ -250,6 +252,7 @@ async def predict(request):
         print('files name:',files_name)
         print('log pre:',log_pre)
         
+        global pred_res
         if files_name != '' and files_name != None and log_pre != '' and log_pre != None:
             # return image name
             
@@ -257,6 +260,7 @@ async def predict(request):
             is_recognition = data_scanner_mode[0]['scanner_mode']['face_recognition']['status']
             if is_recognition:
                 idx, nickname, firstname, lastname, role, confident, image_name  = face_prediction(files_name)
+                pred_res.append('nickname: {},firstname: {},lastname: {},role: {},confident: {},imagename: {}'.format(nickname, firstname, lastname, role, confident, image_name))
                 print('nickname: {}\nfirstname: {}\nlastname: {}\nrole: {}\nconfident: {}\nimagename: {}'.format(nickname, firstname, lastname, role, confident, image_name))
             
             #time 
@@ -344,12 +348,22 @@ async def predict(request):
 
     return JSONResponse({'status':False,'msg':'send wrong'})
     
+async def recognition_resulte(request):
+    # if request.method == 'GET':
+    try:
+        global pred_res
+        return JSONResponse({"status":True,"result":pred_res})
+    except Exception as e:
+        print('error get sound volume:',e)
+        return JSONResponse({"status":False,"result":"error get result"})
+
 
 routes = [
     Route("/recognition/predict_mask", endpoint=predict_mask, methods=["POST"]),
     Route("/sound_setting", endpoint=sound_setting, methods=["POST"]),
     Route("/get_volume_system", endpoint=get_volume_system, methods=["GET"]),
     Route("/recognition/predict",endpoint=predict, methods=["POST"]),
+    Route("/recognition/resulte",endpoint=recognition_resulte, methods=["POST"]),
 
 ]
 

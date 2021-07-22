@@ -4,31 +4,71 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import './about.scss';
+import { RotateSpinner } from "react-spinners-kit";
+import { GetLanguage } from "../../services/APIs/Setting";
+let word = require('../../word.json');
 
 class About extends Component {
+  constructor(props) {
+
+    super(props)
+    this.state = {
+        language: 'TH',
+        loading: false,
+
+    }
+
+}
+
+componentDidMount() {
+    this.setState({
+        loading: true
+    })
+    GetLanguage() // Get language for display
+        .then(_Edit => {
+            if (_Edit.data.status) {
+                setTimeout(() => {
+                    this.setState({
+                        loading: false
+                    })
+                }, 800);
+                this.setState({
+                    language: _Edit.data.msg[0].lang,
+                })
+            }
+        })
+
+        .catch(_EditError => {
+            window.location.href = "/password";
+        })
+      }
+
   render() {
     return (
       <div>
         <div className="size-web">
+        <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
                                 <a href="/menu" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">About us</h1>
+                            <h1 className="hd">{word['About us'][this.state.language]}</h1>
                         </div>
                         <div className="img-logo">
                           <img className="img-fluid logogw" src="/image/Logo/Logogw.svg"/>
                         </div>
                         <div className="intro">
-                          <p className="txt">GridWhiz เป็น บริษัท ที่รับปรึกษาวางระบบและ ปรับใช้เทคโนโลยีเพื่อการบริหารงานและ งานระบบไฟฟ้าให้กับองค์กรต่างๆ</p>
+                          <p className="txt">{word['GridWhiz Descripter'][this.state.language]}</p>
                         </div>
                         <div className="hmenu mcontact">
-                            <h1 className="hd">Contact us</h1>
+                            <h1 className="hd">{word['Contact us'][this.state.language]}</h1>
                         </div>
                         <div className="intro">
-                          <p className="nameoffice">GridWhiz (Thailand) Co. Ltd. (Headquarters)</p>
-                          <p className="txt address">184/185 Forum Tower 28th Fl. Ratchadapisek Rd. Huai Khwang, Bangkok 10310 Tel: +66 2061 9519 Fax: +66 2061 9519 Hot-line Support Tel: +66 9 7185 0083</p>
+                          <p className="nameoffice">{word['GridWhiz Headquarters'][this.state.language]}</p>
+                          <p className="txt address">{word['GridWhiz Address'][this.state.language]}</p>
                         </div>
                     </div>
                 </div>

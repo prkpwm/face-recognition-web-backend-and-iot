@@ -8,11 +8,12 @@ import 'antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './importmember.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
+
 library.add(fas)
 
 const { Option } = Select;
-
-
+let word = require('../../word.json');
 class Importmember extends React.Component {
 
     constructor(props) {
@@ -20,18 +21,17 @@ class Importmember extends React.Component {
         super(props)
         this.state = {
             language: 'TH',
+            loading: true
         }
 
     }
     componentDidMount() {
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-                if (_Edit.data.status) {
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-                    })
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
     }
 
     handleChange(value) {
@@ -53,6 +53,9 @@ class Importmember extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
@@ -60,7 +63,7 @@ class Importmember extends React.Component {
                             </div>
                             <div className="select-file">
                                 <div className="cov-box">
-                                    <p className="txt">{this.state.language == 'TH' ? 'เลือกไฟล์': 'Select file'}</p>
+                                    <p className="txt">{word['Select file'][this.state.language]}</p>
                                     <div className="cov-btn-file">
                                         <button type="button" className="btn btn-secondary btn-list"><img src="/image/icon/import@2x.png" alt="" className="img-fluid icon-import" /></button>
                                     </div>
@@ -68,7 +71,7 @@ class Importmember extends React.Component {
                             </div>
                         </div>
                         <div className="cov-btn-add">
-                            <button type="button" disabled className="btn btn-secondary btn-add">{this.state.language == 'TH' ? 'เพิ่ม': 'Add'}</button>
+                            <button type="button" disabled className="btn btn-secondary btn-add">{word['Add'][this.state.language]}</button>
                         </div>
                         <div className="list-member-add">
                             <div className="bs-example">
@@ -94,17 +97,17 @@ class Importmember extends React.Component {
                                                 <div className="card-body">
                                                     <div className="edit-profile">
                                                         <div className="form-group">
-                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเล่น': 'Nickname'}</label>
+                                                            <label className="hinput">{word['Nickname'][this.state.language]}</label>
                                                             <input type="text" className="form-control" placeholder="Nickname" />
                                                         </div>
                                                         <div className="form-group">
-                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเต็ม': 'Full Name'}</label>
+                                                            <label className="hinput">{word['Full Name'][this.state.language]}</label>
                                                             <input type="text" className="form-control full" placeholder="Name" />
                                                             <input type="text" className="form-control last" placeholder="Lastname" />
                                                         </div>
 
                                                         <div className="form-group">
-                                                            <label className="hinput">{this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</label>
+                                                            <label className="hinput">{word['Report to'][this.state.language]}</label>
                                                             <input type="email" className="form-control email" placeholder="Email" />
                                                             <input type="text" className="form-control phone" placeholder="Phone number" />
                                                             <input type="text" className="form-control line" placeholder="LineID" />
@@ -131,17 +134,17 @@ class Importmember extends React.Component {
                                                 <div className="card-body">
                                                     <div className="edit-profile">
                                                         <div className="form-group">
-                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเล่น': 'Nickname'}</label>
+                                                            <label className="hinput">{word['Nickname'][this.state.language]}</label>
                                                             <input type="text" className="form-control" placeholder="Nickname" />
                                                         </div>
                                                         <div className="form-group">
-                                                            <label className="hinput">{this.state.language == 'TH' ? 'ชื่อเต็ม': 'Full Name'}</label>
+                                                            <label className="hinput">{word['Full Name'][this.state.language]}</label>
                                                             <input type="text" className="form-control full" placeholder="Name" />
                                                             <input type="text" className="form-control last" placeholder="Lastname" />
                                                         </div>
 
                                                         <div className="form-group">
-                                                            <label className="hinput">{this.state.language == 'TH' ? 'รายงานถึง': 'Report to'}</label>
+                                                            <label className="hinput">{word['Report to'][this.state.language]}</label>
                                                             <input type="email" className="form-control email" placeholder="Email" />
                                                             <input type="text" className="form-control phone" placeholder="Phone number" />
                                                             <input type="text" className="form-control line" placeholder="LineID" />

@@ -10,7 +10,7 @@ import './language.scss'
 
 
 library.add(fas)
-
+let word = require('../../word.json');
 
 class Language extends React.Component {
 
@@ -43,7 +43,7 @@ class Language extends React.Component {
                         language: _Edit.data.msg[0].lang,
                         
                     })
-
+                    localStorage.setItem('lang',_Edit.data.msg[0].lang) 
 
                 }
             })
@@ -57,30 +57,19 @@ class Language extends React.Component {
     onChangeLanguage(e) {
         var lang = e.target.value;
         this.setState({ language: lang })
-
+        localStorage.setItem('lang',lang) 
         SetLanguage(lang) // change language
             .then(_Language => {
                 if (_Language.data.status) {
 
                     message.success({
-                        content: 'Done',
+                       content: word['Done'][this.state.language],
                         className: 'message-done',
                         style: {
                             marginTop: '2vh',
                         },
                     });
-
-                } else {
-                    message.error({
-                        content: 'Not Change Password',
-                        className: 'message-alert',
-                        style: {
-                            marginTop: '5vh',
-                        },
-                    });
-                }
-
-
+                } 
             })
             .catch(_LanguageError => {
                 window.location.href = "/password";
@@ -102,7 +91,7 @@ class Language extends React.Component {
                             <div className="icon-back">
                                 <a href="/setting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Language</h1>
+                            <h1 className="hd">{word['Language'][this.state.language]}</h1>
                         </div>
                         <div className="box-select">
                             <div className="cov-lang">

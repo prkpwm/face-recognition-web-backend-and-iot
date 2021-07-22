@@ -10,6 +10,7 @@ from uuid import uuid4
 import requests
 import json
 import math
+import cv2
 
 # check location
 def check_location():
@@ -74,6 +75,7 @@ def checkTemperature():
         while True:
             try:
                 mlx.getFrame(frame) # read MLX temperatures into frame var
+                cv2.imshow('',frame)
                 break
             except ValueError:
                 continue # if error, just read again
@@ -87,7 +89,10 @@ def checkTemperature():
             if f >= 1:
                 counter += 1
                 summary_value += frame[i]
-                
+        cv2.waitKey(0) 
+  
+        #closing all open windows 
+        cv2.destroyAllWindows() 
         #print('temp before return:',summary_value/counter)
         return summary_value/counter
 

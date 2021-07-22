@@ -4,12 +4,9 @@ import { Auth } from "../../services/APIs/Login";
 import 'antd/dist/antd.css';
 import './password.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
+import { RotateSpinner } from "react-spinners-kit";
 
-
-let word = {
-    'Wrong password': { 'EN': 'Wrong password', 'TH': 'รหัสผ่านไม่ถูกต้อง' },
-    'Password': { 'EN': 'Password', 'TH': 'รหัสผ่าน' },
-}
+let word = require('../../word.json');
 
 class Password extends React.Component {
 
@@ -19,27 +16,18 @@ class Password extends React.Component {
         this.state = {
             Password: "",
             language: 'TH',
+            loading: true
         }
 
     }
 
     componentDidMount(){
-        GetLanguage() // Get language for display
-        .then(_Edit => {
-            if (_Edit.data.status) {
-                setTimeout(() => {
-                    this.setState({
-                        loading: false
-                    })
-                }, 800);
-                this.setState({
-                    language: _Edit.data.msg[0].lang,
-
-                })
-
-
-            }
-        })
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
+            })
+        }, 800);
     }
 
     Login(e) { // Login to setting
@@ -99,6 +87,9 @@ class Password extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
                     <div className="cov-unlock">
                         <div className="img-lock">
                         <img src="/image/Password/lock.gif" id="lock" alt="" className="img-fluid imgpass" />

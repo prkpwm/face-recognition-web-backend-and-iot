@@ -8,14 +8,11 @@ import { GetLanguage } from "../../services/APIs/Setting";
 import { connectNetwork, getNetwork } from "../../services/APIs/NetworkConfig";
 import { RotateSpinner } from "react-spinners-kit";
 import './NetworkConfig.scss'
+import Slider from "react-slick";
 
 
 library.add(fas)
-let word = {
-    'Network Configulation': { 'EN': 'Network Configulation', 'TH': 'การตั้งค่าเครือข่าย' },
-    'Done': { 'EN': 'Save', 'TH': 'เสร็จแล้ว' },
-    'Not Change Password': { 'EN': 'Save', 'TH': 'ไม่เปลี่ยนรหัสผ่าน' },
-}
+let word = require('../../word.json');
 
 class NetworkConfig extends React.Component {
 
@@ -26,6 +23,7 @@ class NetworkConfig extends React.Component {
             language: 'TH',
             loading: false,
             available_networks: [],
+            getNetwork: [],
         }
 
     }
@@ -34,35 +32,26 @@ class NetworkConfig extends React.Component {
         this.setState({
             loading: true
         })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-                if (_Edit.data.status) {
-                    setTimeout(() => {
-                        this.setState({
-                            loading: false
-                        })
-                    }, 800);
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-
-                    })
-                }
+        setTimeout(() => {
+            this.setState({
+                language: localStorage.getItem('lang'),
+                loading: false
             })
-
-            .catch(_EditError => {
-                window.location.href = "/password";
-            })
+        }, 800);
 
 
 
         getNetwork() // Get language for display
             .then(_Edit => {
-                if (_Edit.data.status) {
+                if (_Edit.status == 200) {
+                    console.log(_Edit.data.available)
                     this.setState({
-                        getNetwork: _Edit.data,
+                        getNetwork: _Edit.data.available,
                     })
                 }
             })
+
+
     }
 
     new_connection() {
@@ -90,30 +79,66 @@ class NetworkConfig extends React.Component {
     }
 
 
-
-
-
-
     render() {
 
         return (
             <div>
                 <div className="size-web">
-                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
                     <div className="cov-menu">
-
                         <div className="hmenu">
                             <div className="icon-back">
-                                <a href="/setting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
+                                <a href="/menu" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">{word['Network Configulation'][this.state.language]}</h1>
+                            <h1 className="hd">{word['Network configuration'][this.state.language]}</h1>
                         </div>
-                        <div>
-                            {this.state.available_networks}
-                        </div>
+                        <div className="box-display">
 
+                
+                            <div className="slide-member">
+                                <Slider
+                                    // asNavFor={this.state.nav1}
+                                    // ref={slider => (this.slider2 = slider)}
+                                    slidesToShow={2}
+                                    swipeToSlide={true}
+                                    focusOnSelect={true}
+                                    centerMode={true}
+                                    centerPadding={"60px"}
+                                    arrows={false}
+                                    variableWidth={false}
+                                    swipeToSlide={true}
+                                    infinite={true}
+                                    className="slide-name"
+                                >
+                                </Slider>
+                                <div className="detail-slide">
+                                    <div className="slidebottom">
+                                        <div className="cov-list-name">
+                                            {this.state.getNetwork ? this.state.getNetwork.map((v, index) => (
+                                                <div className="list-name" key={v.user_id} onClick={() => { window.location.href = "/NetworkConnect?ssid="+v.split(":")[0] } }>
+                                                    <div className="ta-list">
+                                                        <div className="name">
+                                                            <p className="txt" style={{fontSize:'20px'}}>{v}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )) : null}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="animateSearch" className="animate__animated box-search">
+                                <div className="input-group boxgroup">
+                                    <input type="search" placeholder="..." aria-describedby="button-addon1" className="form-control border-0 bg-light search-group" />
+                                    <div className="input-group-append">
+                                        <button id="button-addon1" type="submit" className="btn btn-link text-primary"><FontAwesomeIcon icon={['fas', 'search']} /></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
