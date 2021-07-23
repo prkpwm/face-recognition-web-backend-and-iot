@@ -1,5 +1,6 @@
 IoT/video_freeze/*
 IoT/video/*
+
 IoT/scr/image_face_cropped/*
 IoT/scr/image_no_crop/*
 backend/go/*
