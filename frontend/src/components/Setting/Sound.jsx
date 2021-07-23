@@ -9,7 +9,7 @@ import './sound.scss'
 import { selectStatusSound, setStatusSound, uploadVoiceFile, uploadVoiceEffect, getVoiceMaster, setVoiceMaster } from "../../services/APIs/sound"
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
-
+import {BarDate} from "../BarDate";
 library.add(fas)
 
 let word = require('../../word.json');

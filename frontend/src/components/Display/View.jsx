@@ -8,7 +8,7 @@ import { Upload, message, Switch, Radio, Input } from 'antd';
 import { RotateSpinner } from "react-spinners-kit";
 import 'antd/dist/antd.css';
 import './view.scss'
-
+import {BarDate} from "../BarDate";
 import { GetLanguage } from "../../services/APIs/Setting";
 library.add(fas)
 
@@ -39,7 +39,7 @@ class Views extends React.Component {
         super(props)
         this.state = {
             language: "TH",
-            loading: false,
+            loading: true,
             loading_page: false,
             logo: "",
             status_logo: true,
@@ -526,6 +526,10 @@ class Views extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
+                <BarDate></BarDate>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

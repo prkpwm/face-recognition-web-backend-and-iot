@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import './password.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
-
+import {BarDate} from "../BarDate";
 let word = require('../../word.json');
 
 class Password extends React.Component {
@@ -90,6 +90,7 @@ class Password extends React.Component {
                 <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
+                    <BarDate></BarDate>
                     <div className="cov-unlock">
                         <div className="img-lock">
                         <img src="/image/Password/lock.gif" id="lock" alt="" className="img-fluid imgpass" />

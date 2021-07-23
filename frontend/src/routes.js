@@ -19,7 +19,6 @@ import {Display, Views} from './components/Display';
 import {NetworkConfig,NetworkConnect} from './components/NetworkConfig';
 
 
-
 export default () => {
   return (
       <BrowserRouter>

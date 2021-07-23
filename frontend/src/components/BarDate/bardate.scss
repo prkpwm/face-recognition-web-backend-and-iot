@@ -1,7 +1,7 @@
 .bar {
-    position: fixed;
+    position: absolute;
     top     : 0;
-    padding : 0 15px;
+    padding : 40px 60px 0px 60px;
     width   : 100%;
 
     .cov-date {
@@ -14,7 +14,7 @@
 
             .numdate {
                 margin     : 0;
-                font-family: 'Anuphan';
+                font-family: 'Anuphan_B';
                 color      : #FFFFFF;
                 font-size  : 30px;
             }
@@ -31,13 +31,13 @@
                 .img-wifi {
                     display       : table-cell;
                     vertical-align: middle;
+                    margin-right: 1em;
                 }
 
                 .numtime {
                     display       : table-cell;
                     vertical-align: middle;
-                    margin        : 0;
-                    font-family   : 'Anuphan';
+                    font-family   : 'Anuphan_B';
                     color         : #FFFFFF;
                     font-size     : 30px;
                 }

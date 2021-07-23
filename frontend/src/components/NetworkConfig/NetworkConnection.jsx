@@ -8,6 +8,8 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import './NetworkConnection.scss'
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
 import { connectNetwork, getNetwork } from "../../services/APIs/NetworkConfig";
+import {BarDate} from "../BarDate";
+import { RotateSpinner } from "react-spinners-kit";
 let word = require('../../word.json');
 
 library.add(fas)
@@ -111,6 +113,10 @@ class SettingPassword extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                        <RotateSpinner size={150} loading={this.state.loading} />
+                    </div>
+                <BarDate></BarDate>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

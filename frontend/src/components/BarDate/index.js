@@ -2,7 +2,7 @@ import BarDate from './Bardate'
 
 
 
-export {
+export{
 
     BarDate
 

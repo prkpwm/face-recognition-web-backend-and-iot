@@ -126,6 +126,7 @@
                 margin: 0;
                 font-size: 46px;
                 font-family: 'Anuphan';
+                
             }
 
             .time{
@@ -135,10 +136,12 @@
                     font-size: 46px;
                     pointer-events: none;
                     opacity: 0;
-
+                   
                     .ant-picker-input{
                         input{
                             font-size: 46px;
+                       
+
                         }
                     }
                 }
@@ -209,14 +212,16 @@
 }
 
 .select-time{
-    width: 30%;
+    width: 720px;
     position: relative;
+    text-align: center;
     .ant-picker-panel-container{
         height: 460px;
         background: transparent;
         box-shadow: none;
+        text-align: center;
         .ant-picker-panel{
-            width: 50%;
+            width: 100%;
             height: 100%;
             border: none;
             .ant-picker-time-panel{
@@ -232,6 +237,7 @@
                         .ant-picker-time-panel-cell{
                             margin-bottom: 10px;
                             height: 80px;
+                            text-align: center;
                             // font-family: 'Anuphan';
 
 
@@ -239,10 +245,12 @@
                                 .ant-picker-time-panel-cell-inner{
                                     border: solid 2px #15DE97;
                                     border-radius: 16px;
+                                    
                                 }
                             }
 
                             .ant-picker-time-panel-cell-inner{
+                                
                                 height: 80px;
                                 font-size: 64px;
                                 line-height: 1;

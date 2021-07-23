@@ -8,7 +8,7 @@ import { Switch, message, Select } from 'antd';
 import { RotateSpinner } from "react-spinners-kit";
 import 'antd/dist/antd.css';
 import './scanner.scss'
-
+import {BarDate} from "../BarDate";
 
 library.add(fas)
 
@@ -211,6 +211,7 @@ class Scanner extends React.Component {
                     <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
+                    <BarDate></BarDate>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

@@ -6,6 +6,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import './about.scss';
 import { RotateSpinner } from "react-spinners-kit";
 import { GetLanguage } from "../../services/APIs/Setting";
+import {BarDate} from "../BarDate";
 let word = require('../../word.json');
 
 class About extends Component {
@@ -50,6 +51,7 @@ componentDidMount() {
         <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
+                    <BarDate></BarDate>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">

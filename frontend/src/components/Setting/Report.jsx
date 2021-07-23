@@ -9,7 +9,7 @@ import { RotateSpinner } from "react-spinners-kit";
 import 'antd/dist/antd.css';
 import './report.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
-
+import {BarDate} from "../BarDate";
 library.add(fas)
 
 let word = require('../../word.json');

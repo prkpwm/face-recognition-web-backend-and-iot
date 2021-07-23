@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import { Switch, TimePicker, Checkbox, message } from 'antd';
 import { RotateSpinner } from "react-spinners-kit";
-
+import {BarDate} from "../BarDate";
 import 'antd/dist/antd.css';
 import './checkin.scss'
 import { GetLanguage } from "../../services/APIs/Setting";

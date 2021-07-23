@@ -7,6 +7,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import './menu.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
+import {BarDate} from "../BarDate";
 
 library.add(fas)
 let word = require('../../word.json');
@@ -40,10 +41,13 @@ class Menu extends React.Component {
         return (
             <div>
                 <div className="size-web">
+                    
                     <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
+                    <BarDate></BarDate>
                     <div className="cov-menu">
+                    
                         <div className="hmenu">
                             <div className="icon-back">
                                 <a href="/" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
@@ -104,6 +108,7 @@ class Menu extends React.Component {
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         )

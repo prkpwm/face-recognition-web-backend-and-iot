@@ -10,6 +10,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { GetLanguage } from "../../services/APIs/Setting";
 import { getResult } from "../../services/APIs/recognition";
 import { RotateSpinner } from "react-spinners-kit";
+import { BarDate } from "../BarDate";
 import './home.scss'
 const axios = require('axios');
 library.add(fas)
@@ -47,7 +48,7 @@ class Home extends React.Component {
             response: [],
             weather_info: [],
             language: 'TH',
-            loading: false
+            loading: true
         }
 
     }
@@ -65,16 +66,19 @@ class Home extends React.Component {
             .then(data => {
                 console.log("DATA", data)
                 this.setState({
+                    
                     weather_info: data
                 })
 
                 console.log(this.state.weather_info.data.position.split(",")[1])
             })
             .catch(_CameraError => console.error(_CameraError))
+        
         GetLanguage() // Get language for display
             .then(_Edit => {
                 if (_Edit.data.status) {
                     this.setState({
+                        loading: false,
                         language: _Edit.data.msg[0].lang,
                     })
                 }
@@ -278,14 +282,15 @@ class Home extends React.Component {
             // </div>
             <div>
                 <div className="size-web">
-                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
-                        <RotateSpinner size={150} loading={this.state.loading} />
-                    </div>
+              
                     <div className="stream" onClick={() => { this.Switchtosetting() }}>
+                        
                         <div className="btn-tologin" id="setting">
                             <a href="/password" className="link-login"><FontAwesomeIcon icon={['fas', 'tools']} /></a>
                         </div>
+                        <BarDate></BarDate>
                         <div className="name-official">
+                        
                             <div className="cov-ta">
                                 <div className="logo">
                                     <div className="circle">
@@ -297,11 +302,12 @@ class Home extends React.Component {
                                 </div>
                             </div>
                         </div>
-
+                        <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                            <RotateSpinner size={150} loading={this.state.loading} />
+                        </div>
+                        
                         <div className="box-img">
-
                             <img id="image" align="middle" className="img-fluid img-stream" src="http://192.168.0.252:3050/video_feed" />
-
                         </div>
                         <div className="cov-lotties" style={{ position: 'absolute', top: '0px', width: '100%' }}>
                             <img src="/image/Human.png" alt="" className="img-fluid" />
@@ -368,7 +374,7 @@ class Home extends React.Component {
                                                                 </div>
                                                             }
                                                             <div className="result-num">
-                                                                <p className="num">{hours + "." + minutes + word['oclock'][this.state.language] }</p>
+                                                                <p className="num">{hours + "." + minutes + word['oclock'][this.state.language]}</p>
                                                                 <p className="status-time">{hours < 9 ? word['On time'][this.state.language] : word['Late'][this.state.language]}</p>
                                                             </div>
                                                         </div>
@@ -380,7 +386,7 @@ class Home extends React.Component {
                                                         <div className="cov-ta-tem">
                                                             <div className="result-temper">
                                                                 <p className="num">{temp}</p>
-                                                                <p className="status-time">{temp < 37.5 ? word['Scanning pass'][this.state.language]: word['Scanning not pass'][this.state.language]}</p>
+                                                                <p className="status-time">{temp < 37.5 ? word['Scanning pass'][this.state.language] : word['Scanning not pass'][this.state.language]}</p>
                                                             </div>
 
                                                             <div className="img-tem">

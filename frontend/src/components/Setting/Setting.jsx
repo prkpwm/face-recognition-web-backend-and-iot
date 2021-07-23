@@ -6,7 +6,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import './setting.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
-
+import {BarDate} from "../BarDate";
 library.add(fas)
 let word = require('../../word.json');
 class Setting extends React.Component {

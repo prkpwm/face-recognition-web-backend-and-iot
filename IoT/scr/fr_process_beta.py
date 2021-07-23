@@ -205,7 +205,7 @@ def camera_recognition(check_camera_register, check_camera_detection, check_came
     # if (not left_camera.video_capture.isOpened()):
     #     print("Unable to open any cameras")
     #     SystemExit(0)
-    cap = cv2.VideoCapture('http://192.168.1.28:4747/video')
+    cap = cv2.VideoCapture('http://192.168.1.29:4747/video')
     try:
         while True:
             ret, img = cap.read()
