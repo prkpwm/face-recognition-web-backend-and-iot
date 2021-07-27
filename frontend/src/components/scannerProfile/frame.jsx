@@ -1,18 +1,23 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { message } from 'antd';
-import { CehckOldPassword, UpdatePassword } from "../../services/APIs/Setting";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { Switch } from 'antd';
+import 'antd/dist/antd.css';
 import './frame.scss'
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
-import { connectNetwork, getNetwork } from "../../services/APIs/NetworkConfig";
-import {BarDate} from "../BarDate";
 import { RotateSpinner } from "react-spinners-kit";
-let word = require('../../word.json');
+import { BarDate } from "../BarDate";
 
 library.add(fas)
+
+
+
+// let word = {'':{'EN':'','TH':''},
+
+//         }
+let word = require('../../word.json');
 
 class frame extends React.Component {
 
@@ -20,127 +25,90 @@ class frame extends React.Component {
 
         super(props)
         this.state = {
-            ssid: "",
             language: "TH",
-            password:"",
-            status_checkout_password:null,
             loading: true
         }
 
     }
+
     componentDidMount() {
         this.setState({
             loading: true
         })
-        setTimeout(() => {
-            this.setState({
-                language: localStorage.getItem('lang'),
-                loading: false
-            })
-        }, 800);
-        const search = this.props.location.search;
-        const params = new URLSearchParams(search);
-        this.setState({
-            ssid: params.get('ssid')
-        })
+        GetLanguage() // Get language for display
+            .then(_Edit => {
 
 
-    }
-    OnChangeOldPassword(e) { // check old password
-        var value = e.target.value
-        this.setState({
-            password: e.target.value
-        })
+                if (_Edit.data.status) {
 
-    }
-
-
-
-    connectNet() {
-        let info = {"ssid":this.state.ssid,"password":this.state.password}
-        // console.log(info)
-        connectNetwork(info)
-            .then(_status => {
-                if (_status.data.status) {
+                    setTimeout(() => {
+                        this.setState({
+                            loading: false
+                        })
+                    }, 800);
                     this.setState({
-                        status_checkout_password: true,
+                        language: _Edit.data.msg[0].lang,
+
                     })
-                    message.success({
-                        content: word['Done'][this.state.language],
-                        className: 'message-done',
-                        style: {
-                            marginTop: '2vh',
-                        },
-                    });
-        
-                } else {
-              
-                    this.setState({
-                        status_checkout_password: false,
-                        
-                    })
-                    message.error({
-                        content: word['Connection failed.'][this.state.language],
-                        className: 'message-alert',
-                        style: {
-                            marginTop: '5vh',
-                        },
-                    });
+
 
                 }
             })
-            .catch(_statusError => console.error(_statusError))
 
+            .catch(_EditError => {
+                window.location.href = "/password";
+            })
+    }
+
+    onChange(checked) {
+        console.log(`switch to ${checked}`);
     }
 
 
-
-    useQueryString = () => {
-        const search = this.props.location.search;
-        const params = new URLSearchParams(search);
-        const payload = {
-            ssid: params.get('ssid')
-        }
-        return payload;
-
-    }
     render() {
 
 
 
-        // console.log(this.state.status_checkold_password)
+
 
         return (
             <div>
                 <div className="size-web">
-                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
-                <BarDate></BarDate>
+                    <BarDate></BarDate>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
-                                <a href="/menu" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
+                                <a href="/scannerProfile" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">{word['Network Connection'][this.state.language]}</h1>
+                            <h1 className="hd">{word['Frame'][this.state.language]}</h1>
                         </div>
-                        <div className="box-inputset">
-                            <div className="box-old">
-                                <div className="form-group">
-                                    <label className="la-pass" htmlFor="Oldpass" >SSID </label>
-                                    <input type="text" maxLength="64" value={this.state.ssid} placeholder={this.state.ssid} className="form-control input-data" id="Oldpass" />
-                                </div>
-                            </div>
-                            <div className="box-old">
-                                <div className="form-group">
-                                    <label className="la-pass" htmlFor="Oldpass">{word['Password'][this.state.language]}</label>
-                                    <input type="text" maxLength="64" onChange={(e) => { this.OnChangeOldPassword(e) }} value={this.state.password} className="form-control input-data" id="Oldpass" />
-                                    <div className={"color-status " + (this.state.status_checkout_password == true ? "green" : this.state.status_checkout_password == false ? "red" : null)}></div>
-                                </div>
-                            </div>
+                        <div className="boxset topbox">
+                            <div className="cov-ta">
+                                <div className="logo">
 
-                            <div className="cov-save">
-                                <button className="btn btn-primary btn-save"  onClick={() => { this.connectNet() }}>{word['Connect'][this.state.language]}</button>
+                                    <img src="/image/brdetect.svg" alt="" className="img-fluid" />
+
+                                </div>
+
+                                <div className="btnac">
+                                    <Switch className="switcho" defaultChecked onChange={(e) => this.onChange(e)} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="boxset">
+                            <div className="cov-ta">
+                                <div className="logo">
+
+                                    <img src="/image/Human.png" alt="" className="img-fluid" />
+
+                                </div>
+
+                                <div className="btnac">
+                                    <Switch className="switcho" defaultChecked onChange={(e) => this.onChange(e)} />
+                                </div>
                             </div>
                         </div>
                     </div>

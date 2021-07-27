@@ -43,6 +43,7 @@ class Setting extends React.Component {
                 <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
+                    <BarDate></BarDate>
                     <div className="cov-menu">
                         <div className="hmenu">
                             <div className="icon-back">
@@ -58,6 +59,14 @@ class Setting extends React.Component {
                                             <img src="/image/icon/scanner.svg" alt="" className="img-fluid imgsetting img-b" />
                                         </div>
                                         <p className="name">{word['Scanner mode'][this.state.language]}</p>
+                                    </a>
+                                </div>
+                                <div className="boxmenuname">
+                                    <a href="/scannerProfile" className="link-menu">
+                                        <div className="img-icon">
+                                            <img src="/image/icon/scanner.svg" alt="" className="img-fluid imgsetting img-b" />
+                                        </div>
+                                        <p className="name">{word['Scanner Profile'][this.state.language]}</p>
                                     </a>
                                 </div>
                                 <div className="boxmenuname">

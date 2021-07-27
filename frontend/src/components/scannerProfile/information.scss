@@ -41,127 +41,142 @@
             }
         }
 
-        .box-inputset {
-            margin-top: 120px;
+        .boxset {
+            padding-top: 20px;
 
-            .box-old {
-                .form-group {
-                    .la-pass {
-                        color      : #CCCCCC;
-                        font-size  : 46px;
-                        font-family: 'Anuphan';
-                    }
-
-                    .input-data {
-                        display      : inline-block;
-                        width        : 500px;
-                        height       : 90px;
-                        border-radius: 44px;
-                        background   : #F0F0F0;
-                        font-size    : 42px;
-                        padding      : 25px 20px;
-                        font-family  : 'Anuphan';
-                        margin-right : 30px;
+            &.topbox{
+                // padding-bottom: 80px;
+                border-bottom: solid 3px #15DE97;
+            }
 
 
-                        
-                    }
-                    .color-status {
-                        width        : 40px;
-                        height       : 40px;
-                        display      : inline-block;
-                        border-radius: 44px;
 
-                        &.green {
-                            background: #15DE97 0% 0% no-repeat padding-box;
+            .cov-ta {
+                display: table;
+                width  : 100%;
+                // margin-bottom: 30px;
+                .box-new {
+                    .form-group {
+                        .la-pass {
+                            color      : #15DE97;
+                            font-size  : 46px;
+                            font-family: 'Anuphan';
                         }
-
-                        &.red {
-                            background: #E63838 0% 0% no-repeat padding-box;
+    
+                        .input-data {
+                            width        : 500px;
+                            height       : 90px;
+                            border-radius: 44px;
+                            background   : #F0F0F0 0% 0% no-repeat padding-box;
+                            font-size    : 42px;
+                            padding      : 25px 20px;
+                            font-family  : 'Anuphan';
+                            &:disabled{
+                                background: #a2a2a2;
+                            }
                         }
                     }
                 }
-            }
 
-            .box-new {
-                .form-group {
-                    .la-pass {
+                .logo {
+                    display       : table-cell;
+                    vertical-align: middle;
+           
+
+                    .circle {
+                        background-color: #fff;
+                        border-radius   : 50%;
+                        width  : 200px;
+                        height:  200px;
+
+                        img {
+                            border-radius: 50%;
+                            margin-left: 10px;
+                            margin-top: 10px;
+                            width  : 180px;
+                            height:  180px;
+                        }
+                    }
+                }
+
+                .txth {
+                    display       : table-cell;
+                    vertical-align: middle;
+
+                    .txt {
+                        margin     : 0;
                         color      : #15DE97;
-                        font-size  : 46px;
                         font-family: 'Anuphan';
-                    }
-
-                    .input-data {
-                        width        : 500px;
-                        height       : 90px;
-                        border-radius: 44px;
-                        background   : #F0F0F0 0% 0% no-repeat padding-box;
-                        font-size    : 42px;
-                        padding      : 25px 20px;
-                        font-family  : 'Anuphan';
-                        &:disabled{
-                            background: #a2a2a2;
-                        }
+                        font-size  : 46px;
                     }
                 }
-            }
 
-            .box-confirm {
-                .form-group {
-                    .la-pass {
-                        color      : #15DE97;
-                        font-size  : 46px;
+                .btnac {
+                    display       : table-cell;
+                    vertical-align: middle;
+                    margin-right: 10em;
+
+
+                    .txt-style{
                         font-family: 'Anuphan';
+                        font-size: 42px;
+                        color: #FFFFFF;
                     }
 
-                    .input-data {
-                        display      : inline-block;
-                        width        : 500px;
-                        height       : 90px;
-                        border-radius: 44px;
-                        background   : #F0F0F0 0% 0% no-repeat padding-box;
-                        font-size    : 42px;
-                        padding      : 25px 20px;
-                        font-family  : 'Anuphan';
-                        margin-right : 30px;
+                    .btn-check {
+                        border       : 3px solid #2BDB9D;
+                        border-radius: 25px;
+                        background: transparent;
+                        width: 265px;
+                        height: 80px;
+                        float: left;
+                        color: #15DE97;
+                        font-family: 'Anuphan';
+                        font-size: 42px;
 
 
-                        &:disabled{
-                            background: #a2a2a2;
+                        &.ant-switch-checked{
+                            background-color: #15DE97;
+
+
+                            .ant-switch-handle{
+                                left: calc(100% - 18px - 15px);
+                            }
                         }
+                    }
+                    .lastup{
+                        color: #FFFFFF;
+                        margin: 0;
+                        float: right;
+                        font-family: 'Anuphan';
+                        font-size: 35px;
 
                     }
 
-                    .color-status {
-                        width        : 40px;
-                        height       : 40px;
-                        display      : inline-block;
-                        border-radius: 44px;
+                    .switcho{
+                        height: 40px;
+                        min-width: 100px;
+                        background-color: #BEBEBE;
+                        float: right;
 
-                        &.green {
-                            background: #15DE97 0% 0% no-repeat padding-box;
+                        &.ant-switch-checked{
+                            background-color: #15DE97;
+
+                            .ant-switch-handle{
+                                left: calc(100% - 18px - 15px);
+                            }
                         }
 
-                        &.red {
-                            background: #E63838 0% 0% no-repeat padding-box;
+                        .ant-switch-handle{
+                            width: 32px;
+                            height: 32px;
+                            top: 5px;
+                            
+                            &::before{
+                                border-radius: 15px;
+                            }
                         }
                     }
-                }
-            }
-
-            .cov-save {
-                text-align: right;
-                margin-top: 100px;
-
-                .btn-save {
-                    border       : 3px solid #2BDB9D;
-                    border-radius: 20px;
-                    background-color: transparent;
-                    color: #15DE97;
-                    font-family: 'Anuphan';
-                    font-size: 42px;
-                    padding: 15px 20px;
-                    width: 265px;
                 }
             }
         }

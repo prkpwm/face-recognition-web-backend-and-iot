@@ -41,46 +41,12 @@
             }
         }
 
-        .box-inputset {
-            margin-top: 120px;
+        .boxset {
+            padding-top: 80px;
 
-            .box-old {
-                .form-group {
-                    .la-pass {
-                        color      : #CCCCCC;
-                        font-size  : 46px;
-                        font-family: 'Anuphan';
-                    }
-
-                    .input-data {
-                        display      : inline-block;
-                        width        : 500px;
-                        height       : 90px;
-                        border-radius: 44px;
-                        background   : #F0F0F0;
-                        font-size    : 42px;
-                        padding      : 25px 20px;
-                        font-family  : 'Anuphan';
-                        margin-right : 30px;
-
-
-                        
-                    }
-                    .color-status {
-                        width        : 40px;
-                        height       : 40px;
-                        display      : inline-block;
-                        border-radius: 44px;
-
-                        &.green {
-                            background: #15DE97 0% 0% no-repeat padding-box;
-                        }
-
-                        &.red {
-                            background: #E63838 0% 0% no-repeat padding-box;
-                        }
-                    }
-                }
+            &.topbox{
+                // padding-bottom: 80px;
+                border-bottom: solid 3px #15DE97;
             }
 
             .box-new {
@@ -106,62 +72,91 @@
                 }
             }
 
-            .box-confirm {
-                .form-group {
-                    .la-pass {
+            .cov-ta {
+                display: table;
+                width  : 100%;
+                // margin-bottom: 30px;
+
+
+                .logo {
+                    display       : table-cell;
+                    vertical-align: middle;
+                    width  : 200px;
+                    height:  200px;
+                    margin-left: 5em;
+                }
+
+                .txth {
+                    display       : table-cell;
+                    vertical-align: middle;
+
+                    .txt {
+                        margin     : 0;
                         color      : #15DE97;
-                        font-size  : 46px;
                         font-family: 'Anuphan';
-                    }
-
-                    .input-data {
-                        display      : inline-block;
-                        width        : 500px;
-                        height       : 90px;
-                        border-radius: 44px;
-                        background   : #F0F0F0 0% 0% no-repeat padding-box;
-                        font-size    : 42px;
-                        padding      : 25px 20px;
-                        font-family  : 'Anuphan';
-                        margin-right : 30px;
-
-
-                        &:disabled{
-                            background: #a2a2a2;
-                        }
-
-                    }
-
-                    .color-status {
-                        width        : 40px;
-                        height       : 40px;
-                        display      : inline-block;
-                        border-radius: 44px;
-
-                        &.green {
-                            background: #15DE97 0% 0% no-repeat padding-box;
-                        }
-
-                        &.red {
-                            background: #E63838 0% 0% no-repeat padding-box;
-                        }
+                        font-size  : 46px;
                     }
                 }
-            }
 
-            .cov-save {
-                text-align: right;
-                margin-top: 100px;
+                .btnac {
+                    display       : table-cell;
+                    vertical-align: middle;
+                    margin-right: 7em;
 
-                .btn-save {
-                    border       : 3px solid #2BDB9D;
-                    border-radius: 20px;
-                    background-color: transparent;
-                    color: #15DE97;
-                    font-family: 'Anuphan';
-                    font-size: 42px;
-                    padding: 15px 20px;
-                    width: 265px;
+                    .btn-check {
+                        border       : 3px solid #2BDB9D;
+                        border-radius: 25px;
+                        background: transparent;
+                        width: 265px;
+                        height: 80px;
+                        float: left;
+                        color: #15DE97;
+                        font-family: 'Anuphan';
+                        font-size: 42px;
+
+
+                        &.ant-switch-checked{
+                            background-color: #15DE97;
+
+
+                            .ant-switch-handle{
+                                left: calc(100% - 18px - 15px);
+                            }
+                        }
+                    }
+                    .lastup{
+                        color: #FFFFFF;
+                        margin: 0;
+                        float: right;
+                        font-family: 'Anuphan';
+                        font-size: 35px;
+
+                    }
+
+                    .switcho{
+                        height: 40px;
+                        min-width: 100px;
+                        background-color: #BEBEBE;
+                        float: right;
+
+                        &.ant-switch-checked{
+                            background-color: #15DE97;
+
+                            .ant-switch-handle{
+                                left: calc(100% - 18px - 15px);
+                            }
+                        }
+
+                        .ant-switch-handle{
+                            width: 32px;
+                            height: 32px;
+                            top: 5px;
+                            
+                            &::before{
+                                border-radius: 15px;
+                            }
+                        }
+                    }
                 }
             }
         }

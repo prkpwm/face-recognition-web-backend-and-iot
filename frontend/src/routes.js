@@ -17,6 +17,7 @@ import {SettingPassword} from './components/SettingPassword';
 import {MaskDetection} from './components/MaskDetection';
 import {Display, Views} from './components/Display';
 import {NetworkConfig,NetworkConnect} from './components/NetworkConfig';
+import {frame,information,scannerHeader,scannerProfile} from './components/scannerProfile';
 
 
 export default () => {
@@ -51,6 +52,10 @@ export default () => {
                       <Route exact path={'/maskdetection'} component={MaskDetection} />
                       <Route exact path={'/NetworkConnect'} component={NetworkConnect} />
                       <Route exact path={'/NetworkConfig'} component={NetworkConfig} />
+                      <Route exact path={'/frame'} component={frame} />
+                      <Route exact path={'/information'} component={information} />
+                      <Route exact path={'/scannerHeader'} component={scannerHeader} />
+                      <Route exact path={'/scannerProfile'} component={scannerProfile} />
                       <Route component={NotFound} />
                       </Switch>
                       ) : (<Redirect to={'/password'} />)}

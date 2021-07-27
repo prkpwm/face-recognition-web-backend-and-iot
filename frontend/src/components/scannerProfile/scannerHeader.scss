@@ -13,27 +13,9 @@
     filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
     position     : relative;
 
-    .loading{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        background: linear-gradient(to bottom, #08202e 0%, #08202e 79%, #0e604c 94%, #107958 100%);
-
-        .rotate__Wrapper-sc-1b62bh9-0{
-            top: 45%;
-            left: 43%;
-
-        }
-    }
-
 
     .cov-menu {
         padding: 50px 150px;
-
-        
 
         .hmenu {
             padding-top: 50px;
@@ -59,97 +41,136 @@
             }
         }
 
-        .box-select {
-            margin-top: 100px;
+        .boxset {
+            padding-top: 80px;
 
-            .cov-lang {
-                .lang {
+            &.topbox{
+                // padding-bottom: 80px;
+                border-bottom: solid 3px #15DE97;
+            }
 
-                    &:nth-child(1){
-                        .container{
-                            border-bottom: solid 1px #15DE97;
-                        }
-                    }
-
-                    /* The container */
-                    .container {
-                        display            : block;
-                        position           : relative;
-                        padding-left       : 35px;
-                        padding-bottom: 80px;
-                        margin-bottom      : 80px;
-                        cursor             : pointer;
-                        font-size          : 22px;
-                        -webkit-user-select: none;
-                        -moz-user-select   : none;
-                        -ms-user-select    : none;
-                        user-select        : none;
+            .box-new {
+                .form-group {
+                    .la-pass {
+                        color      : #15DE97;
+                        font-size  : 46px;
                         font-family: 'Anuphan';
-                        color: #707070;
-                        font-size: 46px;
+                    }
 
-                        
-                        &.active{
-                            color: #15DE97;
+                    .input-data {
+                        width        : 500px;
+                        height       : 90px;
+                        border-radius: 44px;
+                        background   : #F0F0F0 0% 0% no-repeat padding-box;
+                        font-size    : 42px;
+                        padding      : 25px 20px;
+                        font-family  : 'Anuphan';
+                        &:disabled{
+                            background: #a2a2a2;
+                        }
+                    }
+                }
+            }
+
+            .cov-ta {
+                display: table;
+                width  : 100%;
+                // margin-bottom: 30px;
+
+
+
+                .txth {
+                    display       : table-cell;
+                    vertical-align: middle;
+
+                    .txt {
+                        margin     : 0;
+                        color      : #15DE97;
+                        font-family: 'Anuphan';
+                        font-size  : 46px;
+                    }
+                }
+
+                .btnac {
+                    display       : table-cell;
+                    vertical-align: middle;
+                  
+                    .logo {
+                        display       : table-cell;
+                        vertical-align: middle;
+                        float: left;
+
+                        .circle {
+                            background-color: #fff;
+                            border-radius   : 50%;
+                            width  : 200px;
+                            height:  200px;
+
+                            img {
+                                border-radius: 50%;
+                                margin-left: 10px;
+                                margin-top: 10px;
+                                width  : 180px;
+                                height:  180px;
+                            }
                         }
                     }
 
-                    /* Hide the browser's default checkbox */
-                    .container input {
-                        position: absolute;
-                        opacity : 0;
-                        cursor  : pointer;
-                        height  : 0;
-                        width   : 0;
-                    }
-
-                    /* Create a custom checkbox */
-                    .checkmark {
-                        position        : absolute;
-                        top             : 0;
-                        right            : 20px;
-                        height          : 60px;
-                        width           : 60px;
+                    .btn-check {
+                        border       : 3px solid transparent;
+                        border-radius: 25px;
+                        background: transparent;
+                        width: 265px;
+                        height: 80px;
+                        float: left;
+                        color: transparent;
+                        font-family: 'Anuphan';
+                        font-size: 42px;
+                        margin-left: 2em;
                         background-color: transparent;
-                        border: solid 2px #707070;
-                        border-radius: 20px;
+                        
+
+                        &.ant-switch-checked{
+                            background-color: #15DE97;
+
+
+                            .ant-switch-handle{
+                                left: calc(100% - 18px - 15px);
+                            }
+                        }
+                    }
+                    .lastup{
+                        color: #FFFFFF;
+                        margin: 0;
+                        float: right;
+                        font-family: 'Anuphan';
+                        font-size: 35px;
+
                     }
 
-                    /* On mouse-over, add a grey background color */
-                    .container:hover input~.checkmark {
-                        background-color: #ccc;
-                    }
+                    .switcho{
+                        height: 40px;
+                        min-width: 100px;
+                        background-color: #BEBEBE;
+                        float: right;
 
-                    /* When the checkbox is checked, add a blue background */
-                    .container input:checked~.checkmark {
-                        background-color: #15DE97;
-                        border-color: #15DE97;
-                        border-radius: 20px;
-                    }
+                        &.ant-switch-checked{
+                            background-color: #15DE97;
 
-                    /* Create the checkmark/indicator (hidden when not checked) */
-                    .checkmark:after {
-                        content : "";
-                        position: absolute;
-                        display : none;
-                    }
+                            .ant-switch-handle{
+                                left: calc(100% - 18px - 15px);
+                            }
+                        }
 
-                    /* Show the checkmark when checked */
-                    .container input:checked~.checkmark:after {
-                        display: block;
-                    }
-
-                    /* Style the checkmark/indicator */
-                    .container .checkmark:after {
-                        left             : 30px;
-                        top              : -20px;
-                        width            : 20px;
-                        height           : 60px;
-                        border           : solid white;
-                        border-width     : 0 8px 5px 0;
-                        -webkit-transform: rotate(45deg);
-                        -ms-transform    : rotate(45deg);
-                        transform        : rotate(45deg);
+                        .ant-switch-handle{
+                            width: 32px;
+                            height: 32px;
+                            top: 5px;
+                            
+                            &::before{
+                                border-radius: 15px;
+                            }
+                        }
                     }
                 }
             }

@@ -1,7 +1,27 @@
 {
+    "Scanner Profile": {
+        "EN": "Scanner Profile",
+        "TH": "โปรไฟล์สแกนเนอร์"
+    },
+    "Frame": {
+        "EN": "frame",
+        "TH": "กรอบ"
+    },
+    "Information": {
+        "EN": "Information",
+        "TH": "การรายงานผล"
+    },
+    "Scanner Header": {
+        "EN": "Scanner Header",
+        "TH": "ส่วนหัวสแกนเนอร์"
+    },
     "Network Connection": {
         "EN": "Network Connection",
         "TH": "การเชื่อมต่อเครือข่าย"
+    },
+    "Browse": {
+        "EN": "Browse",
+        "TH": "ค้นหา"
     },
     "oclock": {
         "EN": "O'clock",

@@ -1,0 +1,98 @@
+.size-web {
+    width        : 1080px;
+    height       : 1920px;
+    margin       : 0 auto;
+    // background: linear-gradient(180deg, rgba(8,32,46,1) 85%, rgba(21,222,151,1) 100%);
+    background   : rgba(8, 32, 46, 1);
+    background   : -moz-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -webkit-gradient(left top, left bottom, color-stop(0%, rgba(8, 32, 46, 1)), color-stop(79%, rgba(8, 32, 46, 1)), color-stop(94%, rgba(14, 96, 76, 1)), color-stop(100%, rgba(16, 121, 88, 1)));
+    background   : -webkit-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -o-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : -ms-linear-gradient(top, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    background   : linear-gradient(to bottom, rgba(8, 32, 46, 1) 0%, rgba(8, 32, 46, 1) 79%, rgba(14, 96, 76, 1) 94%, rgba(16, 121, 88, 1) 100%);
+    filter       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#08202e', endColorstr='#107958', GradientType=0);
+    position     : relative;
+
+
+    .cov-menu {
+        padding: 50px 150px;
+
+        .hmenu {
+            padding-top: 50px;
+            position   : relative;
+
+            .icon-back {
+                position: absolute;
+                bottom  : 10px;
+                left: -50px;
+
+                .link-back {
+                    color    : #15DE97;
+                    font-size: 50px;
+
+                }
+            }
+
+            .hd {
+                text-align : center;
+                color      : #15DE97;
+                font-family: 'Anuphan_B';
+                font-size  : 84px;
+            }
+        }
+
+        .cov-list-menu {
+            .box-menu {
+
+                .boxmenuname {
+                    position     : relative;
+                    border       : 3px solid #15DE97;
+                    border-radius: 20px;
+                    margin-top   : 80px;
+
+                    .link-menu {
+                        display        : block;
+                        padding        : 20px 10px;
+                        text-decoration: none;
+                        border-radius: 20px;
+
+
+                        &:active{
+                            background-color: #15DE97;
+                            border: solid 1px #15DE97;
+                            
+
+                            .name{
+                                color: #ffffff;
+                            }
+                        }
+
+                        .name {
+                            margin     : 0;
+                            text-align : center;
+                            color      : #15DE97;
+                            font-size  : 46px;
+                            font-family: 'Anuphan';
+                        }
+
+                        .img-icon {
+                            position: absolute;
+                            left    : 5px;
+                            top     : -30%;
+
+                            .imgsetting {
+                                width: 130px;
+                            }
+
+                            .img-b{
+                                width: 100px;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+}

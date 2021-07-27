@@ -534,12 +534,11 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
     #start_time = time.time()
     left_camera = CSI_Camera()
     left_camera.create_gstreamer_pipeline(
-            sensor_id=1,
-            sensor_mode=SENSOR_MODE_720,
-            framerate=30,
+            sensor_id=0,
+            sensor_mode=3,
             flip_method=0,
-            display_height=DISPLAY_HEIGHT,
-            display_width=DISPLAY_WIDTH,
+            display_height=540,
+            display_width=960,
     )
     left_camera.open(left_camera.gstreamer_pipeline)
     left_camera.start()
@@ -1279,7 +1278,7 @@ app = Starlette(middleware=middleware,routes= routes)
 
 
 if __name__ == '__main__':
-    p_process = mp.Process(target=camera_recognition,args=(check_camera_register,check_camera_detection,check_camera_mask,))
+    p_process = mp.Process(target=camera_recognition2,args=(check_camera_register,check_camera_detection,check_camera_mask,))
     p_process.start()
     # p_process = mp.Process(target=recognitionSearch)
     # p_process.start()
