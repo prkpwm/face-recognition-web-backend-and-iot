@@ -1311,6 +1311,22 @@ async def cleandata(request):
         return JSONResponse({"status":False})   
 
 
+async def dowloadUpdate(request):
+    url = 'https://www2.census.gov/geo/tiger/GENZ2017/shp/cb_2017_02_tract_500k.zip'
+    target_path = '../../alaska.zip'
+
+    response = requests.get(url, stream=True)
+    handle = open(target_path, "wb")
+    for chunk in response.iter_content(chunk_size=512):
+        if chunk:  # filter out keep-alive new chunks
+            handle.write(chunk)
+    handle.close()
+    try:
+        return JSONResponse({"status":True})
+    except Exception as e:
+        return JSONResponse({"status":False})   
+
+
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
     Route("/update_register", endpoint=update_register, methods=["POST"]),
