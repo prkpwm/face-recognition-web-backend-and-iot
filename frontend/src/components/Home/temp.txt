@@ -1,0 +1,320 @@
+     // <div>
+            //     <div className="size-web">
+            //         <div className="stream" onClick={() => { this.Switchtosetting() }}>
+            //             <div className="btn-tologin" id="setting">
+            //                 <a href="/password" className="link-login"><FontAwesomeIcon icon={['fas', 'tools']} /></a>
+            //             </div>
+            //             <div className="name-official">
+            //                 <div className="cov-ta">
+            //                     <div className="logo">
+            //                         <div className="circle">
+            //                             <img src="/image/Logo/logo-office.png" alt="" className="img-fluid" />
+            //                         </div>
+            //                     </div>
+            //                     <div className="nameoff">
+            //                         <p className="name">Hogwarts School of Witchcraft and wizardry</p>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //             {console.log("+++++++++++")}
+            //             <div className="box-img">
+            //                 {/* <video id="video" align="middle" className="img-fluid img-stream"  src="http://192.168.0.252:3050/video_feed" autoplay="autoplay" /> */}
+            //                 <img id="image" align="middle" className="img-fluid img-stream" src="http://192.168.0.252:3050/video_feed" />
+
+            //             </div>
+            //             <div className="cov-lotties" style={{ position: 'absolute', top: '0px', width: '100%' }}>
+            //                 <img src="/image/Human.png" alt="" className="img-fluid" />
+            //                 {/* <Lottie
+
+            //                     options={defaultOptions}
+            //                     height={1920}
+            //                     width={'100%'}
+            //                 /> */}
+            //             </div>
+            //             <div className="result">
+            //                 {
+            //                     face_valid ?
+            //                         <div className="name-result">
+            //                             <p className="status-process">SUCCESS</p>
+            //                             <p className="name-user">{name}</p>
+            //                             <p className="group">{status}</p>
+            //                         </div>
+            //                         :
+            //                         <div className="name-result">
+            //                             <p className="status-process">Please stand in front of camara.</p>
+            //                         </div>
+            //                 }
+            //                 {
+            //                     this.state.weather_info.length != 0 ?
+            //                         <div className="row list-result">
+            //                             <div className="col-lg-6 time">
+            //                                 <div className="box-time">
+            //                                     <div className="cov-ta-time">
+            //                                         <div className="img-result">
+            //                                             <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
+            //                                         </div>
+
+            //                                         <div className="result-num">
+            //                                             <p className="status-time">PM 2.5 {this.state.weather_info.data.pm25}</p>
+            //                                         </div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                         </div> :
+            //                         null
+            //                 }
+
+
+            //                 {
+            //                     this.state.weather_info.length != 0 ?
+            //                         <div className="col-lg-6 temperature">
+            //                             <div className="box-tem">
+            //                                 <div className="cov-ta-tem">
+            //                                     <div className="result-temper">
+            //                                         <p className="num">{this.state.weather_info.data.weather}</p>
+            //                                         <p className="status-time">{this.state.weather_info.data.weather}</p>
+            //                                     </div>
+
+            //                                     <div className="img-tem">
+            //                                         {
+            //                                             temp < 37.5 ?
+            //                                                 <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
+            //                                                 <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
+            //                                         }
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                         :
+            //                         null
+            //                 }
+
+
+            //                 {
+            //                     face_valid ?
+            // <div className="row list-result">
+            //     <div className="col-lg-6 time">
+            //         <div className="box-time">
+            //             <div className="cov-ta-time">
+            //                 {this.TimeValid() ?
+            //                     <div className="img-result">
+            //                         <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
+            //                     </div>
+            //                     :
+            //                     <div className="img-result">
+            //                         <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
+            //                     </div>
+            //                 }
+            //                 <div className="result-num">
+            //                     <p className="num">{hours + "." + minutes + " น."}</p>
+            //                     <p className="status-time">{hours < 9 ? "มาตรงเวลา" : "มาสาย"}</p>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     </div>
+            // </div>
+            //                         :
+            //                         null
+            //                 }
+
+            //                 {
+            //                     face_valid ?
+            // <div className="col-lg-6 temperature">
+            //     <div className="box-tem">
+            //         <div className="cov-ta-tem">
+            //             <div className="result-temper">
+            //                 <p className="num">{temp}</p>
+            //                 <p className="status-time">{temp < 37.5 ? "อุณหภูมิผ่านเกณฑ์" : "อุณหภูมิไม่ผ่านเกณฑ์"}</p>
+            //             </div>
+
+            //             <div className="img-tem">
+            //                 {
+            //                     temp < 37.5 ?
+            //                         <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
+            //                         <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
+            //                 }
+            //             </div>
+            //         </div>
+            //     </div>
+            // </div>
+            //                         :
+            //                         null
+            //                 }
+
+            //             </div>
+            //         </div>
+            //     </div>
+            // </div>
+            // <div>
+            //     <div className="size-web">
+
+            //         <div className="stream" onClick={() => { this.Switchtosetting() }}>
+
+            //             <div className="btn-tologin" id="setting">
+            //                 <a href="/password" className="link-login"><FontAwesomeIcon icon={['fas', 'tools']} /></a>
+            //             </div>
+            //             <BarDate></BarDate>
+            //             <div className="name-official">
+
+            //                 <div className="cov-ta">
+            //                     <div className="logo">
+            //                         <div className="circle">
+            //                             <img src="/image/Logo/logo-office.png" alt="" className="img-fluid" />
+            //                         </div>
+            //                     </div>
+            //                     <div className="nameoff">
+            //                         <p className="name">Hogwarts School of Witchcraft and wizardry</p>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //             <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+            //                 <RotateSpinner size={150} loading={this.state.loading} />
+            //             </div>
+
+            //             <div className="box-img">
+            //                 <img id="image" align="middle" className="img-fluid img-stream" src="http://192.168.0.252:3050/video_feed" />
+            //             </div>
+            //             <div className="cov-lotties" style={{ position: 'absolute', top: '0px', width: '100%' }}>
+            //                 <img src="/image/Human.png" alt="" className="img-fluid" />
+            //                 {/* <Lottie
+
+            //                 options={defaultOptions}
+            //                 height={1920}
+            //                 width={'100%'}
+            //             /> */}
+            //             </div>
+            //             {
+            //                 face_valid ?
+            //                     <div className="result">
+            //                         <div className="name-result">
+            //                             <p className="status-process">{word['Language'][this.state.language]}SUCCESS</p>
+            //                             <p className="name-user">Bai toeyyy</p>
+            //                             <p className="group">Student</p>
+            //                         </div>
+            //                         <div className="row list-result">
+            //                             <div className="col-lg-6 time">
+            //                                 <div className="box-time">
+            //                                     <div className="cov-ta-time">
+            //                                         <div className="img-result">
+            //                                             <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
+            //                                         </div>
+            //                                         <div className="result-num">
+            //                                             <p className="num">09.09</p>
+            //                                             <p className="status-time">{word['Language'][this.state.language]}มาสาย</p>
+            //                                         </div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                             <div className="col-lg-6 temperature">
+            //                                 <div className="box-tem">
+            //                                     <div className="cov-ta-tem">
+            //                                         <div className="result-temper">
+            //                                             <p className="num">35.6</p>
+            //                                             <p className="status-time">{word['Language'][this.state.language]}อุณหภูมิผ่านเกณฑ์</p>
+            //                                         </div>
+            //                                         <div className="img-tem">
+            //                                             <img src="/image/icon/temg.svg" alt="" className="img-fluid" />
+            //                                         </div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                     </div> :
+            //                     <div className="result">
+            //                         {
+            //                             face_valid ?
+
+            //                                 <div className="row list-result">
+
+            //                                     <div className="col-lg-6 time">
+            //                                         <div className="box-time">
+            //                                             <div className="cov-ta-time">
+            //                                                 {this.TimeValid() ?
+            //                                                     <div className="img-result">
+            //                                                         <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
+            //                                                     </div>
+            //                                                     :
+            //                                                     <div className="img-result">
+            //                                                         <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
+            //                                                     </div>
+            //                                                 }
+            //                                                 <div className="result-num">
+            //                                                     <p className="num">{hours + "." + minutes + word['oclock'][this.state.language]}</p>
+            //                                                     <p className="status-time">{hours < 9 ? word['On time'][this.state.language] : word['Late'][this.state.language]}</p>
+            //                                                 </div>
+            //                                             </div>
+            //                                         </div>
+            //                                     </div>
+
+            //                                     <div className="col-lg-6 temperature">
+            //                                         <div className="box-tem">
+            //                                             <div className="cov-ta-tem">
+            //                                                 <div className="result-temper">
+            //                                                     <p className="num">{temp}</p>
+            //                                                     <p className="status-time">{temp < 37.5 ? word['Scanning pass'][this.state.language] : word['Scanning not pass'][this.state.language]}</p>
+            //                                                 </div>
+
+            //                                                 <div className="img-tem">
+            //                                                     {
+            //                                                         temp < 37.5 ?
+            //                                                             <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
+            //                                                             <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
+            //                                                     }
+            //                                                 </div>
+            //                                             </div>
+            //                                         </div>
+            //                                     </div>
+            //                                 </div>
+            //                                 : <div className="name-result">
+            //                                     <p className="status-process">{word['Please stand in front of camara.'][this.state.language]}</p>
+            //                                 </div>
+            //                         }
+            //                         {this.getRes()}
+            //                         {
+            //                             this.state.weather_info.length != 0 ?
+            //                                 <div className="row list-result">
+
+            //                                     <div className="col-lg-6 time">
+            //                                         <div className="box-time">
+            //                                             <div className="cov-ta-time">
+            //                                                 <div className="img-result">
+            //                                                     <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
+            //                                                 </div>
+
+            //                                                 <div className="result-num">
+            //                                                     <p className="num"> {this.state.weather_info.data.pm25}</p>
+            //                                                     <p className="status-time">{this.pm25_color(this.state.weather_info.data.pm25)}</p>
+            //                                                 </div>
+            //                                             </div>
+            //                                         </div>
+            //                                     </div>
+
+            //                                     <div className="col-lg-6 temperature">
+            //                                         <div className="box-tem">
+            //                                             <div className="cov-ta-tem">
+            //                                                 <div className="result-temper">
+            //                                                     <p className="num">{this.state.weather_info.data.weather}</p>
+            //                                                     <p className="status-time">{this.state.weather_info.data.position.split(",")[1]}</p>
+            //                                                 </div>
+
+            //                                                 <div className="img-tem">
+            //                                                     {
+            //                                                         temp < 37.5 ?
+            //                                                             <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
+            //                                                             <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
+            //                                                     }
+            //                                                 </div>
+            //                                             </div>
+            //                                         </div>
+            //                                     </div>
+            //                                 </div>
+            //                                 : null}
+            //                     </div>
+
+            //             }
+
+
+
+            //         </div>
+            //     </div>
+            // </div>

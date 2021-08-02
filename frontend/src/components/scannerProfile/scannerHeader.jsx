@@ -1,15 +1,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Switch, Input } from 'antd';
 import 'antd/dist/antd.css';
 import './scannerHeader.scss'
-import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
+import { saveImg,saveLogo } from "../../services/APIs/Header";
 import { RotateSpinner } from "react-spinners-kit";
 import { BarDate } from "../BarDate";
-
+import { save } from 'save-file'
 library.add(fas)
 
 
@@ -27,11 +27,12 @@ class scannerHeader extends React.Component {
         this.state = {
             language: "TH",
             loading: true,
-            selectedFile: null,
-            LogoSelected:localStorage.getItem('LogoSelected') != null ? localStorage.getItem('LogoSelected') : true,
-            nameSelected:localStorage.getItem('nameSelected') != null ? localStorage.getItem('nameSelected') : true,
-            L1:localStorage.getItem('L1') == null ? localStorage.getItem('L1') : null,
-            L2:localStorage.getItem('L2') == null ? localStorage.getItem('L2') : null,
+            LogoSelected: true,
+            nameSelected: true,
+            LogoLocation: null,
+            file: null,
+            L1: null,
+            L2: null,
         }
         this.onChangeLogo = this.onChangeLogo.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -39,45 +40,33 @@ class scannerHeader extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            loading: true,
-            LogoSelected:localStorage.getItem('LogoSelected') != null ? localStorage.getItem('LogoSelected') : true,
-            nameSelected:localStorage.getItem('nameSelected') != null ? localStorage.getItem('nameSelected') : true,
-            L1:localStorage.getItem('L1') == null ? localStorage.getItem('L1') : null,
-            L2:localStorage.getItem('L2') == null ? localStorage.getItem('L2') : null,
-        })
+        setTimeout(() => {
+            this.setState({
+                loading: false,
+                LogoSelected: localStorage.getItem('LogoSelected') != null ? (/true/i).test(localStorage.getItem('LogoSelected')) : true,
+                nameSelected: localStorage.getItem('nameSelected') != null ? (/true/i).test(localStorage.getItem('nameSelected')) : true,
+                L1: localStorage.getItem('L1') != null ? localStorage.getItem('L1') : null,
+                L2: localStorage.getItem('L2') != null ? localStorage.getItem('L2') : null,
+                LogoLocation: localStorage.getItem('LogoLocation'),
+                language: localStorage.getItem('lang'),
+            })
+        }, 800);
         // console.log(this.state.LogoSelected,this.state.nameSelected)
-        GetLanguage() // Get language for display
-            .then(_Edit => {
+        console.log(this.state.LogoLocation,localStorage.getItem('LogoLocation'))
 
-
-                if (_Edit.data.status) {
-
-                    setTimeout(() => {
-                        this.setState({
-                            loading: false
-                        })
-                    }, 800);
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-
-                    })
-
-
-                }
-            })
-
-            .catch(_EditError => {
-                window.location.href = "/password";
-            })
     }
 
-    onChangeLogo(event) {
-        console.log( URL.createObjectURL(event.target.files[0]));
-        this.setState({
-            selectedFile: URL.createObjectURL(event.target.files[0]),
 
+
+    onChangeLogo(event) {
+        // saveImg(event.target.files[0].name) // change language
+        saveLogo(event.target.files[0]) // change language
+        // save(event.target.files[0], event.target.files[0].name)
+        this.setState({
+            LogoLocation: URL.createObjectURL(event.target.files[0]),
         })
+
+        localStorage.setItem('LogoLocation', "/image/temp/"+event.target.files[0].name)
 
 
     }
@@ -89,43 +78,42 @@ class scannerHeader extends React.Component {
             LogoSelected: event,
 
         })
-        localStorage.setItem('LogoSelected',event) 
+        localStorage.setItem('LogoSelected', event)
 
     }
 
     onChangenameSelect(event) {
-        console.log( event);
+        console.log(event);
         this.setState({
-            LogoSelected: event,
+            nameSelected: event,
 
         })
-        localStorage.setItem('nameSelected',event) 
+        localStorage.setItem('nameSelected', event)
     }
 
-    onChangeL1(event) {
-        console.log( event.target.value);
+    OnChangeLine1(event) {
+        console.log(event.target.value);
         this.setState({
             L1: event.target.value,
 
         })
-        localStorage.setItem('L1',event) 
+        localStorage.setItem('L1', event.target.value)
 
     }
 
-    onChangeL2(event) {
-        console.log( event.target.value);
+    OnChangeLine2(event) {
+        console.log(event.target.value);
         this.setState({
             L2: event.target.value,
 
         })
-        localStorage.setItem('L2',event) 
+        localStorage.setItem('L2', event.target.value)
 
     }
 
 
 
     render() {
-
 
 
 
@@ -148,20 +136,18 @@ class scannerHeader extends React.Component {
                             <div className="cov-ta">
                                 <div className="logo">
                                     <div className="circle">
-                                        <img src={this.state.selectedFile == null ? "/image/Logo/logo-office.png" : this.state.selectedFile} alt="" className="img-fluid" />
+                                        <img src={this.state.LogoLocation == null ? localStorage.getItem('LogoLocation') : this.state.LogoLocation  } alt="" className="img-fluid" />
+
                                     </div>
                                 </div>
                                 <div className="btnac">
-                                    <form action="/upload" method="post" enctype="multipart/form-data">
-                                        <Input type="file" className="btn btn-secondary btn-check"  name={word['Browse'][this.state.language]} onChange={this.onChangeLogo} />
+                                        <Input type="file" id="myFile" className="btn btn-secondary btn-check" name="file" onChange={this.onChangeLogo} />
                                         {/* <button type="button" className="btn btn-secondary btn-check">{word['Browse'][this.state.language]}</button> */}
-                                    </form>
                                 </div>
                                 <div className="btnac">
-                                    <Switch className="switcho" defaultChecked={this.state.LogoSelected} onChange={(e) => this.onChangeLogoSelect(e)} />
-                                   
+                                    <Switch className="switcho" checked={this.state.LogoSelected} onChange={(e) => this.onChangeLogoSelect(e)} />
+
                                 </div>
-                                {console.log( this.state.LogoSelected)}
                             </div>
                         </div>
                         <div className="boxset">
@@ -171,19 +157,16 @@ class scannerHeader extends React.Component {
                                         <input type="text"
                                             className="form-control input-data" maxLength="64"
                                             value={this.state.L1}
-                                            onChange={(e) => { this.OnChangeL1(e) }} id="Newpass"
-                                            disabled={this.state.visible_newpass}
+                                            onChange={(e) => { this.OnChangeLine1(e) }}
                                             placeholder={"Scannername Line 1"}
                                         />
                                         <div className="btnac" style={{ float: "right", marginLeft: "43em" }}>
-                                            <Switch className="switcho" defaultChecked={this.state.nameSelected} onChange={(e) => this.onChangenameSelect(e)} />
+                                            <Switch className="switcho" checked={this.state.nameSelected} onChange={(e) => this.onChangenameSelect(e)} />
                                         </div>
-
                                         <input type="text"
                                             className="form-control input-data" maxLength="64"
                                             value={this.state.L2}
-                                            onChange={(e) => { this.OnChangeL2(e) }} id="Newpass"
-                                            disabled={this.state.visible_newpass}
+                                            onChange={(e) => { this.OnChangeLine2(e) }}
                                             placeholder={"Scannername Line 2"}
                                         />
                                     </div>

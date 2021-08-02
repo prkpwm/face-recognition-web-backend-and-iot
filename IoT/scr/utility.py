@@ -75,7 +75,7 @@ def checkTemperature():
         while True:
             try:
                 mlx.getFrame(frame) # read MLX temperatures into frame var
-                cv2.imshow('',frame)
+                # cv2.imshow('',frame)
                 break
             except ValueError:
                 continue # if error, just read again

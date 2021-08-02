@@ -41,6 +41,23 @@
             }
         }
 
+        .cov-save {
+            text-align: right;
+            display       : table-cell;
+            vertical-align: middle;
+            
+            .btn-save {
+                border       : 3px solid #2BDB9D;
+                border-radius: 20px;
+                background-color: transparent;
+                color: #15DE97;
+                font-family: 'Anuphan';
+                font-size: 42px;
+                padding: 15px 20px;
+                width: 265px;
+            }
+        }
+
         .boxset {
             padding-top: 80px;
             &.topbox{
@@ -70,7 +87,7 @@
                     vertical-align: middle;
 
                     .btn-check {
-                        border       : 3px solid #2BDB9D;
+                        border       : 3px solid #15DE97;
                         border-radius: 20px;
                         background: transparent;
                         width: 265px;
@@ -78,7 +95,7 @@
                         float: right;
                         color: #15DE97;
                         font-family: 'Anuphan';
-                        font-size: 42px;
+                        font-size: 36px;
                     }
                     .lastup{
                         color: #FFFFFF;

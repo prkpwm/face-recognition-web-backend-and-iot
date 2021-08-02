@@ -14,7 +14,7 @@ from csi_camera import CSI_Camera
 import multiprocessing as mp
 
 # from flask import Flask,request,jsonify
-
+from fastapi import File, UploadFile
 import uvicorn
 from starlette.applications import Starlette
 from starlette.routing import Route
@@ -25,6 +25,7 @@ from starlette.responses import JSONResponse
 import dlib
 from mongo_lib import insert_data_train_face, next_userid, register_mongo, get_frame_display, update_register_mongo, select_videoname_by_uid, get_status_mask, update_status_mask_predict
 import shutil
+import json
 # import subprocess
 # from flask_cors import CORS
 # import uuid
@@ -76,6 +77,8 @@ middleware = [
 # CORS(app)
 # app.config['SECRET_KEY'] = uuid.uuid4().hex
 # socketio = SocketIO(app,cors_allowed_origins='*')
+
+
 
 # http://0.0.0.0:3050/video_feed
 def video_streaming(frame):
@@ -317,8 +320,8 @@ def camera_recognition(check_camera_register, check_camera_detection, check_came
 
                                         while True:
                                             ret, img = cap.read()
-                                            img = cv2.rotate(img,cv2.ROTATE_180)
-                                            img = cv2.flip(img,1)
+                                            img = cv2.rotate(img,cv2.ROTATE_90_COUNTERCLOCKWISE)
+                                            # img = cv2.flip(img,1)
                                             h_mask,w_mask = img.shape[:2]
                                             #w_origin = img.shape[1]
                                             # img = img[:720,shifter:shifter+int(w_mask*0.3)]
@@ -536,9 +539,9 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
     left_camera.create_gstreamer_pipeline(
             sensor_id=0,
             sensor_mode=3,
-            flip_method=0,
-            display_height=540,
-            display_width=960,
+            flip_method=3,
+            display_height=1920,
+            display_width=1080,
     )
     left_camera.open(left_camera.gstreamer_pipeline)
     left_camera.start()
@@ -565,8 +568,8 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
         while True:
             img=read_camera(left_camera,False)
             # rotate image
-            img = cv2.rotate(img,cv2.ROTATE_180)
-            img = cv2.flip(img,1)
+            # img = cv2.rotate(img,cv2.ROTATE_180)
+            # img = cv2.flip(img,1)
             # extract width , height
             w_origin = img.shape[1]
 
@@ -595,11 +598,11 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
                 
                 while True:
                     img = read_camera(left_camera,False)
-                    img = cv2.rotate(img,cv2.ROTATE_180)
-                    img = cv2.flip(img,1)
+                    # img = cv2.rotate(img,cv2.ROTATE_90_CLOCKWISE)
+                    # img = cv2.flip(img,1)
 
                     w_origin = img.shape[1]
-                    img = img[:,shifter:shifter+int(w_origin*0.3)]
+                    # img = img[:,shifter:shifter+int(w_origin*0.3)]
                     h,w = img.shape[:2]
                     new_width = int(w/2)
                     new_height = int(h/2)
@@ -672,11 +675,11 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
 
                                         while True:
                                             img = read_camera(left_camera,False)
-                                            img = cv2.rotate(img,cv2.ROTATE_180)
-                                            img = cv2.flip(img,1)
+                                            # img = cv2.rotate(img,cv2.ROTATE_90_CLOCKWISE)
+                                            # img = cv2.flip(img,1)
                                             h_mask,w_mask = img.shape[:2]
                                             #w_origin = img.shape[1]
-                                            img = img[:720,shifter:shifter+int(w_mask*0.3)]
+                                            # img = img[:720,shifter:shifter+int(w_mask*0.3)]
 
                                             # get current time and change variable 
                                             if check_current_once == False:
@@ -775,8 +778,8 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
                 while True:
                     #start_time = time.time()
                     frame = read_camera(left_camera,False)
-                    frame = cv2.rotate(frame,cv2.ROTATE_180)
-                    frame = cv2.flip(frame,1)
+                    # frame = cv2.rotate(frame,cv2.ROTATE_90_CLOCKWISE)
+                    # frame = cv2.flip(frame,1)
                     w_origin = frame.shape[1]
                     #frame = frame[:720,shifter:shifter+int(w_origin*0.3)]
                     h,w = frame.shape[:2]
@@ -810,8 +813,8 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
                         #record
                         while True:
                             frame=read_camera(left_camera,False)
-                            frame = cv2.rotate(frame,cv2.ROTATE_180)
-                            frame = cv2.flip(frame,1)
+                            # frame = cv2.rotate(frame,cv2.ROTATE_90_CLOCKWISE)
+                            # frame = cv2.flip(frame,1)
                             #w_origin = frame.shape[1]
                             #frame = frame[:720,shifter:shifter+int(w_origin*0.3)]
 
@@ -1263,6 +1266,50 @@ def recognitionSearch():
     # Closes all the frames
     cv2.destroyAllWindows()
 
+async def logo_save(request):
+    # if request.method == 'GET':
+    request = await request.form()
+    print(type(request['image']))
+    file_name = "../../frontend/public/image/temp/"+request['image'].filename
+    with open(file_name,'wb') as f:
+        f.write(request['image'].file.read())
+        f.close()
+    try:
+        return JSONResponse({"status":True,"Descipt":"Image has saved."})
+    except Exception as e:
+        return JSONResponse({"status":False,"Descipt":"Image save failed"})
+
+
+async def getTemp(request):
+    # if request.method == 'GET'
+    temp = checkTemperature()
+    temp = round(temp, 2)
+    print(str(round(temp, 2)))
+    try:
+        return JSONResponse({"Temp":temp})
+    except Exception as e:
+        return JSONResponse({"status":False})
+
+async def saveImg(request):
+    request = await request.form()
+    print(request)
+    net = os.popen('cp /home/recognition/Downloads/{} /home/recognition/Desktop/face-recognition-web-backend-and-iot/frontend/public/image/temp/'.format(request['path'])).read()
+    print(net)
+    try:
+        return JSONResponse({"status":True})
+    except Exception as e:
+        return JSONResponse({"status":False})   
+
+
+async def cleandata(request):
+    data = {"detect": False}
+    with open('../../frontend/src/pred.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+    try:
+        return JSONResponse({"status":True})
+    except Exception as e:
+        return JSONResponse({"status":False})   
+
 
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
@@ -1271,7 +1318,11 @@ routes = [
     Route("/manage_camera", endpoint=manage_camera, methods=["POST"]),
     Route("/get_weather", endpoint=get_weather, methods=["POST"]),
     Route("/available_networks", endpoint=get_network, methods=["POST"]),
-    Route("/new_connection", endpoint=connect_network, methods=["POST"])
+    Route("/logo_save", endpoint=logo_save, methods=["POST"]),
+    Route("/saveImg", endpoint=saveImg, methods=["POST"]),
+    Route("/getTemp", endpoint=getTemp, methods=["POST"]),
+    Route("/new_connection", endpoint=connect_network, methods=["POST"]),
+    Route("/clean_data", endpoint=cleandata, methods=["POST"]),
 ]
 
 app = Starlette(middleware=middleware,routes= routes)

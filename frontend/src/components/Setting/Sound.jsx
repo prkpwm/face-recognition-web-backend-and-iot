@@ -33,25 +33,20 @@ class Sound extends React.Component {
 
     componentDidMount() {
         // get data from mongodb
-        selectStatusSound()
-            .then(_Sound => {
-                // console.log("_Sound.data.msg:",_Sound.data.msg[0].statusSound)
-                if (_Sound.data.status) {
+        // selectStatusSound()
+        //     .then(_Sound => {
+        //         // console.log("_Sound.data.msg:",_Sound.data.msg[0].statusSound)
+        //         if (_Sound.data.status) {
 
-                    setTimeout(() => {
-                        this.setState({
-                            loading_page: false
-                        })
-                    }, 800);
-                    this.setState({
-                        statusSound: _Sound.data.msg[0].statusSound,
-                    })
+        //             this.setState({
+        //                 statusSound: _Sound.data.msg[0].statusSound,
+        //             })
 
-                }
-            })
-            .catch(_DisplayError => {
-                window.location.href = "/password";
-            })
+        //         }
+        //     })
+        //     .catch(_DisplayError => {
+        //         window.location.href = "/password";
+        //     })
         // inputValue
         getVoiceMaster()
             .then(_SoundMaster => {
@@ -59,13 +54,9 @@ class Sound extends React.Component {
                 // console.log(_SoundMaster.data);
                 if (_SoundMaster.data.status) {
 
-                    setTimeout(() => {
-                        this.setState({
-                            loading_page: false
-                        })
-                    }, 800);
                     this.setState({
                         inputValue: _SoundMaster.data.msg,
+                        
                     })
                     localStorage.setItem('VoiceMaster', _SoundMaster.data.msg)
 
@@ -78,6 +69,7 @@ class Sound extends React.Component {
         setTimeout(() => {
             this.setState({
                 language: localStorage.getItem('lang'),
+                statusSound: localStorage.getItem('statusSound') != null ? (/true/i).test(localStorage.getItem('statusSound')) : true,
                 loading: false
             })
         }, 800);
@@ -217,8 +209,10 @@ class Sound extends React.Component {
     onChangevoice(checked) {
         // console.log(`switch to ${checked}`);
         this.setState({
-            statusSound: checked
+            statusSound: checked,
+
         })
+        localStorage.setItem('statusSound', checked)
 
     }
 
@@ -321,7 +315,7 @@ class Sound extends React.Component {
                                 <p className="name">{word['Voice feedback'][this.state.language]}</p>
                                 <div className="boxsetfeed">
                                     <div className="switchset">
-                                        <Switch className="switcho" defaultChecked checked={this.state.statusSound} onChange={(e) => this.onChangevoice(e)} />
+                                        <Switch className="switcho"  checked={this.state.statusSound} onChange={(e) => this.onChangevoice(e)} />
                                     </div>
                                 </div>
                             </div>

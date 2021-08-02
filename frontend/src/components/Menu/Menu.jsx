@@ -24,16 +24,13 @@ class Menu extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            loading: true
-        })
         setTimeout(() => {
             this.setState({
                 language: localStorage.getItem('lang'),
                 loading: false
             })
         }, 800);
-        console.log(this.state.language)
+
     }
 
     render() {

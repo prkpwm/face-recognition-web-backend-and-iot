@@ -120,8 +120,12 @@ class Checkin extends React.Component {
     }
 
     TimeSelect(time) { // setting time checkin
+        
         var time = time._d;
+        console.log(time.getHours(),time.getMinutes())
         var newtime = moment(time).toISOString();
+        localStorage.setItem("TimeHH",(time.getHours()))
+        localStorage.setItem("TimeMM",(time.getMinutes()))
         this.setState({
             time: newtime
         })

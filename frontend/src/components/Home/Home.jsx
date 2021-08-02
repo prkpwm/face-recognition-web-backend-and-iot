@@ -2,7 +2,7 @@ import React from 'react';
 // import Lottie from 'react-lottie';
 // import animationData from '../../lotties/human.json';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Camera } from "../../services/APIs/Camera";
+import { Camera, Clean } from "../../services/APIs/Camera";
 import { weather } from "../../services/APIs/weather";
 import socketIOClient from "socket.io-client";
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -37,19 +37,44 @@ let name = "Bai toeyyy"
 let status = "Student"
 const ENDPOINT = "http://192.168.0.252:2323";
 
-
 class Home extends React.Component {
 
     constructor(props) {
 
         super(props)
         this.state = {
-
             response: [],
             weather_info: [],
             language: 'TH',
-            loading: true
+            L1: "",
+            L2: "",
+            LogoStorage: true,
+            nameSelected: true,
+            nickname_status: true,
+            group_status: true,
+            welcome_word: null,
+            LogoSelected: true,
+            pm25_status: true,
+            weather_status: true,
+            t1: true,
+            t2: true,
+            temp: "",
+            nickname: "",
+            role_name: "",
+            weather_res: "",
+            pm25_res: "",
+            checktime: false,
+            temp: null,
+            count: 0,
+            detect: false,
+            hour_set: 0,
+            min_set: 0,
+            ThermalHeightest: 0,
+            location: "",
+            loading: true,
+    
         }
+        this.componentDidMount = this.componentDidMount.bind(this)
 
     }
 
@@ -57,39 +82,89 @@ class Home extends React.Component {
         steam_open = true
         Camera({ camera: 'detection' }) // Switch camera
             .then(_Camera => {
-                console.log("DATA", _Camera)
+                console.log("_Camera", _Camera)
             })
 
             .catch(_CameraError => console.error(_CameraError))
 
-        weather({ data: 'pm' }) // Switch camera
-            .then(data => {
-                console.log("DATA", data)
-                this.setState({
-                    
-                    weather_info: data
-                })
+        // Temp({ camera: 'detection' }) // Switch camera
+        //     .then(data => {
+        //         console.log("_Temp", data)
+        //         this.setState({
+        //             temp: data.data.Temp
+        //         })
+        //     })
 
-                console.log(this.state.weather_info.data.position.split(",")[1])
-            })
-            .catch(_CameraError => console.error(_CameraError))
-        
+
+        // weather({ data: 'pm' }) // Switch camera
+        //     .then(data => {
+        //         console.log("weather", data)
+        //         this.setState({
+
+        //             weather_info: data.data
+        //         })
+
+        //     })
+
+
         GetLanguage() // Get language for display
             .then(_Edit => {
                 if (_Edit.data.status) {
                     this.setState({
-                        loading: false,
+                        L1: localStorage.getItem('L1') != null ? localStorage.getItem('L1') : null,
+                        L2: localStorage.getItem('L2') != null ? localStorage.getItem('L2') : null,
+                        welcome_status: localStorage.getItem('welcome_status') != null ? (/true/i).test(localStorage.getItem('welcome_status')) : true,
+                        nickname_status: localStorage.getItem('nickname_status') != null ? (/true/i).test(localStorage.getItem('nickname_status')) : true,
+                        time_trick_status: localStorage.getItem('time_trick_status') != null ? (/true/i).test(localStorage.getItem('time_trick_status')) : true,
+                        temp_status: localStorage.getItem('temp_status') != null ? (/true/i).test(localStorage.getItem('temp_status')) : true,
+                        group_status: localStorage.getItem('group_status') != null ? (/true/i).test(localStorage.getItem('group_status')) : true,
+                        t2: localStorage.getItem('t1') != null ? (/true/i).test(localStorage.getItem('t1')) : true,
+                        t1: localStorage.getItem('t2') != null ? (/true/i).test(localStorage.getItem('t2')) : true,
+                        welcome_word: localStorage.getItem('welcome_word') != null ? localStorage.getItem('welcome_word') : "",
+                        hour_set: localStorage.getItem('TimeHH'),
+                        min_set: localStorage.getItem('TimeMM'),
+                        ThermalHeightest: localStorage.getItem('ThermalHeightest'),
+                        pm25_status: localStorage.getItem('pm25_status') != null ? (/true/i).test(localStorage.getItem('pm25_status')) : true,
+                        weather_status: localStorage.getItem('weather_status') != null ? (/true/i).test(localStorage.getItem('weather_status')) : true,
                         language: _Edit.data.msg[0].lang,
                     })
+                    localStorage.setItem('lang', _Edit.data.msg[0].lang)
                 }
             })
-        const socket = socketIOClient(ENDPOINT);
-        socket.on("predict_face", data => {
+        setTimeout(() => {
             this.setState({
-                response: data
-            })
-        });
+                loading: false,
+                LogoStorage: localStorage.getItem('LogoLocation'),
 
+            })
+            console.log(this.state.LogoStorage, localStorage.getItem('LogoLocation'))
+        }, 800);
+
+        // const socket = socketIOClient(ENDPOINT);
+        // socket.on("predict_face", data => {
+        //     this.setState({
+        //         response: data
+        //     })
+        // });
+        this.loadresule()
+
+    }
+
+
+    loadresule() {
+        let pred = require('../../pred.json');
+        this.setState({
+            nickname: pred['nickname'],
+            role_name: pred['role_name'],
+            weather_res: pred['weather_res'],
+            pm25_res: pred['pm25_res'],
+            temp: pred['temp'],
+            count: pred['count'],
+            location: pred['location_res'],
+            detect: pred['detect'],
+        })
+        Clean(null)
+        console.log(pred)
     }
 
     Switchtosetting() { // action show button 
@@ -98,12 +173,12 @@ class Home extends React.Component {
     }
 
     TimeValid() { // action show button 
-        if (hours > hour_set) {
-            return true
-        } else if (hours == hour_set && minutes >= min_set) {
-            return true
+        if (hours > this.state.hour_set) {
+            return false
+        } else if (hours == this.state.hour_set && minutes >= this.state.min_set) {
+            return false
         }
-        return false
+        return true
     }
 
     getRes() { // action show button 
@@ -133,323 +208,162 @@ class Home extends React.Component {
         console.log("ffff", this.state.response)
 
         return (
-            // <div>
-            //     <div className="size-web">
-            //         <div className="stream" onClick={() => { this.Switchtosetting() }}>
-            //             <div className="btn-tologin" id="setting">
-            //                 <a href="/password" className="link-login"><FontAwesomeIcon icon={['fas', 'tools']} /></a>
-            //             </div>
-            //             <div className="name-official">
-            //                 <div className="cov-ta">
-            //                     <div className="logo">
-            //                         <div className="circle">
-            //                             <img src="/image/Logo/logo-office.png" alt="" className="img-fluid" />
-            //                         </div>
-            //                     </div>
-            //                     <div className="nameoff">
-            //                         <p className="name">Hogwarts School of Witchcraft and wizardry</p>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //             {console.log("+++++++++++")}
-            //             <div className="box-img">
-            //                 {/* <video id="video" align="middle" className="img-fluid img-stream"  src="http://192.168.0.252:3050/video_feed" autoplay="autoplay" /> */}
-            //                 <img id="image" align="middle" className="img-fluid img-stream" src="http://192.168.0.252:3050/video_feed" />
 
-            //             </div>
-            //             <div className="cov-lotties" style={{ position: 'absolute', top: '0px', width: '100%' }}>
-            //                 <img src="/image/Human.png" alt="" className="img-fluid" />
-            //                 {/* <Lottie
-
-            //                     options={defaultOptions}
-            //                     height={1920}
-            //                     width={'100%'}
-            //                 /> */}
-            //             </div>
-            //             <div className="result">
-            //                 {
-            //                     face_valid ?
-            //                         <div className="name-result">
-            //                             <p className="status-process">SUCCESS</p>
-            //                             <p className="name-user">{name}</p>
-            //                             <p className="group">{status}</p>
-            //                         </div>
-            //                         :
-            //                         <div className="name-result">
-            //                             <p className="status-process">Please stand in front of camara.</p>
-            //                         </div>
-            //                 }
-            //                 {
-            //                     this.state.weather_info.length != 0 ?
-            //                         <div className="row list-result">
-            //                             <div className="col-lg-6 time">
-            //                                 <div className="box-time">
-            //                                     <div className="cov-ta-time">
-            //                                         <div className="img-result">
-            //                                             <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
-            //                                         </div>
-
-            //                                         <div className="result-num">
-            //                                             <p className="status-time">PM 2.5 {this.state.weather_info.data.pm25}</p>
-            //                                         </div>
-            //                                     </div>
-            //                                 </div>
-            //                             </div>
-            //                         </div> :
-            //                         null
-            //                 }
-
-
-            //                 {
-            //                     this.state.weather_info.length != 0 ?
-            //                         <div className="col-lg-6 temperature">
-            //                             <div className="box-tem">
-            //                                 <div className="cov-ta-tem">
-            //                                     <div className="result-temper">
-            //                                         <p className="num">{this.state.weather_info.data.weather}</p>
-            //                                         <p className="status-time">{this.state.weather_info.data.weather}</p>
-            //                                     </div>
-
-            //                                     <div className="img-tem">
-            //                                         {
-            //                                             temp < 37.5 ?
-            //                                                 <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
-            //                                                 <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
-            //                                         }
-            //                                     </div>
-            //                                 </div>
-            //                             </div>
-            //                         </div>
-            //                         :
-            //                         null
-            //                 }
-
-
-            //                 {
-            //                     face_valid ?
-            // <div className="row list-result">
-            //     <div className="col-lg-6 time">
-            //         <div className="box-time">
-            //             <div className="cov-ta-time">
-            //                 {this.TimeValid() ?
-            //                     <div className="img-result">
-            //                         <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
-            //                     </div>
-            //                     :
-            //                     <div className="img-result">
-            //                         <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
-            //                     </div>
-            //                 }
-            //                 <div className="result-num">
-            //                     <p className="num">{hours + "." + minutes + " น."}</p>
-            //                     <p className="status-time">{hours < 9 ? "มาตรงเวลา" : "มาสาย"}</p>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
-            //                         :
-            //                         null
-            //                 }
-
-            //                 {
-            //                     face_valid ?
-            // <div className="col-lg-6 temperature">
-            //     <div className="box-tem">
-            //         <div className="cov-ta-tem">
-            //             <div className="result-temper">
-            //                 <p className="num">{temp}</p>
-            //                 <p className="status-time">{temp < 37.5 ? "อุณหภูมิผ่านเกณฑ์" : "อุณหภูมิไม่ผ่านเกณฑ์"}</p>
-            //             </div>
-
-            //             <div className="img-tem">
-            //                 {
-            //                     temp < 37.5 ?
-            //                         <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
-            //                         <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
-            //                 }
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
-            //                         :
-            //                         null
-            //                 }
-
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
             <div>
                 <div className="size-web">
-              
+
                     <div className="stream" onClick={() => { this.Switchtosetting() }}>
-                        
+                        <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
+                            <RotateSpinner size={150} loading={this.state.loading} />
+                        </div>
+
                         <div className="btn-tologin" id="setting">
                             <a href="/password" className="link-login"><FontAwesomeIcon icon={['fas', 'tools']} /></a>
                         </div>
                         <BarDate></BarDate>
                         <div className="name-official">
-                        
+
                             <div className="cov-ta">
                                 <div className="logo">
                                     <div className="circle">
-                                        <img src="/image/Logo/logo-office.png" alt="" className="img-fluid" />
+                                        <img src={localStorage.getItem("LogoLocation")} alt="" className="img-fluid" />
                                     </div>
                                 </div>
                                 <div className="nameoff">
-                                    <p className="name">Hogwarts School of Witchcraft and wizardry</p>
+                                    <div className="name">{this.state.L1}</div><div className="name">{this.state.L2}</div>
                                 </div>
                             </div>
                         </div>
-                        <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
-                            <RotateSpinner size={150} loading={this.state.loading} />
-                        </div>
-                        
+
+
                         <div className="box-img">
                             <img id="image" align="middle" className="img-fluid img-stream" src="http://192.168.0.252:3050/video_feed" />
                         </div>
-                        <div className="cov-lotties" style={{ position: 'absolute', top: '0px', width: '100%' }}>
-                            <img src="/image/Human.png" alt="" className="img-fluid" />
-                            {/* <Lottie
-                            
-                            options={defaultOptions}
-                            height={1920}
-                            width={'100%'}
-                        /> */}
-                        </div>
-                        {
-                            face_valid ?
-                                <div className="result">
+
+                        {this.state.t1 ?
+                            <div className="cov-lotties" style={{ position: 'absolute', top: '0px', width: '100%' }}>
+                                <img src="/image/Human.png" alt="" className="img-fluid" />
+                                {/* <Lottie
+                                options={defaultOptions}
+                                height={1920}
+                                width={'100%'}
+                            /> */}
+                            </div> : null}
+                        {this.state.t2 ?
+                            <div className="cov-lotties" style={{ position: 'absolute', top: '500px', left: '215px', width: '70%' }}>
+                                <img src="/image/brdetect.svg" alt="" className="img-fluid" />
+
+                                {/* <Lottie
+                        
+                        options={defaultOptions}
+                        height={1920}
+                        width={'100%'}
+                    /> */}
+                            </div> : null}
+                        <div className="result">
+                            {
+                                this.state.detect ?
                                     <div className="name-result">
-                                        <p className="status-process">{word['Language'][this.state.language]}SUCCESS</p>
-                                        <p className="name-user">Bai toeyyy</p>
-                                        <p className="group">Student</p>
+                                        {this.state.welcome_status ? <p className="status-process">{this.state.welcome_word}</p> : null}
+
+                                        {this.state.nickname_status ? <p className="name-user">{this.state.nickname}</p> : null}
+
+                                        {this.state.group_status ? <p className="group">{this.state.role_name}</p> : null}
+
                                     </div>
+                                    :
+                                    null
+                            }
+                            {
+                                this.state.detect ?
+
                                     <div className="row list-result">
+
                                         <div className="col-lg-6 time">
                                             <div className="box-time">
                                                 <div className="cov-ta-time">
-                                                    <div className="img-result">
-                                                        <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
-                                                    </div>
+                                                    {this.TimeValid() ?
+                                                        <div className="img-result">
+                                                            <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
+                                                        </div>
+                                                        :
+                                                        <div className="img-result">
+                                                            <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
+                                                        </div>
+                                                    }
                                                     <div className="result-num">
-                                                        <p className="num">09.09</p>
-                                                        <p className="status-time">{word['Language'][this.state.language]}มาสาย</p>
+                                                        <p className="num">{hours + "." + minutes + " " + word['oclock'][this.state.language]}</p>
+                                                        <p className="status-time">{this.TimeValid() ? word['On time'][this.state.language] : word['Late'][this.state.language]}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div className="col-lg-6 temperature">
                                             <div className="box-tem">
                                                 <div className="cov-ta-tem">
                                                     <div className="result-temper">
-                                                        <p className="num">35.6</p>
-                                                        <p className="status-time">{word['Language'][this.state.language]}อุณหภูมิผ่านเกณฑ์</p>
+                                                        <p className="num">{this.state.temp}</p>
+                                                        <p className="status-time">{this.state.temp < this.state.ThermalHeightest ? word['Scanning pass'][this.state.language] : word['Scanning not pass'][this.state.language]}</p>
                                                     </div>
+
                                                     <div className="img-tem">
-                                                        <img src="/image/icon/temg.svg" alt="" className="img-fluid" />
+                                                        {
+                                                            this.state.temp < this.state.ThermalHeightest ?
+                                                                <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
+                                                                <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div> :
-                                <div className="result">
-                                    {
-                                        face_valid ?
+                                    : <div className="name-result">
+                                        <p className="status-process">{word['Please stand in front of camara.'][this.state.language]}</p>
+                                    </div>
+                            }
 
-                                            <div className="row list-result">
-
-                                                <div className="col-lg-6 time">
-                                                    <div className="box-time">
-                                                        <div className="cov-ta-time">
-                                                            {this.TimeValid() ?
-                                                                <div className="img-result">
-                                                                    <img src="/image/icon/timer.svg" alt="" className="img-fluid" />
-                                                                </div>
-                                                                :
-                                                                <div className="img-result">
-                                                                    <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
-                                                                </div>
-                                                            }
-                                                            <div className="result-num">
-                                                                <p className="num">{hours + "." + minutes + word['oclock'][this.state.language]}</p>
-                                                                <p className="status-time">{hours < 9 ? word['On time'][this.state.language] : word['Late'][this.state.language]}</p>
-                                                            </div>
-                                                        </div>
+                            <div className="row list-result">
+                                {
+                                    this.state.pm25_status && this.state.pm25_res != null ?
+                                        <div className="col-lg-6 time">
+                                            <div className="box-time">
+                                                <div className="cov-ta-time">
+                                                    <div className="img-result">
+                                                        <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
                                                     </div>
-                                                </div>
 
-                                                <div className="col-lg-6 temperature">
-                                                    <div className="box-tem">
-                                                        <div className="cov-ta-tem">
-                                                            <div className="result-temper">
-                                                                <p className="num">{temp}</p>
-                                                                <p className="status-time">{temp < 37.5 ? word['Scanning pass'][this.state.language] : word['Scanning not pass'][this.state.language]}</p>
-                                                            </div>
-
-                                                            <div className="img-tem">
-                                                                {
-                                                                    temp < 37.5 ?
-                                                                        <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
-                                                                        <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
-                                                                }
-                                                            </div>
-                                                        </div>
+                                                    <div className="result-num">
+                                                        <p className="num"> {this.state.pm25_res}</p>
+                                                        <p className="status-time">{this.pm25_color(this.state.pm25_res)}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            : <div className="name-result">
-                                                <p className="status-process">{word['Please stand in front of camara.'][this.state.language]}</p>
-                                            </div>
-                                    }
-                                    {this.getRes()}
-                                    {
-                                        this.state.weather_info.length != 0 ?
-                                            <div className="row list-result">
-
-                                                <div className="col-lg-6 time">
-                                                    <div className="box-time">
-                                                        <div className="cov-ta-time">
-                                                            <div className="img-result">
-                                                                <img src="/image/icon/timeg.svg" alt="" className="img-fluid" />
-                                                            </div>
-
-                                                            <div className="result-num">
-                                                                <p className="num"> {this.state.weather_info.data.pm25}</p>
-                                                                <p className="status-time">{this.pm25_color(this.state.weather_info.data.pm25)}</p>
-                                                            </div>
-                                                        </div>
+                                        </div> : null}
+                                {
+                                    this.state.weather_status && this.state.weather_res != null ?
+                                        <div className="col-lg-6 temperature">
+                                            <div className="box-tem">
+                                                <div className="cov-ta-tem">
+                                                    <div className="result-temper">
+                                                        <p className="num">{this.state.weather_res}</p>
+                                                        <p className="status-time">{this.state.location}</p>
                                                     </div>
-                                                </div>
-
-                                                <div className="col-lg-6 temperature">
-                                                    <div className="box-tem">
-                                                        <div className="cov-ta-tem">
-                                                            <div className="result-temper">
-                                                                <p className="num">{this.state.weather_info.data.weather}</p>
-                                                                <p className="status-time">{this.state.weather_info.data.position.split(",")[1]}</p>
-                                                            </div>
-
-                                                            <div className="img-tem">
-                                                                {
-                                                                    temp < 37.5 ?
-                                                                        <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
-                                                                        <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
-                                                                }
-                                                            </div>
-                                                        </div>
+                                                    <div className="img-tem">
+                                                        {
+                                                            this.state.temp < 37.5 ?
+                                                                <img src="/image/icon/temg.svg" alt="" className="img-fluid" /> :
+                                                                <img src="/image/icon/temr.svg" alt="" className="img-fluid" />
+                                                        }
                                                     </div>
+
                                                 </div>
                                             </div>
-                                            : null}
-                                </div>
+                                        </div>
 
-                        }
-
-
-
+                                        : null}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,27 @@
 {
+    "Welcome word": {
+        "EN": "Welcome word",
+        "TH": "คำทักทาย"
+    },
+    "Time Tracking": {
+        "EN": "Time Tracking",
+        "TH": "การติดตามเวลา"
+    },
+    "Temperature": {
+        "EN": "Temperature",
+        "TH": "อุณหภูมิ"
+    },
+    "Weather": {
+        "EN": "Weather",
+        "TH": "สภาพอากาศ"
+    },
+
     "Scanner Profile": {
         "EN": "Scanner Profile",
         "TH": "โปรไฟล์สแกนเนอร์"
     },
     "Frame": {
-        "EN": "frame",
+        "EN": "Frame",
         "TH": "กรอบ"
     },
     "Information": {
@@ -310,6 +327,10 @@
     "Group selection": {
         "EN": "Group selection",
         "TH": "เลือกกลุ่ม"
+    },
+    "Group": {
+        "EN": "Group",
+        "TH": "ชื่อกลุ่ม"
     },
     "SMS": {
         "EN": "SMS",

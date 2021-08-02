@@ -25,6 +25,8 @@ class frame extends React.Component {
 
         super(props)
         this.state = {
+            t1: false,
+            t2: true,
             language: "TH",
             loading: true
         }
@@ -32,34 +34,36 @@ class frame extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            loading: true
-        })
-        GetLanguage() // Get language for display
-            .then(_Edit => {
-
-
-                if (_Edit.data.status) {
-
-                    setTimeout(() => {
-                        this.setState({
-                            loading: false
-                        })
-                    }, 800);
-                    this.setState({
-                        language: _Edit.data.msg[0].lang,
-
-                    })
-
-
-                }
+        setTimeout(() => {
+            this.setState({
+                t1: localStorage.getItem('t1') != null ? (/true/i).test(localStorage.getItem('t1')) : false,
+                t2: localStorage.getItem('t2') != null ? (/true/i).test(localStorage.getItem('t2')) : true,
+                language: localStorage.getItem('lang'),
+                loading: false
             })
+        }, 800);
 
-            .catch(_EditError => {
-                window.location.href = "/password";
-            })
     }
 
+
+
+    onChanget1(event) {
+        console.log(event);
+        this.setState({
+            t1: event,
+
+        })
+        localStorage.setItem('t1', event)
+    }
+
+    onChanget2(event) {
+        console.log(event);
+        this.setState({
+            t2: event,
+
+        })
+        localStorage.setItem('t2', event)
+    }
     onChange(checked) {
         console.log(`switch to ${checked}`);
     }
@@ -94,7 +98,7 @@ class frame extends React.Component {
                                 </div>
 
                                 <div className="btnac">
-                                    <Switch className="switcho" defaultChecked onChange={(e) => this.onChange(e)} />
+                                    <Switch className="switcho" checked={this.state.t1} onChange={(e) => this.onChanget1(e)} />
                                 </div>
                             </div>
                         </div>
@@ -107,7 +111,7 @@ class frame extends React.Component {
                                 </div>
 
                                 <div className="btnac">
-                                    <Switch className="switcho" defaultChecked onChange={(e) => this.onChange(e)} />
+                                    <Switch className="switcho" checked={this.state.t2} onChange={(e) => this.onChanget2(e)} />
                                 </div>
                             </div>
                         </div>

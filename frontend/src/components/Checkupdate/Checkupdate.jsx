@@ -8,15 +8,11 @@ import 'antd/dist/antd.css';
 import './checkupdate.scss'
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
-import {BarDate} from "../BarDate";
+import { BarDate } from "../BarDate";
 
 library.add(fas)
 
 
-
-// let word = {'':{'EN':'','TH':''},
-
-//         }
 let word = require('../../word.json');
 
 class Checkupdate extends React.Component {
@@ -25,7 +21,8 @@ class Checkupdate extends React.Component {
 
         super(props)
         this.state = {
-            language:"TH",
+            language: "TH",
+            lasttime:"",
             loading: true
         }
 
@@ -37,7 +34,7 @@ class Checkupdate extends React.Component {
         })
         GetLanguage() // Get language for display
             .then(_Edit => {
-                
+
 
                 if (_Edit.data.status) {
 
@@ -45,10 +42,11 @@ class Checkupdate extends React.Component {
                         this.setState({
                             loading: false
                         })
-                      }, 800);
+                    }, 800);
                     this.setState({
                         language: _Edit.data.msg[0].lang,
-                        
+                        lasttime:localStorage.getItem("lasttime"),
+
                     })
 
 
@@ -64,6 +62,14 @@ class Checkupdate extends React.Component {
         console.log(`switch to ${checked}`);
     }
 
+    onCheck() {
+
+        this.setState({
+            lasttime: ("0" + new Date().getDate()).slice(-2)+"/"+("0"+(new Date().getMonth()+1)).slice(-2)+"/"+(""+new Date().getFullYear()).slice(-2),
+
+        })
+        localStorage.setItem("lasttime",("0" + new Date().getDate()).slice(-2)+"/"+("0"+(new Date().getMonth()+1)).slice(-2)+"/"+(""+new Date().getFullYear()).slice(-2))
+    }
 
     render() {
 
@@ -74,7 +80,7 @@ class Checkupdate extends React.Component {
         return (
             <div>
                 <div className="size-web">
-                <div className="loading" style={{visibility: this.state.loading? "visible" : "hidden"}}>
+                    <div className="loading" style={{ visibility: this.state.loading ? "visible" : "hidden" }}>
                         <RotateSpinner size={150} loading={this.state.loading} />
                     </div>
                     <BarDate></BarDate>
@@ -90,17 +96,17 @@ class Checkupdate extends React.Component {
                                 <div className="txth">
                                     <p className="txt">{word['Check for update'][this.state.language]}</p>
                                 </div>
-                                <div className="btnac">
-                                    <button type="button" className="btn btn-secondary btn-check">{word['Check'][this.state.language]}</button>
+                                <div className="cov-save">
+                                    <button className="btn btn-primary btn-save" onClick={() => { this.onCheck() }} >{word['Check'][this.state.language]}</button>
                                 </div>
                             </div>
 
                             <div className="cov-ta">
                                 <div className="txth">
-                                    <p className="txt">{word['Scanner Ver.'][this.state.language]} 0</p>
+                                    <p className="txt">{word['Scanner Ver.'][this.state.language]} <br />0</p>
                                 </div>
                                 <div className="btnac">
-                                    <p className="lastup">{word['Last update'][this.state.language]} 00/00/0000</p>
+                                    <p className="lastup">{word['Last update'][this.state.language]} {this.state.lasttime}</p>
                                 </div>
                             </div>
                         </div>

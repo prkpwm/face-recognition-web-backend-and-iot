@@ -131,6 +131,7 @@ class Scanner extends React.Component {
         this.setState({
             ThermalHeightest: v
         })
+        localStorage.setItem("ThermalHeightest",v)
 
 
         SetThermalHightest(v)
@@ -167,6 +168,7 @@ class Scanner extends React.Component {
         this.setState({
             ThermalLowest: v
         })
+        localStorage.setItem("ThermalLowest",v)
 
 
         SetThermalLowest(v)
@@ -217,17 +219,17 @@ class Scanner extends React.Component {
                             <div className="icon-back">
                                 <a href="/setting" className="link-back"><FontAwesomeIcon icon={['fas', 'less-than']} /></a>
                             </div>
-                            <h1 className="hd">Scanner mode</h1>
+                            <h1 className="hd">{word['Scanner mode'][this.state.language]}</h1>
                         </div>
                         <div className="box-switch">
                             <div className="list-set">
-                                <p className="txt-hd">Face recognition</p>
+                                <p className="txt-hd">{word['Face recognition'][this.state.language]}</p>
                                 <div className="cov-switch scanner">
                                     <Switch className="switcho" checked={this.state.StatusFace} onChange={(e) => this.onChangeFace(e)} />
                                 </div>
                             </div>
                             <div className="list-set">
-                                <p className="txt-hd">Thermal scan</p>
+                                <p className="txt-hd">{word['Thermal scan'][this.state.language]}</p>
                                 <div className="cov-switch scanner">
                                     <Switch className="switcho" checked={this.state.StatusThermal} onChange={(e) => this.onChangeThermal(e)} />
                                 </div>
@@ -236,10 +238,10 @@ class Scanner extends React.Component {
                         {
                             this.state.StatusThermal ?
                                 <div className="set-thermal">
-                                    <p className="hd-sett">Temperature range set</p>
+                                    <p className="hd-sett">{word['Temperature range set'][this.state.language]}</p>
                                     <div className="box-set-high">
                                         <div className="box-hd">
-                                            <p className="txt">Highest</p>
+                                            <p className="txt">{word['Highest'][this.state.language]}</p>
                                         </div>
                                         <div className="box-select">
                                             <Select
@@ -290,7 +292,7 @@ class Scanner extends React.Component {
 
                                     <div className="box-set-low">
                                         <div className="box-hd">
-                                            <p className="txt">Lowest</p>
+                                            <p className="txt">{word['Lowest'][this.state.language]}</p>
                                         </div>
                                         <div className="box-select">
                                             <Select
