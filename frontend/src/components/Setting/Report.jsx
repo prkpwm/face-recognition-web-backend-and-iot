@@ -9,7 +9,8 @@ import { RotateSpinner } from "react-spinners-kit";
 import 'antd/dist/antd.css';
 import './report.scss'
 import { GetLanguage } from "../../services/APIs/Setting";
-import {BarDate} from "../BarDate";
+import { BarDate } from "../BarDate";
+import { reportEmail, reportLine} from '../../services/APIs/Member';
 library.add(fas)
 
 let word = require('../../word.json');
@@ -24,6 +25,7 @@ class Report extends React.Component {
             reportdaily: [],
             loading: false
         }
+        this.onClick = this.onClick.bind(this);
 
     }
 
@@ -59,7 +61,7 @@ class Report extends React.Component {
                 loading: false
             })
         }, 10);
-
+     
     }
 
     onChangeSMS(checked, value) { // setting swtich sms
@@ -102,6 +104,29 @@ class Report extends React.Component {
 
     }
 
+    onClick(){
+        reportEmail("ipakingwhiz@gmail.com")
+        .then(_Daily => {
+            console.log(_Daily)
+            if (_Daily.data.status) {
+                this.setState({
+                    reportdaily: _Daily.data.msg
+                })
+
+            }
+        })
+        reportLine({receiver:"rBIZw0QEpOLal2CmD80FnxavuG2BXxGLasbG3dVvPW4",msg:"test"})
+        .then(_Daily => {
+            console.log(_Daily)
+            if (_Daily.data.status) {
+                this.setState({
+                    reportdaily: _Daily.data.msg
+                })
+
+            }
+        })
+    }
+
 
     onChangeEmail(checked, value) { // setting switch email
         value.emailReport = checked
@@ -136,9 +161,7 @@ class Report extends React.Component {
                     });
                 }
             })
-
             .catch(_StautsEmailError => console.error(_StautsEmailError))
-
     }
 
 
@@ -228,6 +251,11 @@ class Report extends React.Component {
                                                 </div>
                                             </div>
                                         }) : null}
+                                        <div className="cov-btn-add">
+
+                                            <button type="button" className="btn btn-secondary btn-add" onClick={this.onClick}>{word['Report Now'][this.state.language]}</button>
+
+                                        </div>
 
                                     </div>
                                 </div>

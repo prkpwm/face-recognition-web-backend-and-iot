@@ -1,4 +1,8 @@
 {
+    "Delete": {
+        "EN": "Delete",
+        "TH": "ลบ"
+    },
     "Welcome word": {
         "EN": "Welcome word",
         "TH": "คำทักทาย"
@@ -11,14 +15,53 @@
         "EN": "Temperature",
         "TH": "อุณหภูมิ"
     },
+    "Color Preset": {
+        "EN": "Color Preset",
+        "TH": "สีในการนำเสนอ"
+    },
     "Weather": {
         "EN": "Weather",
         "TH": "สภาพอากาศ"
     },
-
+    "Update successfully, Please restart program.": {
+        "EN": "Update successfully, Please restart program.",
+        "TH": "อัปเดตสำเร็จ โปรดรีสตาร์ทโปรแกรม"
+    },
+    "This latest version.": {
+        "EN": "This lastest version.",
+        "TH": "รุ่นล่าสุดแล้ว"
+    },
     "Scanner Profile": {
         "EN": "Scanner Profile",
         "TH": "โปรไฟล์สแกนเนอร์"
+    },
+    "Very good": {
+        "EN": "Very good",
+        "TH": "ดีมาก"
+    },
+    "good": {
+        "EN": "good",
+        "TH": "ดี"
+    },
+    "moderate": {
+        "EN": "moderate",
+        "TH": "ปานกลาง"
+    },
+    "starting to affect health": {
+        "EN": "starting to affect health",
+        "TH": "เริ่มมีผลกระทบต่อสุขภาพ"
+    },
+    "affect health": {
+        "EN": "affect health",
+        "TH": "มีผลกระทบต่อสุขภาพ"
+    },
+    "clear sky": {
+        "EN": "clear sky",
+        "TH": "clear sky"
+    },
+    "Bangkok": {
+        "EN": "Bangkok",
+        "TH": "Bangkok"
     },
     "Frame": {
         "EN": "Frame",
@@ -35,6 +78,10 @@
     "Network Connection": {
         "EN": "Network Connection",
         "TH": "การเชื่อมต่อเครือข่าย"
+    },
+    "Role": {
+        "EN": "Role",
+        "TH": "บทบาท"
     },
     "Browse": {
         "EN": "Browse",
@@ -91,6 +138,10 @@
     "SUCCESS": {
         "EN": "SUCCESS",
         "TH": "สำเร็จ"
+    },
+    "Report Now": {
+        "EN": "Report Now",
+        "TH": "รายงานตอนนี้"
     },
     "Late": {
         "EN": "Late",

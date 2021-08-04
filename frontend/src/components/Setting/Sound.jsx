@@ -9,7 +9,7 @@ import './sound.scss'
 import { selectStatusSound, setStatusSound, uploadVoiceFile, uploadVoiceEffect, getVoiceMaster, setVoiceMaster } from "../../services/APIs/sound"
 import { GetLanguage, SetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
-import {BarDate} from "../BarDate";
+import { BarDate } from "../BarDate";
 library.add(fas)
 
 let word = require('../../word.json');
@@ -26,7 +26,9 @@ class Sound extends React.Component {
             loading_page: false,
             statusSound: true,
             soundFile: undefined,
-            soundEffect: undefined
+            soundEffect: undefined,
+            isPlaying: false,
+            audio: new Audio("http://streaming.tdiradio.com:8000/house.mp3"),
         }
 
     }
@@ -48,6 +50,7 @@ class Sound extends React.Component {
         //         window.location.href = "/password";
         //     })
         // inputValue
+
         getVoiceMaster()
             .then(_SoundMaster => {
                 // console.log("_SoundMaster.data.msg[0]:",_SoundMaster.data.msg)
@@ -56,7 +59,7 @@ class Sound extends React.Component {
 
                     this.setState({
                         inputValue: _SoundMaster.data.msg,
-                        
+
                     })
                     localStorage.setItem('VoiceMaster', _SoundMaster.data.msg)
 
@@ -77,6 +80,7 @@ class Sound extends React.Component {
         // print log status sound
         // console.log(this.state.statusSound)
     }
+
 
     onChange = value => {
         this.setState({
@@ -176,7 +180,9 @@ class Sound extends React.Component {
                 console.log('img----', info.file.originFileObj)
                 this.setState({
                     loading: false,
-                    soundFile: info.file.originFileObj
+                    soundFile: info.file.originFileObj,
+
+
                 })
 
                 const res = await uploadVoiceFile({
@@ -216,6 +222,26 @@ class Sound extends React.Component {
 
     }
 
+    playPauseEffect = () => {
+        // Get state of song
+        console.log("Play")
+        this.setState({ audio: new Audio("http://streaming.tdiradio.com:8000/house.mp3"), });
+        this.state.audio.play();
+
+    };
+
+    playPauseSound = () => {
+        console.log("Play")
+        // Play the song if it is paused
+        this.setState({ audio: new Audio("http://streaming.tdiradio.com:8000/house.mp3"), });
+        this.state.audio.play();
+
+    };
+    Pause = () => {
+        // Pause the song if it is playing
+        console.log("Pause")
+        this.state.audio.pause();
+    };
 
     render() {
 
@@ -286,7 +312,7 @@ class Sound extends React.Component {
                                 <div className="box-upload">
                                     <div className="cov-upload">
                                         <div className="name-file">
-                                            <p className="name">{word['Thai'][this.state.language]}</p>
+                                            <p className="name" onMouseOver={this.playPauseEffect} onMouseLeave={this.Pause}>{word['Thai'][this.state.language]}</p>
                                         </div>
                                         <div className="btn-up">
                                             <Upload {...props_voice} fileList={this.state.fileList}>
@@ -301,7 +327,7 @@ class Sound extends React.Component {
                                 <div className="box-upload">
                                     <div className="cov-upload">
                                         <div className="name-file">
-                                            <p className="name">{word['Bell'][this.state.language]}</p>
+                                            <p className="name" onMouseOver={this.playPauseSound} onMouseLeave={this.Pause} >{word['Bell'][this.state.language]}</p>
                                         </div>
                                         <div className="btn-up">
                                             <Upload {...props_effect} fileList={this.state.fileList}>
@@ -315,10 +341,11 @@ class Sound extends React.Component {
                                 <p className="name">{word['Voice feedback'][this.state.language]}</p>
                                 <div className="boxsetfeed">
                                     <div className="switchset">
-                                        <Switch className="switcho"  checked={this.state.statusSound} onChange={(e) => this.onChangevoice(e)} />
+                                        <Switch className="switcho" checked={this.state.statusSound} onChange={(e) => this.onChangevoice(e)} />
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

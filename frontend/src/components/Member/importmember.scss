@@ -33,6 +33,66 @@
                 }
             }
 
+            .avatar-uploader {
+                .ant-upload-select {
+                    border          : none;
+                    background-color: transparent;
+                    
+                    .ant-upload {
+                        .cov-btn-img {
+                            display     : table;
+                            padding-left: 25px;
+
+                            .box-img {
+                                display       : table-cell;
+                                vertical-align: middle;
+                                
+                                .br-img {
+                                    display    : block;
+                                    width      : 80px;
+                                    height     : 80px;
+                                    position   : relative;
+                                    // border  : solid 1px #15DE97;
+
+                                    .icon-add {
+                                        position : absolute;
+                                        left     : 38%;
+                                        top      : 40%;
+                                        font-size: 34px;
+                                        color    : #15DE97;
+                                        
+                                    }
+
+
+                                    img {
+                                        position: relative;
+                                        z-index : 3;
+                                        
+                                    }
+                                }
+                            }
+
+                            .box-btnup {
+                                display       : table-cell;
+                                vertical-align: middle;
+                                padding-left  : 20px;
+
+                                .cover-btnupload {
+                                    .btn-upload {
+                                        color        : #15de9775;
+                                        font-family  : 'Anuphan';
+                                        font-size    : 40px;
+                                        border       : solid 3px #15DE97;
+                                        border-radius: 20px;
+                                        padding      : 0 10px;
+                                        width        : 200px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             .select-file {
                 .cov-box {
                     display    : table;
@@ -103,6 +163,7 @@
                             border-bottom: none;
                             background-color: transparent;
                             padding: 15px 30px;
+
                             .cov-part {
                                 display: table;
                                 width  : 100%;
@@ -183,6 +244,13 @@
                                         height          : 30px;
                                         border-radius   : 50%;
                                         background-color: red;
+                                    }
+
+                                    .color-green {
+                                        width           : 30px;
+                                        height          : 30px;
+                                        border-radius   : 50%;
+                                        background-color: #15DE97;
                                     }
                                 }
                             }

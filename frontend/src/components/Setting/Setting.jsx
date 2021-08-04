@@ -61,14 +61,14 @@ class Setting extends React.Component {
                                         <p className="name">{word['Scanner mode'][this.state.language]}</p>
                                     </a>
                                 </div>
-                                <div className="boxmenuname">
+                                {/* <div className="boxmenuname">
                                     <a href="/scannerProfile" className="link-menu">
                                         <div className="img-icon">
                                             <img src="/image/icon/scanner.svg" alt="" className="img-fluid imgsetting img-b" />
                                         </div>
                                         <p className="name">{word['Scanner Profile'][this.state.language]}</p>
                                     </a>
-                                </div>
+                                </div> */}
                                 <div className="boxmenuname">
                                     <a href="/display" className="link-menu">
                                         <div className="img-icon">

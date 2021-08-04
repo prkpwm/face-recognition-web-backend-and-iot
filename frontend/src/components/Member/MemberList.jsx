@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from "react-slick";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -14,10 +15,13 @@ import 'jquery/dist/jquery.slim.min.js';
 import 'animate.css/animate.min.css';
 import './memberlist.scss'
 import { Getgroup, FindMemberByIDGroup } from "../../services/APIs/Group";
-import { GetMemList } from '../../services/APIs/Member';
+import { GetMemList, removeMemberlist } from '../../services/APIs/Member';
 import { GetLanguage } from "../../services/APIs/Setting";
 import { RotateSpinner } from "react-spinners-kit";
-import {BarDate} from "../BarDate";
+import { BarDate } from "../BarDate";
+import { Checkbox } from "antd";
+import { message } from 'antd';
+
 library.add(fas)
 let word = require('../../word.json');
 
@@ -31,8 +35,15 @@ class MemberList extends React.Component {
             list_data: "",
             id: this.useQueryString().id,
             language: 'TH',
-            loading: true
+            delete_select: false,
+            loading: true,
+            group: this.useQueryString().group,
+            search_status: false,
+            selectObject: []
         }
+        this.onChange = this.onChange.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.useQueryString = this.useQueryString.bind(this);
 
     }
 
@@ -43,7 +54,7 @@ class MemberList extends React.Component {
 
         Getgroup({ id: this.state.id })
             .then(res => {
-                console.log('res :', res);
+                // console.log('res :', res);
                 if (res.data.status) {
                     // console.log("DATAGRoup", res.data.msg)
                     this.setState({
@@ -90,6 +101,7 @@ class MemberList extends React.Component {
             console.log('get member list')
             GetMemList()
                 .then(res => {
+                    console.log(res.data)
                     if (res.data.status) {
                         this.setState({
                             list_data: res.data.msg
@@ -108,15 +120,82 @@ class MemberList extends React.Component {
         var element = document.getElementById("animateSearch");
         element.classList.toggle("d-block");
         element.classList.toggle("animate__fadeInUpBig");
+        console.log(element.value)
     }
 
     useQueryString = () => {
         const search = this.props.location.search;
         const params = new URLSearchParams(search);
         const payload = {
-            id: params.get('id')
+            id: params.get('id'),
+            group: params.get('group'),
         }
+
         return payload;
+
+
+    }
+
+    onSelect() {
+        this.setState({
+            delete_select: true,
+        })
+        console.log(this.state.delete_select)
+    }
+
+    findDup(name) {
+        for (let i = 0; i < this.state.selectObject.length; i++) {
+            if (name == this.state.selectObject[i]) {
+                return true
+            }
+        }
+        return false
+    }
+
+    onChange(selectObject) {
+        
+        if (this.findDup(selectObject.target.name)) {
+            let temp = this.state.selectObject
+            var index = temp.indexOf(selectObject.target.name);
+            if (index !== -1) {
+                temp.splice(index, 1);
+            }
+            this.setState({
+                selectObject: temp
+            })
+        } else {
+            let temp = this.state.selectObject
+            temp.push(selectObject.target.name)
+            this.setState({
+                selectObject: temp
+            })
+        }
+        console.log(this.state.selectObject)
+
+    }
+    sleep() {
+        return new Promise(resolve => setTimeout(resolve, 300));
+    }
+
+    async onSummit() {
+        for (let i = 0; i < this.state.selectObject.length; i++) {
+            removeMemberlist(this.state.selectObject[i])
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data.status) {
+                        console.log(res.data.status)
+                    }
+                })
+            await this.sleep();
+        }
+        message.success({
+            content: word['Done'][this.state.language],
+            className: 'message-done',
+            // duration: 500,
+            style: {
+                marginTop: '2vh',
+            },
+        });
 
     }
 
@@ -144,7 +223,7 @@ class MemberList extends React.Component {
                                 <div className="lbtn">
                                     <button type="button" onClick={() => { window.location.href = "/register"; }} className="btn btn-secondary btn-list"><img src="/image/icon/plus@2x.png" alt="" className="img-fluid icon-plus" /></button>
                                     <button type="button" onClick={() => { window.location.href = "/importfile"; }} className="btn btn-secondary btn-list"><img src="/image/icon/import@2x.png" alt="" className="img-fluid icon-import" /></button>
-                                    <button type="button" className="btn btn-secondary btn-list"><img src="/image/icon/select@2x.png" alt="" className="img-fluid icon-select" /></button>
+                                    <button type="button" onClick={this.onSelect} className="btn btn-secondary btn-list"><img src="/image/icon/select@2x.png" alt="" className="img-fluid icon-select" /></button>
                                 </div>
                                 <div className="rbtn">
                                     <button type="button" className="btn btn-secondary btn-list" onClick={() => { this.Toggleclass() }}><FontAwesomeIcon className="btn-search" icon={['fas', 'search']} /></button>
@@ -170,15 +249,16 @@ class MemberList extends React.Component {
                                     <div>
                                         <div className="cov-group active">
                                             <div className="namegroup">
-                                                <p className="name">All</p>
+                                                <p className="name">{this.state.group == null ? "ALL" : this.state.group}</p>
                                             </div>
                                         </div>
                                     </div>
                                     {this.state.listgroup ? this.state.listgroup.map(v => (
-                                        <div key={v._id}>
+                                        <div key={v._id} onClick={() => { window.location.href = this.state.group == v.group ? "/memberlist?group=" + "ALL" : "/memberlist?group=" + v.group; }} >
                                             <div className="cov-group">
                                                 <div className="namegroup">
-                                                    <p className="name">{v.group}</p>
+                                                    <p className="name">{this.state.group == v.group ? "ALL" : v.group}</p>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -189,18 +269,46 @@ class MemberList extends React.Component {
                                     <div className="slidebottom">
                                         <div className="cov-list-name">
                                             {this.state.list_data ? this.state.list_data.map((v, index) => (
-                                                <div className="list-name" key={v.user_id} onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>
-                                                    <div className="ta-list">
-                                                        <div className="code">
-                                                            <p className="num">{index}</p>
+                                                <div className="single-line">
+                                                    {this.state.group == null || this.state.group == "ALL" ?
+                                                        <div className="list-name" key={v.user_id} >
+                                                            <div className="ta-list">
+                                                                {this.state.delete_select
+                                                                    ? <div className="cov-checked">
+                                                                        <Checkbox className="input-check" onChange={this.onChange} name={v.user_id}></Checkbox>
+                                                                    </div>
+                                                                    : null}
+                                                                <div className="code">
+                                                                    <div className="num" onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>{index + 1}</div>
+                                                                </div>
+                                                                <div className="name">
+                                                                    <p className="txt" onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>{v.nickname}</p>
+                                                                </div>
+                                                                <div className="group">
+                                                                    <p className="txt" onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>{v.mm[0].group_name}</p>
+                                                                </div>
+
+                                                            </div>
                                                         </div>
-                                                        <div className="name">
-                                                            <p className="txt">{v.nickname}</p>
-                                                        </div>
-                                                        <div className="group">
-                                                            <p className="txt">{v.mm[0].group_name}</p>
-                                                        </div>
-                                                    </div>
+                                                        : this.state.group == v.mm[0].group_name ?
+                                                            <div className="list-name" key={v.user_id} >
+                                                                <div className="ta-list">
+                                                                    {this.state.delete_select
+                                                                        ? <div className="check">
+                                                                            <input type="checkbox" onChange={this.onChange} name={v.user_id}></input>
+                                                                        </div> : null}
+                                                                    <div className="code">
+                                                                        <div className="num" onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>{index + 1}</div>
+                                                                    </div>
+                                                                    <div className="name">
+                                                                        <p className="txt" onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>{v.nickname}</p>
+                                                                    </div>
+                                                                    <div className="group">
+                                                                        <p className="txt" onClick={() => { window.location.href = "/editmember?id=" + v.user_id }}>{v.mm[0].group_name}</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div> : null}
                                                 </div>
                                             )) : null}
                                         </div>
@@ -216,6 +324,10 @@ class MemberList extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            {this.state.delete_select ? <div className="cov-save">
+                                <button className="btn btn-primary btn-save" onClick={() => { this.onSummit() }} >{word['Delete'][this.state.language]}</button>
+                            </div> : null}
+
                         </div>
                     </div>
                 </div>

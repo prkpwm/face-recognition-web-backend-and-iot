@@ -35,9 +35,24 @@
 
             .hd {
                 text-align : center;
-                color      : #15DE97;
                 font-family: 'Anuphan_B';
                 font-size  : 84px;
+
+                .green{
+                    color    : #15DE97;
+                }
+                .red{
+                    color    : #D6475D;
+                }
+                .blue{
+                    color    : #15A8DE;
+                }
+                .yello{
+                    color    : #D6AA47;
+                }
+                .purple{
+                    color    : #684DDB;
+                }
             }
         }
 
@@ -943,6 +958,13 @@
                                                 margin: 0;
                                                 color: #FFFFFF;
                                                 font-size: 58px;
+                                                font-family: 'Anuphan_B';
+                                                line-height: 1;
+                                            }
+                                            .weather{
+                                                margin: 0;
+                                                color: #FFFFFF;
+                                                font-size: 32px;
                                                 font-family: 'Anuphan_B';
                                                 line-height: 1;
                                             }

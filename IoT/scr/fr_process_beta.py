@@ -26,14 +26,21 @@ import dlib
 from mongo_lib import insert_data_train_face, next_userid, register_mongo, get_frame_display, update_register_mongo, select_videoname_by_uid, get_status_mask, update_status_mask_predict
 import shutil
 import json
+import csv
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from parinya import LINE
 # import subprocess
 # from flask_cors import CORS
 # import uuid
-
+from zipfile import ZipFile
 try:
     mp.set_start_method('spawn')
 except RuntimeError:
     pass
+
+
 
 check_reg = False
 classifier = cv2.CascadeClassifier('../model/haarcascade_frontalface_default.xml')
@@ -1312,20 +1319,106 @@ async def cleandata(request):
 
 
 async def dowloadUpdate(request):
-    url = 'https://www2.census.gov/geo/tiger/GENZ2017/shp/cb_2017_02_tract_500k.zip'
-    target_path = '../../alaska.zip'
+    req = await request.form()
+    version = req['version']
+    
+    versions = []
+    with open('../../version.csv', mode='r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        versions = []
+        for row in csv_reader:
+            versions.append([row['version'],row['url']])
+    if version < versions[len(versions)-1][0]:
+        try:
+            url = versions[len(versions)-1][1]
+            target_path = '../../version_{}.zip'.format(versions[len(versions)-1][0])
+            response = requests.get(url, stream=True)
+            handle = open(target_path, "wb")
+            for chunk in response.iter_content(chunk_size=2048):
+                if chunk:  # filter out keep-alive new chunks
+                    handle.write(chunk)
+            handle.close()
+            with ZipFile(target_path, 'r') as zipObj:
+                # Extract all the contents of zip file in current directory
+                zipObj.extractall()
+            return JSONResponse({"status":True,"current":versions[len(versions)-1][0]})
+        except Exception as e:
+            return JSONResponse({"status":False,"Desc":"Error"})   
+    return JSONResponse({"status":False,"Desc":"Lastest"})   
 
-    response = requests.get(url, stream=True)
-    handle = open(target_path, "wb")
-    for chunk in response.iter_content(chunk_size=512):
-        if chunk:  # filter out keep-alive new chunks
-            handle.write(chunk)
-    handle.close()
+
+async def readCSV(request):
+    # if request.method == 'GET':
+    request = await request.form()
+    csv_text = request['file'].file.read()
+    data = csv_text.decode('utf-8').splitlines()
+    data_list = []
+    print(data)
+    first_row = data[0].split(",")
+    for i in range(1,len(data)):
+        data_tranform = data[i].split(",")
+        temp = { first_row[j] : data_tranform[j] for j in range(len(data_tranform))}
+        data_list.append(temp)
+    print(data_list)
+    try:
+        return JSONResponse({"status":True,"data":data_list})
+    except Exception as e:
+        return JSONResponse({"status":False,"Descipt":"load failed"})
+
+
+
+async def reportEmail(request):
+    # if request.method == 'GET':
+    request = await request.form()
+    sender_email = "ipakingwhiz@gmail.com"
+    password = 'P@)()(0rD'
+    # sender_email = "glassesshop.miniprojectweb@gmail.com"
+    # password = 'glassesshopP@ssw0rd'
+    receiver_email = request['receiver']
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "ตั้งค่ารหัสผ่านใหม่"
+    message["From"] = sender_email
+    message["To"] = receiver_email
+
+    # Create the plain-text and HTML version of your message
+    html = """\
+    <html>
+    <body>
+        เราได้รับคำขอเปลี่ยนรหัสผ่านของคุณแล้ว<br>
+    </body>
+    </html>
+    """
+    # Turn these into plain/html MIMEText objects
+    part2 = MIMEText(html, "html")
+    # Add HTML/plain-text parts to MIMEMultipart message
+    # The email client will try to render the last part first
+    message.attach(part2)
+    # Create secure connection with server and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(
+            sender_email, receiver_email, message.as_string()
+        )
     try:
         return JSONResponse({"status":True})
     except Exception as e:
-        return JSONResponse({"status":False})   
+        return JSONResponse({"status":False,"Descipt":"load failed"})
 
+
+async def reportLine(request):
+    request = await request.form()
+    receiver = request['receiver']
+    url = 'https://notify-api.line.me/api/notify'
+    token = receiver
+    headers = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer '+token}
+    msg = request['msg']
+    r = requests.post(url, headers=headers, data = {'message':msg})
+    print(r.text)
+    try:
+        return JSONResponse({"status":True})
+    except Exception as e:
+        return JSONResponse({"status":False,"Descipt":"load failed"})
 
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
@@ -1339,6 +1432,10 @@ routes = [
     Route("/getTemp", endpoint=getTemp, methods=["POST"]),
     Route("/new_connection", endpoint=connect_network, methods=["POST"]),
     Route("/clean_data", endpoint=cleandata, methods=["POST"]),
+    Route("/dowload_update", endpoint=dowloadUpdate, methods=["POST"]),
+    Route("/readCSV", endpoint=readCSV, methods=["POST"]),
+    Route("/reportEmail", endpoint=reportEmail, methods=["POST"]),
+    Route("/reportLine", endpoint=reportLine, methods=["POST"]),
 ]
 
 app = Starlette(middleware=middleware,routes= routes)

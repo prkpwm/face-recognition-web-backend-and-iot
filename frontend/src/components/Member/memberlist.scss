@@ -40,6 +40,23 @@
                 font-size  : 84px;
             }
         }
+        .cov-save {
+            text-align: right;
+            margin-top: 100px;
+
+            .btn-save {
+                border       : 3px solid #2BDB9D;
+                border-radius: 20px;
+                background-color: transparent;
+                color: #15DE97;
+                font-family: 'Anuphan';
+                font-size: 42px;
+                margin-top: 50px;
+                margin-left: 250px;
+                padding: 15px 20px;
+                width: 265px;
+            }
+        }
 
         .box-display {
             margin-top: 100px;
@@ -127,14 +144,18 @@
                 .slide-name {
                     .cov-group {
                         padding: 0 10px;
+                        margin-right: 20px;
 
                         .namegroup {
                             .name {
-                                margin     : 0;
+                                
                                 color      : #ffffff40;
                                 font-size  : 46px;
                                 font-family: 'Anuphan_M';
                                 text-align : center;
+                                position  : relative;
+                                width:180px;
+                                overflow:hidden;
 
 
                             }
@@ -150,9 +171,9 @@
                                 width     : 2px;
                                 height    : 100%;
                                 background: #FFFFFF80;
-                                position  : absolute;
+                                position  : relative;
                                 top       : 0px;
-                                left      : 0;
+                                left      : -10px;
                             }
 
                             &:after {
@@ -160,16 +181,19 @@
                                 width     : 2px;
                                 height    : 100%;
                                 background: #FFFFFF80;
-                                position  : absolute;
+                                position  : relative;
                                 top       : 0px;
-                                right     : 0;
+                                right     : - 10px;
                             }
 
                             .namegroup {
+                                
                                 .name {
                                     background   : #15de978c;
                                     border-radius: 20px;
                                     color        : #FFFFFF;
+                                    position  : relative;
+                                  
                                 }
                             }
 
@@ -186,51 +210,126 @@
 
                 .slidebottom {
                     .cov-list-name {
-                        .list-name {
-                            background   : #FFFFFF 0% 0% no-repeat padding-box;
-                            border-radius: 23px;
-                            padding: 10px 20px;
-                            margin-bottom: 15px;
+                        .single-line {
+                            width: 100%;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: pre;
+                            display: table;
+              
+                            .cov-checked {
+                                display       : table-cell;
+                                vertical-align: middle;
+                                width         : 12%;
 
-                            .ta-list{
-                                display: table;
-                                width: 100%;
-                                .code{
-                                    display: table-cell;
-                                    vertical-align: middle;
+                                .ant-checkbox {
 
-                                    .num{
-                                        margin: 0;
-                                        font-family: 'Anuphan_M';
-                                        font-size: 46px;
-                                        color: #08202e82;
+                                    width : 50px;
+                                    height: 50px;
+
+                                    &.ant-checkbox-checked {
+                                        .ant-checkbox-inner {
+                                            background-color: #15DE97;
+
+                                            &::after {
+                                                border     : 5px solid #fff;
+                                                border-top : 0;
+                                                width      : 40%;
+                                                height     : 85%;
+                                                left       : 15%;
+                                                top        : 45%;
+                                                border-left: 0;
+
+                                            }
+                                        }
+
+                                        &::after {
+                                            border: none;
+                                        }
+
                                     }
-                                }
 
-                                .name{
-                                    display: table-cell;
-                                    vertical-align: middle;
+                                    .ant-checkbox-inner {
+                                        width        : 100%;
+                                        height       : 100%;
+                                        border       : 5px solid #70707066;
+                                        border-radius: 16px;
 
-                                    .txt{
-                                        margin: 0;
-                                        font-family: 'Anuphan_M';
-                                        font-size: 46px;
-                                        color: #08202E;
-                                    }
-                                }
-                                .group{
-                                    display: table-cell;
-                                    vertical-align: middle;
 
-                                    .txt{
-                                        margin: 0;
-                                        font-family: 'Anuphan_M';
-                                        font-size: 46px;
-                                        color: #08202e82;
                                     }
                                 }
                             }
-                        }
+                            .list-name {
+                                background   : #FFFFFF 0% 0% no-repeat padding-box;
+                                border-radius: 23px;
+                                padding: 10px 20px;
+                                margin-bottom: 15px;
+                                // margin-left: 4em;
+                                
+                                .ta-list{
+                                    display: table;
+                                    width: 100%;
+                                    .check{
+                                        -ms-transform: scale(3); /* IE */
+                                        -moz-transform: scale(3); /* FF */
+                                        -webkit-transform: scale(3); /* Safari and Chrome */
+                                        -o-transform: scale(3); /* Opera */
+                                        transform: scale(3);
+                                        display: table-cell;
+                                        vertical-align: middle;
+                                        padding: 20px;
+
+                                        margin-top: 20px;
+                                        text-align: center;
+                                        
+                                    }
+                                    .code{
+                                        display: table-cell;
+                                        vertical-align: middle;
+    
+                                        .num{
+                                            margin: 0;
+                                            font-family: 'Anuphan_M';
+                                            font-size: 46px;
+                                            color: #08202e82;
+                                            text-align: left;
+                                            width:50px;
+                                        }
+                                    }
+    
+                                    .name{
+                                        display: table-cell;
+                                        vertical-align: middle;
+    
+                                        .txt{
+                                            margin: 0;
+                                            font-family: 'Anuphan_M';
+                                            font-size: 46px;
+                                            color: #08202E;
+                                            text-align: left;
+                                            width:150px;
+                                        }
+                                    }
+                                    .group{
+                                        display: table-cell;
+                                        vertical-align: middle;
+                                        // margin-left: 2em;
+    
+                                        .txt{
+                                            margin: 0;
+                                            font-family: 'Anuphan_M';
+                                            font-size: 46px;
+                                            color: #08202e82;
+                                            text-align: left;
+                                            width:200px;
+                                        }
+                                    }
+                                   
+                                    
+                                }
+                            }
+                          }
+                       
                     }
                 }
             }
