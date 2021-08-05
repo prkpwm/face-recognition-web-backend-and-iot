@@ -114,7 +114,8 @@ def thread_mask_prediction(image_name_mask, log_predict_id):
     r = requests.post(url,image_msg)
     res_json = r.json()
     print('Thread predict mask:',res_json)
-    
+    with open('../../frontend/src/mask.json', 'w', encoding='utf-8') as f:
+        json.dump(res_json, f, ensure_ascii=False, indent=4)
     # check mask status
     if res_json['status'] == True:
         thread_predict.join()
@@ -547,8 +548,8 @@ def camera_recognition2(check_camera_register, check_camera_detection, check_cam
             sensor_id=0,
             sensor_mode=3,
             flip_method=3,
-            display_height=1920,
-            display_width=1080,
+            display_height=1280,
+            display_width=720,
     )
     left_camera.open(left_camera.gstreamer_pipeline)
     left_camera.start()
@@ -1310,7 +1311,9 @@ async def saveImg(request):
 
 async def cleandata(request):
     data = {"detect": False}
-    with open('../../frontend/src/pred.json', 'w', encoding='utf-8') as f:
+    req = await request.form()
+    filename = req['file']
+    with open('../../frontend/src/{}'.format(filename), 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
     try:
         return JSONResponse({"status":True})
@@ -1420,6 +1423,17 @@ async def reportLine(request):
     except Exception as e:
         return JSONResponse({"status":False,"Descipt":"load failed"})
 
+async def read_result(request):
+    try:
+        file_name = "../../frontend/src/pred.json"
+        f = open(file_name,)
+        data = json.load(f)
+        print(data)
+        f.close()
+        return JSONResponse({"status":True,"data":data})
+    except Exception as e:
+        return JSONResponse({"status":False})   
+
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
     Route("/update_register", endpoint=update_register, methods=["POST"]),
@@ -1436,6 +1450,7 @@ routes = [
     Route("/readCSV", endpoint=readCSV, methods=["POST"]),
     Route("/reportEmail", endpoint=reportEmail, methods=["POST"]),
     Route("/reportLine", endpoint=reportLine, methods=["POST"]),
+    Route("/ReadResult", endpoint=read_result, methods=["POST"]),
 ]
 
 app = Starlette(middleware=middleware,routes= routes)

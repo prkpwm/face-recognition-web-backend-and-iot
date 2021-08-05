@@ -2,7 +2,7 @@ import React from 'react';
 // import Lottie from 'react-lottie';
 // import animationData from '../../lotties/human.json';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Camera, Clean } from "../../services/APIs/Camera";
+import { Camera, Clean, ReadResult } from "../../services/APIs/Camera";
 import { weather } from "../../services/APIs/weather";
 import socketIOClient from "socket.io-client";
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -72,7 +72,8 @@ class Home extends React.Component {
             ThermalHeightest: 0,
             location: "",
             loading: true,
-    
+            mask: null,
+
         }
         this.componentDidMount = this.componentDidMount.bind(this)
 
@@ -104,6 +105,10 @@ class Home extends React.Component {
         //             weather_info: data.data
         //         })
 
+        //     })
+        // ReadResult('')
+        //     .then(res => {
+        //         console.log("res", res)
         //     })
 
 
@@ -163,7 +168,18 @@ class Home extends React.Component {
             location: pred['location_res'],
             detect: pred['detect'],
         })
-        Clean(null)
+        // Clean(null)
+        setTimeout(() => {
+            Clean("pred.json")
+        }, 10000);
+        let mask = require('../../mask.json');
+        this.setState({
+            mask: mask['msg'],
+        })
+        // Clean(null)
+        // setTimeout(() => {
+        //     Clean("mask.json")
+        // }, 10000);
         console.log(pred)
     }
 
@@ -362,6 +378,17 @@ class Home extends React.Component {
                                         </div>
 
                                         : null}
+                                {
+                                    this.state.detect && this.state.mask != null ?
+                                        this.state.mask == "mask" ?
+                                            <div className="name-result">
+                                                <p className="status-process">{word['Mask'][this.state.language]}</p>
+                                            </div>
+                                            : <div className="name-result">
+                                                <p className="status-process">{word['Unmask'][this.state.language]}</p>
+                                            </div>
+                                        : null
+                                }
                             </div>
                         </div>
                     </div>
