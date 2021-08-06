@@ -9,7 +9,7 @@ import './scannerHeader.scss'
 import { saveImg,saveLogo } from "../../services/APIs/Header";
 import { RotateSpinner } from "react-spinners-kit";
 import { BarDate } from "../BarDate";
-import { save } from 'save-file'
+// import { save } from 'save-file'
 library.add(fas)
 
 

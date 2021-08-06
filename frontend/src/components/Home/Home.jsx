@@ -114,6 +114,7 @@ class Home extends React.Component {
 
         GetLanguage() // Get language for display
             .then(_Edit => {
+                console.log("lang",_Edit.data.data.msg[0].lang)
                 if (_Edit.data.status) {
                     this.setState({
                         L1: localStorage.getItem('L1') != null ? localStorage.getItem('L1') : null,
@@ -131,9 +132,9 @@ class Home extends React.Component {
                         ThermalHeightest: localStorage.getItem('ThermalHeightest'),
                         pm25_status: localStorage.getItem('pm25_status') != null ? (/true/i).test(localStorage.getItem('pm25_status')) : true,
                         weather_status: localStorage.getItem('weather_status') != null ? (/true/i).test(localStorage.getItem('weather_status')) : true,
-                        language: _Edit.data.msg[0].lang,
+                        language: _Edit.data.data.msg[0].lang,
                     })
-                    localStorage.setItem('lang', _Edit.data.msg[0].lang)
+                    localStorage.setItem('lang', _Edit.data.data.msg[0].lang)
                 }
             })
         setTimeout(() => {

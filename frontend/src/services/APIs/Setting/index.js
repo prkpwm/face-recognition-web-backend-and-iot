@@ -98,12 +98,16 @@ const UpdatePassword = (Data) => {
 }
 
 
-const GetLanguage = () => {
-    return axios.get("http://192.168.0.253:1969/private/api/v1/selectLanguage", {
-        // return axios.get("http://192.168.0.253:1969/private/api/v1/selectScannerMode", {
-
+const GetLanguage = (Data) => {
+    let formData = new FormData()
+    formData.set('data', null)
+    formData.set('url', "http://192.168.0.253:1969/private/api/v1/selectLanguage")
+    formData.set('method', "GET")
+    formData.set('_Token', localStorage.getItem('_Token'))
+    return axios.post("http://192.168.0.252:2424/ByPass", formData,  {
         headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('_Token')
+            // 'Authorization': 'Bearer ' + localStorage.getItem('_Token'),
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
     })
 
@@ -112,14 +116,21 @@ const GetLanguage = () => {
 
 const SetLanguage = (Data) => {
     let formData = new FormData()
-    formData.set('language', Data)
-
-    return axios.post("http://192.168.0.253:1969/private/api/v1/updateLanguage", formData, {
+    formData.set('data', {"language":Data})
+    formData.set('url', "http://192.168.0.253:1969/private/api/v1/updateLanguage")
+    formData.set('method', "post")
+    return axios.post("http://192.168.0.252:2424/ByPass", formData, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('_Token'),
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     })
+    // return axios.post("http://192.168.0.253:1969/private/api/v1/updateLanguage", formData, {
+    //     headers: {
+    //         'Authorization': 'Bearer ' + localStorage.getItem('_Token'),
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     }
+    // })
 }
 
 

@@ -1434,6 +1434,37 @@ async def read_result(request):
     except Exception as e:
         return JSONResponse({"status":False})   
 
+async def test(request):
+    try:
+
+        return JSONResponse({"status":True,"data":"data"})
+    except Exception as e:
+        return JSONResponse({"status":False})   
+
+
+async def ByPass(request):
+    request = await request.form()
+    url = request['url']
+    method = request['method']
+    _Token = request['_Token']
+    image_msg = request['data']
+    print(request)
+    headers= {
+            'Authorization': 'Bearer ' + _Token,
+            'Content-Type': 'application/x-www-form-urlencoded'
+            }
+    if method == 'GET':
+        r = requests.get(url,data=image_msg, headers=headers)
+        res_json = r.json()
+        print(res_json)
+    else:
+        r = requests.post(url,data=image_msg, headers=headers)
+        res_json = r.json()
+        print(res_json)
+    try:
+        return JSONResponse({"status":True,"data":res_json})
+    except Exception as e:
+        return JSONResponse({"status":False})   
 routes = [
     Route("/update_var_mask", endpoint=update_var_mask, methods=["POST"]),
     Route("/update_register", endpoint=update_register, methods=["POST"]),
@@ -1442,8 +1473,8 @@ routes = [
     Route("/get_weather", endpoint=get_weather, methods=["POST"]),
     Route("/available_networks", endpoint=get_network, methods=["POST"]),
     Route("/logo_save", endpoint=logo_save, methods=["POST"]),
-    Route("/saveImg", endpoint=saveImg, methods=["POST"]),
-    Route("/getTemp", endpoint=getTemp, methods=["POST"]),
+    # Route("/saveImg", endpoint=saveImg, methods=["POST"]),
+    # Route("/getTemp", endpoint=getTemp, methods=["POST"]),
     Route("/new_connection", endpoint=connect_network, methods=["POST"]),
     Route("/clean_data", endpoint=cleandata, methods=["POST"]),
     Route("/dowload_update", endpoint=dowloadUpdate, methods=["POST"]),
@@ -1451,6 +1482,8 @@ routes = [
     Route("/reportEmail", endpoint=reportEmail, methods=["POST"]),
     Route("/reportLine", endpoint=reportLine, methods=["POST"]),
     Route("/ReadResult", endpoint=read_result, methods=["POST"]),
+    Route("/ByPass", endpoint=ByPass, methods=["POST"]),
+  
 ]
 
 app = Starlette(middleware=middleware,routes= routes)
